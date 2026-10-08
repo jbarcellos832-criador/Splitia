@@ -4820,11 +4820,30 @@
     }).join('');
   }
 
-  document.getElementById('marketGrid').addEventListener('click', e => {
+  document.getElementById('marketGrid').addEventListener('click', async e => {
     const btn = e.target.closest('[data-connect]');
     if (!btn || btn.disabled) return;
     const m = marketplaces.find(x => x.key === btn.dataset.connect);
     if (!m) return;
+
+    if (m.key === 'ml') {
+      const { data } = await supabaseClient.auth.getUser();
+      const userId = data && data.user ? data.user.id : null;
+      if (!userId) {
+        alert('Faça login para conectar sua conta do Mercado Livre.');
+        return;
+      }
+      const ML_CLIENT_ID = '6786418893831612';
+      const ML_REDIRECT_URI = 'https://ftnhslgtlvdrvaseyczi.supabase.co/functions/v1/ml-callback';
+      const authUrl = 'https://auth.mercadolivre.com.br/authorization'
+        + '?response_type=code'
+        + '&client_id=' + ML_CLIENT_ID
+        + '&redirect_uri=' + encodeURIComponent(ML_REDIRECT_URI)
+        + '&state=' + encodeURIComponent(userId);
+      window.location.href = authUrl;
+      return;
+    }
+
     const instanceKey = m.key + '-' + Date.now();
     connectedStores.push({ key: instanceKey, marketKey: m.key, name: (m.key === 'ml' ? 'Mercado Livre' : 'Loja ' + m.name), platform: m.name, logo: m.logo, logoBg: m.logoBg, logoColor: '#333', lastSync: null, type: m.key === 'ml' ? 'ml' : 'shopee' });
     renderConnectedStores();
