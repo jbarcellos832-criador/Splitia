@@ -4700,11 +4700,29 @@
 
   const connectedStores = [];
 
+  const DEMO_ACCOUNT_EMAIL = 'jbarcelos832@gmail.com';
+
   async function loadRealMlConnection() {
     try {
       const { data: userData } = await supabaseClient.auth.getUser();
       const userId = userData && userData.user ? userData.user.id : null;
+      const userEmail = userData && userData.user ? userData.user.email : null;
       if (!userId) return;
+
+      if (userEmail && userEmail.toLowerCase() === DEMO_ACCOUNT_EMAIL) {
+        const already = connectedStores.some(s => s.marketKey === 'ml');
+        if (!already) {
+          connectedStores.push({
+            key: 'ml', marketKey: 'ml', name: 'Mercado Livre', platform: 'Mercado Livre',
+            logo: marketLogos.ml, logoBg: 'transparent', logoColor: '#c9a300',
+            lastSync: new Date().toLocaleString('pt-BR'),
+            type: 'ml',
+          });
+        }
+        renderConnectedStores();
+        renderMarketplaces();
+        return;
+      }
 
       const { data: conn } = await supabaseClient
         .from('ml_connections')
