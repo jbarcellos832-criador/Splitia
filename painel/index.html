@@ -4899,13 +4899,29 @@
         alert('Faça login para conectar sua conta do Mercado Livre.');
         return;
       }
+
+      function base64url(bytes) {
+        let str = btoa(String.fromCharCode(...bytes));
+        return str.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      }
+
+      const verifierBytes = new Uint8Array(32);
+      crypto.getRandomValues(verifierBytes);
+      const codeVerifier = base64url(verifierBytes);
+
+      const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(codeVerifier));
+      const codeChallenge = base64url(new Uint8Array(digest));
+
       const ML_CLIENT_ID = '6786418893831612';
       const ML_REDIRECT_URI = 'https://ftnhslgtlvdrvaseyczi.supabase.co/functions/v1/ml-callback';
+      const state = userId + '::' + codeVerifier;
       const authUrl = 'https://auth.mercadolivre.com.br/authorization'
         + '?response_type=code'
         + '&client_id=' + ML_CLIENT_ID
         + '&redirect_uri=' + encodeURIComponent(ML_REDIRECT_URI)
-        + '&state=' + encodeURIComponent(userId);
+        + '&state=' + encodeURIComponent(state)
+        + '&code_challenge=' + codeChallenge
+        + '&code_challenge_method=S256';
       window.location.href = authUrl;
       return;
     }
