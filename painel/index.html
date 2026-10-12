@@ -588,8 +588,9 @@
   }
   .cat-search input {
     border: none; outline: none; background: transparent;
-    font-size: 14px; width: 100%; color: #111; font-family: inherit;
+    font-size: 14px; width: 100%; color: var(--text, #111); font-family: inherit;
   }
+  body.dark-mode .cat-search input { color: #fff; }
   .cat-filter {
     display: flex; align-items: center; gap: 8px;
     background: var(--off);
