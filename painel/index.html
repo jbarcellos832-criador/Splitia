@@ -4465,47 +4465,6 @@
     renderPubSteps(0);
     document.getElementById('pubOverlay').classList.add('open');
 
-    // Se for Mercado Livre e o cliente já conectou a própria loja de
-    // verdade, publica o anúncio real via API. Caso contrário (Shopee,
-    // ou ML ainda não conectado), mantém a simulação visual de progresso.
-    let realPublishPromise = null;
-    if (primaryMarket === 'ml') {
-      const custo = products[idx].price;
-      const comissaoPct = (parseFloat(document.getElementById('pfComissao').value) || 0) / 100;
-      const taxaFixa = parseFloat(document.getElementById('pfTaxaFixa').value) || 0;
-      const antecipPct = (parseFloat(document.getElementById('pfAntecipacao').value) || 0) / 100;
-      const margemPct = (parseFloat(document.getElementById('pfMargem').value) || 0) / 100;
-      const denom = 1 - comissaoPct - antecipPct - margemPct;
-      const precoFinal = denom > 0 ? (custo + taxaFixa) / denom : custo;
-
-      realPublishPromise = (async () => {
-        const { data: userData } = await supabaseClient.auth.getUser();
-        const userId = userData && userData.user ? userData.user.id : null;
-        if (!userId) return null;
-
-        const { data: conn } = await supabaseClient
-          .from('ml_connections')
-          .select('user_id')
-          .eq('user_id', userId)
-          .maybeSingle();
-        if (!conn) return null; // loja do ML não conectada ainda — fica só a simulação
-
-        const { data, error } = await supabaseClient.functions.invoke('ml-publish', {
-          body: {
-            title: productName.slice(0, 60),
-            price: Math.round(precoFinal * 100) / 100,
-            quantity: 999,
-            description: productName,
-            imageBase64: pfState.images[0],
-          },
-        });
-        if (error || !data || !data.ok) {
-          throw new Error((data && data.error) || (error && error.message) || 'erro_desconhecido');
-        }
-        return data;
-      })();
-    }
-
     let step = 0;
     const stepTimer = setInterval(() => {
       step++;
@@ -4520,19 +4479,7 @@
       }
     }, 1667);
 
-    async function finishPublish() {
-      if (realPublishPromise) {
-        try {
-          const result = await realPublishPromise;
-          if (result && result.permalink) {
-            viewListingUrl = result.permalink;
-          }
-        } catch (err) {
-          document.getElementById('pubOverlay').classList.remove('open');
-          alert('Não foi possível publicar o anúncio no Mercado Livre: ' + err.message + '\n\nVerifique se sua loja está conectada em Integrações.');
-          return;
-        }
-      }
+    function finishPublish() {
       document.getElementById('pubViewListingBtn').href = viewListingUrl;
       products[idx].cadastrado = true;
       setTimeout(() => {
