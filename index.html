@@ -724,7 +724,7 @@
       <div class="hero-visual">
         <div class="catalog-preview">
           <div class="catalog-preview-bar">
-            <div class="cp-title">Catálogo <span id="cpCount"></span></div>
+            <div class="cp-title">Catálogo</div>
             <div class="cp-live"><span class="dot"></span>atualizado agora</div>
           </div>
           <div class="catalog-preview-grid" id="cpGrid"></div>
@@ -1126,15 +1126,15 @@ setInterval(() => {
   renderHeroCarousel();
 }, 3200);
 
-const cpCountEl = document.getElementById('cpCount');
+const TOTAL_CATALOG_PRODUCTS = 278;
 const cpGridEl = document.getElementById('cpGrid');
 const heroProdCountEl = document.getElementById('heroProdCount');
 const heroCatalogDescEl = document.getElementById('heroCatalogDesc');
-if (cpCountEl) cpCountEl.textContent = heroCarouselItems.length + ' produtos';
-if (heroProdCountEl) heroProdCountEl.textContent = heroCarouselItems.length;
-if (heroCatalogDescEl) heroCatalogDescEl.textContent = heroCarouselItems.length + ' ' + heroCatalogDescEl.textContent.trim();
+if (heroProdCountEl) heroProdCountEl.textContent = TOTAL_CATALOG_PRODUCTS;
+if (heroCatalogDescEl) heroCatalogDescEl.textContent = TOTAL_CATALOG_PRODUCTS + ' ' + heroCatalogDescEl.textContent.trim();
 if (cpGridEl) {
-  const cpItems = heroCarouselItems.slice(0, 8);
+  const cpItems = [];
+  for (let i = 0; i < 10; i++) cpItems.push(heroCarouselItems[i % heroCarouselItems.length]);
   const cpItemsHtml = cpItems.map(item => `
     <div class="cp-item">
       <div class="cp-item-photo"><img src="${item.img}" alt="${item.name}"></div>
