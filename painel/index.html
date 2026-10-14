@@ -2516,9 +2516,9 @@
 
     <div class="side-footer">
       <div class="who">
-        <div class="avatar-sm">F</div>
+        <div class="avatar-sm" id="sideAvatar">F</div>
         <div>
-          <div style="font-weight:700;">Fornecedor</div>
+          <div style="font-weight:700;" id="sideUserName">Fornecedor</div>
           <div style="font-size:11.5px;color:#9c9c9c;"><span class="status-dot"></span>Online</div>
         </div>
       </div>
@@ -2558,15 +2558,15 @@
       <button class="btn-recharge" id="rechargeBtn">+ Recarregar</button>
       <div class="dropdown-wrap">
         <div class="user-chip" id="userChip">
-          <div class="avatar-sm">F</div>
+          <div class="avatar-sm" id="topAvatar">F</div>
           <div>
-            <div class="name">Fornecedor</div>
+            <div class="name" id="topUserName">Fornecedor</div>
             <div class="role">Lojista</div>
           </div>
           <span style="color:#999;">▾</span>
         </div>
         <div class="dropdown-panel" id="userPanel" style="right:0;">
-          <div class="dd-title">Fornecedor · Lojista</div>
+          <div class="dd-title" id="dropdownUserTitle">Fornecedor · Lojista</div>
           <button type="button" class="nav-item" style="color:#111;" data-page="conta">Minha conta</button>
           <button type="button" class="nav-item" style="color:#111;" data-page="financeiro">Financeiro &amp; PIX</button>
           <button type="button" class="nav-item logout" id="userLogout">Sair</button>
@@ -2577,7 +2577,7 @@
     <div class="content" id="page-dashboard">
       <div class="page-head">
         <div>
-          <div class="page-title">Boa tarde 👋</div>
+          <div class="page-title" id="greetingTitle">Boa tarde 👋</div>
           <div class="page-sub">Aqui está o resumo em tempo real da sua operação, pedidos e faturamento.</div>
         </div>
         <div class="range-group">
@@ -4706,6 +4706,42 @@
   const connectedStores = [];
 
   const DEMO_ACCOUNT_EMAIL = 'splitia@gmail.com';
+
+  async function loadGreetingAndUserName() {
+    try {
+      const hour = new Date().getHours();
+      const greeting = hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
+
+      const { data: userData } = await supabaseClient.auth.getUser();
+      const user = userData && userData.user;
+      let name = 'Lojista';
+      if (user) {
+        name = (user.user_metadata && (user.user_metadata.name || user.user_metadata.full_name))
+          || (user.email ? user.email.split('@')[0] : 'Lojista');
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+      }
+      const initial = name.charAt(0).toUpperCase();
+
+      const greetingEl = document.getElementById('greetingTitle');
+      if (greetingEl) greetingEl.textContent = `${greeting}, ${name} 👋`;
+
+      const sideNameEl = document.getElementById('sideUserName');
+      if (sideNameEl) sideNameEl.textContent = name;
+      const sideAvatarEl = document.getElementById('sideAvatar');
+      if (sideAvatarEl) sideAvatarEl.textContent = initial;
+
+      const topNameEl = document.getElementById('topUserName');
+      if (topNameEl) topNameEl.textContent = name;
+      const topAvatarEl = document.getElementById('topAvatar');
+      if (topAvatarEl) topAvatarEl.textContent = initial;
+
+      const dropdownTitleEl = document.getElementById('dropdownUserTitle');
+      if (dropdownTitleEl) dropdownTitleEl.textContent = `${name} · Lojista`;
+    } catch (e) {
+      console.log('Falha ao carregar nome do usuário:', e);
+    }
+  }
+  loadGreetingAndUserName();
 
   async function loadRealMlConnection() {
     try {
