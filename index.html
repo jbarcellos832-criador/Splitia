@@ -262,11 +262,24 @@
     100% { box-shadow: 0 0 0 0 transparent; }
   }
   .catalog-preview-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    overflow: hidden;
     padding: 14px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .cp-track {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+    animation: cpScroll 22s linear infinite;
+  }
+  .catalog-preview:hover .cp-track { animation-play-state: paused; }
+  @keyframes cpScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
   .cp-item {
+    flex: 0 0 160px;
     border: 1px solid var(--card-border);
     border-radius: 12px;
     overflow: hidden;
@@ -693,21 +706,20 @@
   <div class="wrap">
     <div class="hero-grid">
       <div class="hero-left">
-        <h1>Transforme produtos do Mercado Livre em <span class="highlight">comissões recorrentes</span></h1>
-        <p>O Split gera links de afiliado, rastreia cliques, acompanha conversões e organiza suas comissões do Mercado Livre em um só lugar. Divulgue, monetize e escale seus ganhos.</p>
+        <div class="hero-badge"><span class="hero-badge-dot"></span>Venda sem estoque nacional · envio em 24 horas</div>
+        <h1>Venda na Shopee<br>e no Mercado Livre<br><span class="highlight">sem ter estoque.</span></h1>
+        <p id="heroCatalogDesc">produtos com preço de custo à vista. Você anuncia, e quando a venda entra a fábrica separa, embala e despacha por você.</p>
         <div class="hero-ctas">
-          <a class="btn-primary" href="#planos">Quero conhecer o Split
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-          </a>
+          <a class="btn-primary" href="#planos">Ver os planos</a>
+          <a class="btn-secondary" href="#como-funciona">Como funciona</a>
         </div>
         <div class="hero-guarantees">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>7 dias de garantia</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span id="heroProdCount"></span> produtos</span>
           <span class="dot-sep">•</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Acesso imediato</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Envio em 24 horas</span>
           <span class="dot-sep">•</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Sem fidelidade</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Shopee e Mercado Livre</span>
         </div>
-        <div class="interface-label">Interface demonstrativa</div>
       </div>
       <div class="hero-visual">
         <div class="catalog-preview">
@@ -1116,9 +1128,14 @@ setInterval(() => {
 
 const cpCountEl = document.getElementById('cpCount');
 const cpGridEl = document.getElementById('cpGrid');
+const heroProdCountEl = document.getElementById('heroProdCount');
+const heroCatalogDescEl = document.getElementById('heroCatalogDesc');
 if (cpCountEl) cpCountEl.textContent = heroCarouselItems.length + ' produtos';
+if (heroProdCountEl) heroProdCountEl.textContent = heroCarouselItems.length;
+if (heroCatalogDescEl) heroCatalogDescEl.textContent = heroCarouselItems.length + ' ' + heroCatalogDescEl.textContent.trim();
 if (cpGridEl) {
-  cpGridEl.innerHTML = heroCarouselItems.slice(0, 4).map(item => `
+  const cpItems = heroCarouselItems.slice(0, 8);
+  const cpItemsHtml = cpItems.map(item => `
     <div class="cp-item">
       <div class="cp-item-photo"><img src="${item.img}" alt="${item.name}"></div>
       <div class="cp-item-body">
@@ -1127,6 +1144,8 @@ if (cpGridEl) {
       </div>
     </div>
   `).join('');
+  // Duplicate the track so the CSS scroll animation loops seamlessly.
+  cpGridEl.innerHTML = `<div class="cp-track">${cpItemsHtml}${cpItemsHtml}</div>`;
 }
 
 const refundOverlay = document.getElementById('refundOverlay');
