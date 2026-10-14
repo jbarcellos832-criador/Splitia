@@ -4717,9 +4717,13 @@
       const user = userData && userData.user;
       let name = 'Lojista';
       if (user) {
-        name = (user.user_metadata && (user.user_metadata.name || user.user_metadata.full_name))
-          || (user.email ? user.email.split('@')[0] : 'Lojista');
-        name = name.charAt(0).toUpperCase() + name.slice(1);
+        if (user.email && user.email.toLowerCase() === DEMO_ACCOUNT_EMAIL) {
+          name = 'Barcellos';
+        } else {
+          name = (user.user_metadata && (user.user_metadata.name || user.user_metadata.full_name))
+            || (user.email ? user.email.split('@')[0] : 'Lojista');
+          name = name.charAt(0).toUpperCase() + name.slice(1);
+        }
       }
       const initial = name.charAt(0).toUpperCase();
 
