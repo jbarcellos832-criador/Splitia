@@ -558,7 +558,7 @@
   }
   .login-page-close:hover { background: var(--card); color: var(--text); }
   .login-page-close svg { width: 20px; height: 20px; }
-  .login-page-wrap { max-width: 1100px; margin: 0 auto; text-align: center; }
+  .login-page-wrap { max-width: 560px; margin: 0 auto; text-align: center; }
   .login-page-brand { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 14px; }
   .login-page-logo {
     width: 48px; height: 48px;
@@ -567,6 +567,10 @@
   .login-page-brand span { font-size: 22px; font-weight: 800; }
   .login-page-tagline { color: var(--muted); font-size: 14.5px; margin-bottom: 36px; }
   .login-page-card {
+    width: 780px;
+    max-width: 780px;
+    margin-left: -110px;
+    margin-right: -110px;
     background: var(--card);
     border: 1px solid var(--card-border);
     border-radius: 18px;
@@ -607,6 +611,10 @@
   .login-page-forgot { color: var(--blue); font-size: 13.5px; font-weight: 700; }
   .login-page-card .refund-field label { display: flex; align-items: center; justify-content: space-between; }
   .login-page-footer { color: var(--muted2); font-size: 12.5px; margin-top: 28px; }
+
+  @media (max-width: 620px) {
+    .login-page-card { width: 100%; max-width: 100%; margin-left: 0; margin-right: 0; }
+  }
 
   .login-error {
     display: none;
