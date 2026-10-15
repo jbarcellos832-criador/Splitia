@@ -602,6 +602,10 @@
   }
   .login-page-secure svg { width: 16px; height: 16px; color: var(--blue); }
   .login-page-admin { text-align: center; color: var(--muted2); font-size: 12px; margin-top: 10px; }
+  .login-page-signup { text-align: center; color: var(--muted); font-size: 14px; margin-top: 22px; }
+  .login-page-signup a { color: var(--blue); font-weight: 700; }
+  .login-page-forgot { color: var(--blue); font-size: 13.5px; font-weight: 700; }
+  .login-page-card .refund-field label { display: flex; align-items: center; justify-content: space-between; }
   .login-page-footer { color: var(--muted2); font-size: 12.5px; margin-top: 28px; }
 
   .login-error {
@@ -1079,13 +1083,14 @@
           <input type="email" id="loginEmail" required placeholder="exemplo@gmail.com">
         </div>
         <div class="refund-field">
-          <label for="loginPassword">SENHA</label>
+          <label for="loginPassword">SENHA <a class="login-page-forgot" href="#" onclick="return false;">Esqueceu a senha?</a></label>
           <input type="password" id="loginPassword" required placeholder="••••••••">
         </div>
         <button type="submit" class="login-page-submit">Entrar na Plataforma
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
         </button>
       </form>
+      <div class="login-page-signup">Não tem uma conta? <a href="#planos" onclick="closeLoginModal()">Cadastre-se</a></div>
       <div class="login-page-divider"></div>
       <div class="login-page-secure">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
