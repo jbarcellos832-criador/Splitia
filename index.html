@@ -76,6 +76,19 @@
   }
   .hero h1 .fade { color: var(--muted2); }
   .hero h1 .highlight { color: var(--blue); }
+  .hero h1 .highlight-muted { color: var(--muted2); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--text);
+    border: 1px solid var(--card-border);
+    padding: 17px 30px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 14.5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .btn-outline:hover { border-color: var(--muted); }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 9px;
     border: 1px solid var(--card-border);
@@ -707,12 +720,13 @@
 
 <section style="border-bottom:none;">
   <div class="wrap hero">
-    <h1>Transforme produtos do Mercado Livre em <span class="highlight">comissões recorrentes</span></h1>
+    <h1>Melhores fornecedores <span class="highlight-muted">e marketplaces do Brasil</span></h1>
     <p>O Split gera links de afiliado, rastreia cliques, acompanha conversões e organiza suas comissões do Mercado Livre em um só lugar. Divulgue, monetize e escale seus ganhos.</p>
     <div class="hero-ctas">
-      <a class="btn-primary" href="#planos">Quero conhecer o Split
+      <a class="btn-primary" href="#planos">Assinar agora
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
       </a>
+      <a class="btn-outline" href="#planos">Ver planos</a>
     </div>
     <div class="hero-guarantees">
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>7 dias de garantia</span>
