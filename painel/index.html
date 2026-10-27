@@ -2538,6 +2538,9 @@
   body.dark-mode .pf-market-check { background: #1f2024; }
   body.dark-mode .pf-switch { background: #34353a; }
   body.dark-mode .pf-market-empty { border-color: #26272b; }
+  .pf-empty-cta { margin-top: 14px; padding: 10px 18px; border-radius: 10px; background: #0a0a0a; color: #fff; font-size: 13.5px; font-weight: 800; }
+  body.dark-mode .pf-empty-cta { background: #fff; color: #0a0a0a; }
+  body.dark-mode .pf-empty-cta:hover { background: #e6e6e6; }
   body.dark-mode .pf-desc-toggle { border-color: #26272b; color: #f2f2f2; background: #17181b; }
   body.dark-mode #pfDescInput::-webkit-scrollbar-thumb { background: #3a3b40; }
   body.dark-mode .pf-market-opt.selected .pf-switch { background: var(--green); }
@@ -3480,9 +3483,9 @@
         </div>
 
         <div>
-          <div class="pf-section-label">1. Escolha os marketplaces (pode selecionar mais de um)</div>
+          <div class="pf-section-label">1. Marketplaces conectados</div>
           <div class="pf-market-grid" id="pfMarketGrid"></div>
-          <div class="pf-market-empty" id="pfMarketEmpty">Ative o Mercado Livre para ver as informações da publicação.</div>
+          <div class="pf-market-empty" id="pfMarketEmpty"></div>
           <div id="pfMarketDetails">
           <div class="pf-fees-note" id="pfFeesNote">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l2-6h14l2 6"/><path d="M3 9h18v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>
@@ -4317,8 +4320,27 @@
   const feeDefaults = {
     shopee: { comissao: 20, taxaFixa: 0 },
     ml: { comissao: 16, taxaFixa: 5 },
+    bling: { comissao: 0, taxaFixa: 0 },
   };
-  const marketDisplayNames = { shopee: 'Shopee', ml: 'Mercado Livre' };
+  const marketDisplayNames = { shopee: 'Shopee', ml: 'Mercado Livre', bling: 'Bling' };
+
+  // A publicação só oferece os marketplaces que estão conectados em Integrações.
+  function connectedPfMarkets() {
+    return ['ml', 'shopee', 'bling'].filter(k => connectedStores.some(st => st.marketKey === k));
+  }
+
+  function applyMarketFees(p) {
+    const first = [...pfState.markets][0];
+    if (first) {
+      const def = feeDefaults[first];
+      const comissao = first === 'ml' ? listingTypes[pfState.listingType] : def.comissao;
+      document.getElementById('pfComissao').value = (p && p.comissao !== undefined) ? p.comissao : comissao;
+      document.getElementById('pfTaxaFixa').value = (p && p.taxaFixa !== undefined) ? p.taxaFixa : def.taxaFixa;
+    }
+    const activeNames = [...pfState.markets].map(k => marketDisplayNames[k]);
+    document.getElementById('pfFeesMarketName').textContent = activeNames.join(', ') || 'nenhum marketplace';
+    document.getElementById('pfPublishingIn').textContent = activeNames.join(' + ') || 'nenhum marketplace';
+  }
 
   const pfState = { productIdx: null, images: [], activeIdx: 0, markets: new Set(['ml']), listingType: 'premium' };
 
@@ -4715,7 +4737,7 @@
 
   function renderMarketGrid() {
     const grid = document.getElementById('pfMarketGrid');
-    grid.innerHTML = ['ml'].map(key => {
+    grid.innerHTML = connectedPfMarkets().map(key => {
       const selected = pfState.markets.has(key);
       return `
       <div class="pf-market-opt${selected ? ' selected' : ''}" data-market="${key}">
@@ -4736,7 +4758,11 @@
     wrap.style.display = pfState.markets.has('ml') ? '' : 'none';
     const anyActive = pfState.markets.size > 0;
     document.getElementById('pfMarketDetails').style.display = anyActive ? '' : 'none';
-    document.getElementById('pfMarketEmpty').style.display = anyActive ? 'none' : 'block';
+    const empty = document.getElementById('pfMarketEmpty');
+    empty.style.display = anyActive ? 'none' : 'block';
+    empty.innerHTML = connectedPfMarkets().length
+      ? 'Ative um marketplace para ver as informações da publicação.'
+      : 'Nenhum marketplace conectado. Conecte sua loja para publicar.<br><button type="button" class="pf-empty-cta" id="pfGoIntegrations">Ir para Integrações</button>';
     const comissao = parseFloat(document.getElementById('pfComissao').value);
     wrap.querySelectorAll('.pf-listing-opt').forEach(btn => {
       btn.classList.toggle('selected', Number(btn.dataset.comissao) === comissao);
@@ -4757,6 +4783,10 @@
   });
 
   document.getElementById('pfComissao').addEventListener('input', updateListingTypes);
+
+  document.getElementById('pfMarketEmpty').addEventListener('click', e => {
+    if (e.target.closest('#pfGoIntegrations')) goToPage('integracoes');
+  });
 
   const PF_DESC_COLLAPSED_HEIGHT = 170;
 
@@ -4779,15 +4809,7 @@
     const key = opt.dataset.market;
     if (pfState.markets.has(key)) pfState.markets.delete(key);
     else pfState.markets.add(key);
-    const first = [...pfState.markets][0];
-    if (first) {
-      const def = feeDefaults[first];
-      document.getElementById('pfComissao').value = def.comissao;
-      document.getElementById('pfTaxaFixa').value = def.taxaFixa;
-    }
-    const activeNames = [...pfState.markets].map(k => marketDisplayNames[k]);
-    document.getElementById('pfFeesMarketName').textContent = activeNames.join(', ') || 'nenhum marketplace';
-    document.getElementById('pfPublishingIn').textContent = activeNames.join(' + ') || 'nenhum marketplace';
+    applyMarketFees();
     if (pfState.markets.has('ml')) document.getElementById('pfComissao').value = listingTypes[pfState.listingType];
     renderMarketGrid();
     updateListingTypes();
@@ -4953,17 +4975,14 @@
     pfState.productIdx = idx;
     pfState.images = (p.images && p.images.length) ? p.images.slice() : [p.img];
     pfState.activeIdx = 0;
-    pfState.markets = new Set(['ml']);
+    pfState.markets = new Set(connectedPfMarkets());
     pfState.listingType = 'premium';
 
     document.getElementById('pfTitleInput').value = p.name;
     document.getElementById('pfDescInput').value = p.descricao ? p.descricao : buildDescription(p.name);
-    document.getElementById('pfComissao').value = (p.comissao !== undefined) ? p.comissao : listingTypes.premium;
-    document.getElementById('pfTaxaFixa').value = (p.taxaFixa !== undefined) ? p.taxaFixa : feeDefaults.ml.taxaFixa;
     document.getElementById('pfAntecipacao').value = (p.antecipacao !== undefined) ? p.antecipacao : 0;
     document.getElementById('pfMargem').value = (p.margem !== undefined) ? p.margem : 30;
-    document.getElementById('pfFeesMarketName').textContent = 'Mercado Livre';
-    document.getElementById('pfPublishingIn').textContent = 'Mercado Livre';
+    applyMarketFees(p);
 
     renderMarketGrid();
     updateListingTypes();
