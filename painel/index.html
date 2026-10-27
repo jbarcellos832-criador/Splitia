@@ -12,8 +12,8 @@
   :root {
     --black: #0a0a0a;
     --black2: #131313;
-    --yellow: #8fbcff;
-    --yellow2: #b8d6ff;
+    --yellow: #ffffff;
+    --yellow2: #d9d9de;
     --white: #ffffff;
     --off: #f7f7f8;
     --border: #ececec;
@@ -125,9 +125,9 @@
   .nav-item .ic svg { width: 17px; height: 17px; stroke: currentColor; }
   .nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
   .nav-item.active {
-    background: rgba(74,144,255,0.12);
-    color: var(--yellow);
-    border: 1px solid rgba(74,144,255,0.3);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.16);
   }
   .nav-item.logout { color: #ff6b6b; margin-top: 6px; }
   .nav-item.logout:hover { background: rgba(255,107,107,0.08); color: #ff6b6b; }
@@ -621,8 +621,8 @@
 
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+    gap: 16px;
   }
   .cat-pagination {
     display: flex;
@@ -656,8 +656,8 @@
   .cat-page-btn:hover:not(:disabled) { filter: brightness(0.97); }
   .cat-page-btn:disabled { opacity: 0.4; cursor: default; }
   .cat-page-btn.active {
-    background: var(--blue, #2f6fed);
-    border-color: var(--blue, #2f6fed);
+    background: #0a0a0a;
+    border-color: #0a0a0a;
     color: #fff;
   }
   .cat-page-ellipsis {
@@ -673,6 +673,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    padding: 12px;
   }
   .product-card img {
     width: 100%;
@@ -681,12 +682,13 @@
     object-position: center;
     display: block;
     background: #fff;
+    border-radius: 12px;
   }
-  .product-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .product-body { padding: 12px 2px 0; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .product-name {
-    font-size: 14.5px;
-    font-weight: 800;
-    line-height: 1.35;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
     height: 39px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -716,21 +718,127 @@
     letter-spacing: -0.01em;
   }
   .product-meta .supplier { font-size: 12.5px; font-weight: 700; color: var(--blue); text-align: right; }
+  .product-supplier { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+  .product-price { display: flex; align-items: baseline; gap: 6px; margin: 4px 0 8px; }
+  .product-price-label { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+  .product-price-value { font-size: 20px; font-weight: 900; letter-spacing: -0.01em; color: #0a0a0a; }
+  body.dark-mode .product-price-value { color: #ffffff; }
   .btn-list {
     width: 100%;
     border: none;
-    background: var(--blue);
+    background: #0a0a0a;
     color: #fff;
     font-weight: 800;
-    font-size: 13.5px;
+    font-size: 14px;
     padding: 11px 6px;
     border-radius: 10px;
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: auto;
   }
   .btn-list:hover { filter: brightness(0.95); }
+  body.dark-mode .btn-list { background: #ffffff; color: #0a0a0a; }
+  body.dark-mode .btn-list:hover { background: #e6e6e6; filter: none; }
+
+  /* ── Integrações ── */
+  .intg-sync {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 8px 14px; white-space: nowrap;
+  }
+  .intg-sync svg { width: 14px; height: 14px; }
+  .intg-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(210px, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+  }
+  .intg-grid > .intg-card { scroll-snap-align: start; }
+  .intg-card {
+    background: #fff;
+    border: 1.5px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px;
+    display: flex; flex-direction: column; gap: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .intg-card:hover { border-color: #c9c9cf; }
+  .intg-card.connected { border-color: var(--green); box-shadow: 0 0 0 3px rgba(22,199,132,0.12); }
+  .intg-card.soon { opacity: 0.6; }
+  .intg-top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .intg-logo { width: 48px; height: 48px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+  .intg-title { order: 3; flex-basis: 100%; min-width: 0; }
+  .intg-name { font-size: 17px; font-weight: 800; color: #111; }
+  .intg-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .intg-badge {
+    order: 2; margin-left: auto;
+    font-size: 12px; font-weight: 700; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 5px 11px; white-space: nowrap;
+  }
+  .intg-badge.on { color: var(--green); border-color: rgba(22,199,132,0.45); background: rgba(22,199,132,0.08); }
+  .intg-desc { font-size: 14px; line-height: 1.55; color: var(--muted); }
+  .intg-accounts { display: flex; flex-direction: column; gap: 10px; }
+  .intg-account { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+  .intg-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); flex-shrink: 0; box-shadow: 0 0 0 4px rgba(22,199,132,0.15); }
+  .intg-account-info { flex: 1 1 0; min-width: 0; }
+  .intg-account-name { font-size: 14px; font-weight: 700; color: #111; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .intg-account-meta { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .intg-account-actions { flex-basis: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .intg-icon-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+  .intg-icon-btn svg { width: 15px; height: 15px; }
+  .intg-disconnect { font-size: 13px; font-weight: 700; color: var(--red); padding: 6px 2px; }
+  .intg-action { margin-top: auto; }
+  .intg-btn { width: 100%; padding: 12px; border-radius: 10px; background: #0a0a0a; color: #fff; font-size: 14px; font-weight: 800; text-align: center; }
+  .intg-btn:hover:not(:disabled) { filter: brightness(1.15); }
+  .intg-btn:disabled { background: var(--off); color: var(--muted); cursor: default; }
+  .intg-add { width: 100%; padding: 11px; border-radius: 10px; border: 1.5px dashed var(--border); font-size: 14px; font-weight: 700; color: var(--muted); text-align: center; }
+  .intg-add:hover { border-color: var(--green); color: var(--green); }
+  .intg-address { background: #fff; border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 28px; overflow: hidden; }
+  .intg-address-toggle { width: 100%; display: flex; align-items: center; gap: 12px; padding: 16px 20px; font-size: 14px; }
+  .intg-address-pin svg { width: 18px; height: 18px; display: block; }
+  .intg-address-text { flex: 1; color: var(--muted); }
+  .intg-address-text strong { color: #111; }
+  .intg-address-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #111; white-space: nowrap; }
+  .intg-address-cta svg { width: 14px; height: 14px; transition: transform 0.2s; }
+  .intg-address.open .intg-address-cta svg { transform: rotate(180deg); }
+  .intg-address-body { padding: 0 20px 20px; }
+  .intg-address-actions { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+  body.dark-mode .intg-card,
+  body.dark-mode .intg-address { background: #17181b; border-color: #26272b; }
+  body.dark-mode .intg-card:hover { border-color: #3a3b40; }
+  body.dark-mode .intg-card.connected { border-color: var(--green); background: linear-gradient(180deg, rgba(22,199,132,0.07), #17181b 55%); }
+  body.dark-mode .intg-name,
+  body.dark-mode .intg-account-name,
+  body.dark-mode .intg-address-text strong,
+  body.dark-mode .intg-address-cta { color: #fff; }
+  body.dark-mode .intg-sync,
+  body.dark-mode .intg-badge,
+  body.dark-mode .intg-account,
+  body.dark-mode .intg-add { border-color: #2c2d32; }
+  body.dark-mode .intg-badge.on { border-color: rgba(22,199,132,0.45); }
+  body.dark-mode .intg-icon-btn { border-color: #2c2d32; background: #1f2024; color: #f2f2f2; }
+  body.dark-mode .intg-btn { background: #fff; color: #0a0a0a; }
+  body.dark-mode .intg-btn:hover:not(:disabled) { background: #e6e6e6; filter: none; }
+  body.dark-mode .intg-btn:disabled { background: #232428; color: #6b6f78; }
+  @media (max-width: 480px) {
+    .intg-grid { grid-auto-columns: 78%; }
+    .intg-address-text { font-size: 13px; }
+  }
+  @media (max-width: 480px) {
+    .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .product-card { padding: 8px; }
+    .product-name { font-size: 13px; height: 36px; }
+    .product-price-value { font-size: 17px; }
+    .btn-list { font-size: 13px; padding: 10px 4px; }
+  }
 
   /* ── Afiliados ── */
   .aff-wrap { display: flex; justify-content: center; padding-top: 8px; }
@@ -1252,6 +1360,37 @@
   .pf-market-opt.selected .pf-market-check { background: var(--green); border-color: var(--green); color: #fff; }
   .pf-market-check svg { width: 12px; height: 12px; display: none; }
   .pf-market-opt.selected .pf-market-check svg { display: block; }
+  .pf-switch {
+    margin-left: auto;
+    position: relative;
+    width: 46px; height: 26px;
+    border-radius: 13px;
+    background: #d4d4d8;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .pf-switch::after {
+    content: '';
+    position: absolute; top: 3px; left: 3px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    transition: transform 0.2s;
+  }
+  .pf-market-opt.selected .pf-switch { background: var(--green); }
+  .pf-market-opt.selected .pf-switch::after { transform: translateX(20px); }
+  .pf-market-empty {
+    display: none;
+    border: 1.5px dashed var(--border);
+    border-radius: 14px;
+    padding: 28px 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
 
   .pf-fees-note {
     display: flex; align-items: center; gap: 10px;
@@ -1266,6 +1405,21 @@
   .pf-fees-note svg { width: 15px; height: 15px; flex-shrink: 0; }
   .pf-fees-note strong { color: #111; }
 
+  .pf-listing-types { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 22px; }
+  .pf-listing-opt {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: #fff;
+    text-align: left;
+  }
+  .pf-listing-name { font-size: 14px; font-weight: 800; }
+  .pf-listing-pct { font-size: 13px; font-weight: 800; color: var(--muted); }
+  .pf-listing-opt.selected { border-color: var(--green); background: #eafff2; }
+  .pf-listing-opt.selected .pf-listing-pct { color: var(--green); }
+
   .pf-field { margin-bottom: 22px; }
   .pf-field input[type="text"],
   .pf-field textarea {
@@ -1278,6 +1432,21 @@
     color: #111;
   }
   .pf-field textarea { min-height: 140px; resize: vertical; line-height: 1.6; }
+  #pfDescInput { min-height: 120px; height: 170px; overflow-y: auto; }
+  #pfDescInput::-webkit-scrollbar { width: 8px; }
+  #pfDescInput::-webkit-scrollbar-thumb { background: #c9c9cf; border-radius: 4px; }
+  .pf-desc-toggle {
+    margin-top: 8px;
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #111;
+  }
+  .pf-desc-toggle svg { width: 14px; height: 14px; transition: transform 0.2s; }
+  .pf-desc-toggle.expanded svg { transform: rotate(180deg); }
 
   .pf-num-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 20px; }
   .pf-num-field input {
@@ -2359,7 +2528,7 @@
     border-color: #26272b;
     color: #f2f2f2;
   }
-  body.dark-mode .cat-page-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+  body.dark-mode .cat-page-btn.active { background: #fff; border-color: #fff; color: #0a0a0a; }
   body.dark-mode .aff-title { color: #fff; }
   body.dark-mode .pf-crumb strong,
   body.dark-mode .pf-fees-note strong,
@@ -2367,6 +2536,14 @@
   body.dark-mode .pf-market-opt-name { color: #fff; }
   body.dark-mode .pf-market-opt.selected { background: #12271c; }
   body.dark-mode .pf-market-check { background: #1f2024; }
+  body.dark-mode .pf-switch { background: #34353a; }
+  body.dark-mode .pf-market-empty { border-color: #26272b; }
+  body.dark-mode .pf-desc-toggle { border-color: #26272b; color: #f2f2f2; background: #17181b; }
+  body.dark-mode #pfDescInput::-webkit-scrollbar-thumb { background: #3a3b40; }
+  body.dark-mode .pf-market-opt.selected .pf-switch { background: var(--green); }
+  body.dark-mode .pf-listing-opt { background: #17181b; border-color: #26272b; color: #f2f2f2; }
+  body.dark-mode .pf-listing-opt.selected { background: #12271c; border-color: var(--green); }
+  body.dark-mode .pf-listing-name { color: #fff; }
   body.dark-mode .step-num,
   body.dark-mode .cat-head-ic,
   body.dark-mode .int-ic,
@@ -2386,7 +2563,7 @@
   body.dark-mode .price-tag .price { color: #ffffff !important; -webkit-text-fill-color: #ffffff; }
   body.dark-mode .cat-head-ic svg,
   body.dark-mode .imp-avatar svg { stroke: #fff; }
-  body.dark-mode .imp-cat.active { background: #8fbcff; color: #111; border-color: #8fbcff; }
+  body.dark-mode .imp-cat.active { background: #ffffff; color: #111; border-color: #ffffff; }
   body.dark-mode .imp-name { color: #fff; }
   body.dark-mode .sup-stat-label,
   body.dark-mode .sup-stat-value,
@@ -2417,6 +2594,78 @@
   body.dark-mode .fin-chart-svg .guide-line { stroke: #fff; }
   body.dark-mode .pix-preset-btn.active { background: #fff; color: #111; border-color: #fff; }
   body.dark-mode .pix-qr-box { background: #fff; }
+
+  /* ── Destaque cinza ao passar o mouse, no painel todo ── */
+  .nav-item, .cat-tabs button, .range-pill button, .cat-page-btn, .icon-btn, .user-chip, .btn-copy, .btn-copy-all,
+  .pf-back, .pf-btn-cancel, .pf-desc-toggle, .intg-icon-btn, .intg-address-toggle { transition: background-color 0.15s, color 0.15s; }
+  .product-card, .imp-card, .sup-card, .stat-card, .step-card { transition: border-color 0.15s; }
+  .nav-item:not(.logout):not(.active):hover,
+  .user-chip:hover,
+  .icon-btn:hover,
+  .btn-refresh:hover,
+  .cat-filter:hover,
+  .cat-tabs button:not(.active):hover,
+  .range-pill button:not(.active):hover,
+  .cat-page-btn:not(.active):not(:disabled):hover,
+  .pf-back:hover,
+  .pf-dropzone:hover,
+  .pf-btn-cancel:hover,
+  .pf-desc-toggle:hover,
+  .pf-listing-opt:not(.selected):hover,
+  .pf-market-opt:not(.selected):hover,
+  .btn-autopay:hover,
+  .btn-export-csv:hover,
+  .pix-preset-btn:not(.active):hover,
+  .btn-cancel-modal:hover,
+  .btn-copy-all:hover,
+  .btn-copy:hover,
+  .imp-link:hover,
+  .imp-chip:hover,
+  .imp-cat:not(.active):hover,
+  .intg-icon-btn:hover,
+  .intg-address-toggle:hover,
+  .trend-plat-btn:hover,
+  .icon-mini-btn:hover,
+  .ticket-row:hover { background: #f0f0f2; }
+  body.dark-mode .nav-item:not(.logout):not(.active):hover,
+  body.dark-mode .user-chip:hover,
+  body.dark-mode .icon-btn:hover,
+  body.dark-mode .btn-refresh:hover,
+  body.dark-mode .cat-filter:hover,
+  body.dark-mode .cat-tabs button:not(.active):hover,
+  body.dark-mode .range-pill button:not(.active):hover,
+  body.dark-mode .cat-page-btn:not(.active):not(:disabled):hover,
+  body.dark-mode .pf-back:hover,
+  body.dark-mode .pf-dropzone:hover,
+  body.dark-mode .pf-btn-cancel:hover,
+  body.dark-mode .pf-desc-toggle:hover,
+  body.dark-mode .pf-listing-opt:not(.selected):hover,
+  body.dark-mode .pf-market-opt:not(.selected):hover,
+  body.dark-mode .btn-autopay:hover,
+  body.dark-mode .btn-export-csv:hover,
+  body.dark-mode .pix-preset-btn:not(.active):hover,
+  body.dark-mode .btn-cancel-modal:hover,
+  body.dark-mode .btn-copy-all:hover,
+  body.dark-mode .btn-copy:hover,
+  body.dark-mode .imp-link:hover,
+  body.dark-mode .imp-chip:hover,
+  body.dark-mode .imp-cat:not(.active):hover,
+  body.dark-mode .intg-icon-btn:hover,
+  body.dark-mode .intg-address-toggle:hover,
+  body.dark-mode .trend-plat-btn:hover,
+  body.dark-mode .icon-mini-btn:hover,
+  body.dark-mode .ticket-row:hover { background: #232428; color: #fff; }
+  .sidebar .nav-item:not(.logout):not(.active):hover { background: rgba(255,255,255,0.08); color: #fff; }
+  .nav-item.active { background: rgba(255,255,255,0.1); }
+  body.dark-mode .product-card:hover,
+  body.dark-mode .imp-card:hover,
+  body.dark-mode .sup-card:hover,
+  body.dark-mode .intg-card:not(.connected):hover,
+  body.dark-mode .stat-card:hover,
+  body.dark-mode .step-card:hover { border-color: #4b4c53; background: #1c1d21; }
+  /* Resposta imediata ao clicar */
+  button { transition: transform 0.08s; }
+  button:active:not(:disabled) { transform: scale(0.97); }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
@@ -2953,25 +3202,26 @@
       <div class="page-head">
         <div>
           <div class="page-title" style="font-size:22px;">Integrações</div>
-          <div class="page-sub">Conecte marketplaces e gerencie suas lojas.</div>
+          <div class="page-sub">Conecte suas contas de marketplace para sincronizar pedidos e anúncios automaticamente.</div>
         </div>
+        <div class="intg-sync"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg><span id="syncStatusSub">Última sync: Nunca</span></div>
       </div>
 
-      <div class="int-card">
-        <div class="int-card-head">
-          <div class="int-card-head-left">
-            <div class="int-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <div>
-              <div class="int-card-title">Endereço do fornecedor (use na sua loja)</div>
-              <div class="int-card-sub">Cadastre este endereço como endereço de retirada/origem na sua loja do marketplace.</div>
-            </div>
-          </div>
-          <button class="btn-copy-all" id="copyAllBtn">
+      <div class="intg-grid" id="marketGrid"></div>
+
+      <div class="intg-address" id="addrBox">
+        <button type="button" class="intg-address-toggle" id="addrToggle">
+          <span class="intg-address-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span class="intg-address-text"><strong>Endereço do fornecedor</strong> · use como endereço de origem na sua loja</span>
+          <span class="intg-address-cta"><span id="addrToggleText">Mostrar endereço</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="intg-address-body" id="addrBody" hidden>
+          <div class="intg-address-actions">
+  <button class="btn-copy-all" id="copyAllBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             Copiar tudo
           </button>
-        </div>
-
+          </div>
         <div class="addr-grid">
           <div class="addr-field">
             <div>
@@ -3016,63 +3266,9 @@
             <button class="btn-copy" data-copy="uf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar</button>
           </div>
         </div>
-      </div>
-
-      <div class="int-card">
-        <div class="sync-row">
-          <div class="sync-ic" id="syncStatusIc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
-          <div>
-            <div class="int-card-title">Status de sincronização</div>
-            <div class="int-card-sub" id="syncStatusSub">Última sync: Nunca</div>
-          </div>
         </div>
       </div>
 
-      <div class="int-section-head">
-        <div class="int-section-title">Lojas conectadas</div>
-        <div class="int-section-count" id="connectedCount">2 conectada(s)</div>
-      </div>
-      <div class="store-grid" id="connectedStoresGrid"></div>
-
-      <div class="int-section-head">
-        <div class="int-section-title">Marketplaces disponíveis</div>
-      </div>
-      <div class="market-grid" id="marketGrid"></div>
-
-      <div class="int-section-head">
-        <div class="int-section-title">Calculadora de vendas</div>
-      </div>
-      <div class="calc-panel">
-        <div class="calc-grid">
-          <div class="calc-fields">
-            <div class="calc-field">
-              <div class="calc-field-label">Custo do produto (R$)</div>
-              <input type="number" id="calcCusto" step="0.01" min="0" value="0">
-            </div>
-            <div class="calc-field">
-              <div class="calc-field-label">Preço de venda (R$)</div>
-              <input type="number" id="calcVenda" step="0.01" min="0" value="0">
-            </div>
-            <div class="calc-field">
-              <div class="calc-field-label">Taxas marketplace (R$)</div>
-              <input type="number" id="calcTaxas" step="0.01" min="0" value="0">
-            </div>
-            <div class="calc-field">
-              <div class="calc-field-label">Frete (R$)</div>
-              <input type="number" id="calcFrete" step="0.01" min="0" value="0">
-            </div>
-          </div>
-          <div class="calc-result">
-            <div class="calc-result-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="9" y2="10"/><line x1="12" y1="10" x2="13" y2="10"/><line x1="16" y1="10" x2="17" y2="10"/><line x1="8" y1="14" x2="9" y2="14"/><line x1="12" y1="14" x2="13" y2="14"/><line x1="16" y1="14" x2="17" y2="14"/></svg>
-              Resultado
-            </div>
-            <div class="calc-result-row"><span>Lucro</span><span class="v big" id="calcLucro">R$ 0.00</span></div>
-            <div class="calc-result-row"><span>Margem</span><span class="v" id="calcMargem">0.0%</span></div>
-            <div class="calc-result-row"><span>Markup</span><span class="v" id="calcMarkup">0.0%</span></div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Chamados -->
@@ -3286,6 +3482,8 @@
         <div>
           <div class="pf-section-label">1. Escolha os marketplaces (pode selecionar mais de um)</div>
           <div class="pf-market-grid" id="pfMarketGrid"></div>
+          <div class="pf-market-empty" id="pfMarketEmpty">Ative o Mercado Livre para ver as informações da publicação.</div>
+          <div id="pfMarketDetails">
           <div class="pf-fees-note" id="pfFeesNote">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l2-6h14l2 6"/><path d="M3 9h18v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>
             <span>Taxas pré-preenchidas para <strong id="pfFeesMarketName">Shopee</strong> — ajuste abaixo se precisar.</span>
@@ -3299,6 +3497,21 @@
           <div class="pf-section-label">3. Descrição</div>
           <div class="pf-field">
             <textarea id="pfDescInput"></textarea>
+            <button type="button" class="pf-desc-toggle" id="pfDescToggle">
+              <span id="pfDescToggleText">Ver descrição completa</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <div class="pf-listing-types" id="pfListingTypes">
+            <button type="button" class="pf-listing-opt selected" data-listing="premium" data-comissao="18">
+              <span class="pf-listing-name">Premium</span>
+              <span class="pf-listing-pct">18%</span>
+            </button>
+            <button type="button" class="pf-listing-opt" data-listing="classico" data-comissao="13">
+              <span class="pf-listing-name">Clássico</span>
+              <span class="pf-listing-pct">13%</span>
+            </button>
           </div>
 
           <div class="pf-num-grid">
@@ -3337,6 +3550,7 @@
               <span class="lbl">Preço de venda (você cobra do comprador)</span>
               <span class="v" id="pfPreco">R$ 0,00</span>
             </div>
+          </div>
           </div>
 
           <div class="pf-footer">
@@ -3970,13 +4184,17 @@
   const storeOptions = ['Todas as lojas', 'Mercado Livre', 'Shopee', 'Bling'];
   let storeIdx = 0;
 
-  const CAT_PAGE_SIZE = 12;
+  const CAT_PAGE_SIZE = Infinity;
   let catPage = 1;
 
   function renderPagination(totalItems) {
     const wrap = document.getElementById('catPagination');
     const totalPages = Math.max(1, Math.ceil(totalItems / CAT_PAGE_SIZE));
     if (catPage > totalPages) catPage = totalPages;
+    if (totalPages === 1) {
+      wrap.innerHTML = totalItems ? `<div class="cat-page-info">Mostrando todos os ${totalItems} produto(s)</div>` : '';
+      return;
+    }
 
     const pageNums = [];
     pageNums.push(1);
@@ -4045,20 +4263,15 @@
 
     grid.innerHTML = pageList.map((p, i) => `
       <div class="product-card">
-        <img src="${p.img}" alt="${p.name}">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async">
         <div class="product-body">
           <div class="product-name">${p.name}</div>
-          <div class="product-meta">
-            <div>
-              <div class="product-meta-label">Preço de custo</div>
-              <div class="price-tag"><div class="price">${fmtPrice(p.price)}</div></div>
-            </div>
-            <div>
-              <div class="product-meta-label">Fornecedor</div>
-              <div class="supplier">Rio de Janeiro</div>
-            </div>
+          <div class="product-supplier">Fornecedor · Rio de Janeiro</div>
+          <div class="product-price">
+            <span class="product-price-label">Custo</span>
+            <span class="product-price-value">${fmtPrice(p.price)}</span>
           </div>
-          <button class="btn-list" data-idx="${products.indexOf(p)}">Cadastrar no Marketplace</button>
+          <button class="btn-list" data-idx="${products.indexOf(p)}">Anunciar</button>
         </div>
       </div>
     `).join('');
@@ -4107,10 +4320,393 @@
   };
   const marketDisplayNames = { shopee: 'Shopee', ml: 'Mercado Livre' };
 
-  const pfState = { productIdx: null, images: [], activeIdx: 0, markets: new Set(['ml']) };
+  const pfState = { productIdx: null, images: [], activeIdx: 0, markets: new Set(['ml']), listingType: 'premium' };
+
+  // Textos escritos para cada produto do catálogo (introdução, para que serve, modo de uso e cuidados).
+  const productDescTexts = {"Luva de Musculação Proteção Contra Calos para Treinos Academia":{"i":"Luva de musculação feita para proteger a palma das mãos durante os treinos. Ajuda a evitar calos e dá mais firmeza na hora de segurar barras, halteres e aparelhos.","p":["Treinos de musculação na academia ou em casa","Exercícios com barra, halteres, kettlebell e puxadores","Quem quer evitar calos e atrito nas mãos"],"u":["Encaixe os dedos nas aberturas da luva","Ajuste bem na mão antes de começar o treino","Segure a barra ou o halter normalmente e faça o exercício"],"c":["Lave à mão com sabão neutro e deixe secar à sombra","Não deixe guardada úmida dentro da mochila"]},"Aparelho Massageador Abdomen Corporal Orbital Celulite Abs":{"i":"Massageador orbital para o corpo, pensado para sessões de massagem em regiões como abdômen, coxas, braços e costas.","p":["Massagem relaxante no dia a dia","Complemento da rotina de cuidados com o corpo","Uso em casa, sem precisar sair"],"u":["Ligue o aparelho na tomada","Apoie sobre a região desejada e deslize com movimentos circulares","Faça sessões curtas e desligue ao terminar"],"c":["Não use sobre feridas, inflamações ou pele irritada","Gestantes e pessoas com problemas de saúde devem consultar um médico antes de usar","Não substitui orientação médica ou tratamento"]},"Amolador Afiador Para Faca Canivete Tesoura Com Ventosa Fixa":{"i":"Amolador para devolver o fio de facas, canivetes e tesouras de forma prática, com ventosa para fixar na bancada.","p":["Afiar facas de cozinha do dia a dia","Dar fio em canivetes e tesouras","Quem quer cortar com mais facilidade e segurança"],"u":["Fixe a ventosa em uma superfície lisa, limpa e seca","Passe a lâmina pela fenda de afiar, sempre no mesmo sentido, sem forçar","Repita algumas vezes e limpe a lâmina antes de usar"],"c":["Mantenha as mãos longe do fio durante o uso","Limpe o amolador depois de usar para tirar resíduos de metal","Guarde fora do alcance de crianças"]},"Colher Arroz Tramontina Inox Laguna Grande":{"i":"Colher de arroz Tramontina Laguna em inox, tamanho grande, ideal para servir arroz e outros acompanhamentos com praticidade.","p":["Servir arroz, farofa, legumes e acompanhamentos","Uso no dia a dia e em almoços de família","Cozinhas de casa, restaurantes e marmitarias"],"u":["Lave antes do primeiro uso","Use para servir direto da panela ou da travessa","Lave normalmente após o uso"],"c":["Seque bem depois de lavar","Evite esponjas de aço para preservar o acabamento"]},"Fantasia Capa De Bruxa Vampirodrácula Halloween C/capuz 1.8m":{"i":"Fantasia de capa com capuz para festas de Halloween e eventos à fantasia, com estilo de bruxa, vampiro ou drácula.","p":["Festas de Halloween","Festas à fantasia, teatro e eventos temáticos","Montar fantasias de bruxa, vampiro ou drácula"],"u":["Coloque a capa sobre os ombros","Ajuste o fechamento no pescoço","Use o capuz para completar o visual"],"c":["Mantenha longe de velas e fogo","Guarde dobrada em local seco"]},"Pipa Chinesa Gigante Poliéster com Linha De Nylon Importada":{"i":"Pipa chinesa gigante em poliéster, acompanhada de linha de nylon, para diversão ao ar livre.","p":["Diversão em parques, praias e campos abertos","Passeios em família","Quem gosta de soltar pipa"],"u":["Monte a pipa e prenda a linha","Escolha um local aberto e com vento","Solte a linha aos poucos enquanto a pipa sobe"],"c":["Nunca solte pipa perto de fios elétricos ou ruas movimentadas","Não use cerol nem linha chilena","Crianças devem brincar com supervisão de um adulto"]},"Kit 12 Prato Fundo De Vidro Transparente Estrela Para Restaurantes Servir Sopas Caldos Risotos E Massas":{"i":"Kit com 12 pratos fundos de vidro transparente, no modelo Estrela, para servir sopas, caldos, risotos e massas.","p":["Servir sopas, caldos, risotos e massas","Restaurantes, buffets e uso em casa","Montar uma mesa bonita e organizada"],"u":["Lave os pratos antes do primeiro uso","Sirva normalmente","Lave e seque após o uso"],"c":["Evite choques bruscos de temperatura","Manuseie com cuidado para não bater nem lascar"]},"Controle Sem Fio Joystick REDFIN Bluetooth Compativel Para Ps4 Videogame Tv Samsung Pc P4 Ps4 Manete Pc Gamer Tv Smart Controle Bluetooth Celular Headset Sem Fio Com P2 Marca Redfin":{"i":"Controle sem fio Redfin com conexão Bluetooth, compatível com PS4, PC, TV smart e celular, conforme o anúncio. Tem entrada P2 para fone de ouvido.","p":["Jogar no PS4","Jogar no PC, em TVs smart e no celular","Usar com fone de ouvido pela entrada P2"],"u":["Carregue o controle antes do primeiro uso","Ative o Bluetooth no aparelho e faça o pareamento","Conecte o fone na entrada P2, se quiser"],"c":["Não deixe cair nem molhar","Guarde em local seco e longe do calor"]},"Chaleira Estilo Jarra Elétrica De Silicone Portátil 600ml 127V":{"i":"Chaleira elétrica em formato de jarra, de silicone e portátil, com capacidade de 600ml, para esquentar água com praticidade.","p":["Esquentar água para chá, café e chimarrão","Levar em viagens e usar no trabalho","Quem tem pouco espaço na cozinha"],"u":["Confira se a tomada é de 127V antes de ligar","Coloque água sem passar da marcação máxima","Ligue e espere esquentar; desligue e tire da tomada após o uso"],"c":["Nunca ligue a chaleira vazia","Não mergulhe a base em água","Mantenha fora do alcance de crianças"]},"Lanterna Led Tatica Recarregavel Chaveiro Abridor":{"i":"Lanterna de LED recarregável no formato de chaveiro, com abridor de garrafas. Pequena para levar sempre com você.","p":["Iluminar em quedas de energia","Levar no chaveiro, na mochila ou no carro","Acampamentos, pescarias e passeios"],"u":["Carregue completamente antes do primeiro uso","Ligue pelo botão e escolha o modo de luz","Use o abridor de garrafas quando precisar"],"c":["Não aponte a luz diretamente para os olhos","Recarregue sempre que a luz enfraquecer"]},"Mini Massageador Portátil Recarregável Dor Pescoço Coluna":{"i":"Mini massageador portátil e recarregável, pequeno para levar e usar em regiões como pescoço e coluna.","p":["Momentos de relaxamento depois do trabalho","Massagem no pescoço, ombros e costas","Levar na bolsa ou em viagens"],"u":["Carregue antes do primeiro uso","Ligue e posicione sobre a região desejada","Use por alguns minutos e desligue"],"c":["Não use sobre feridas ou pele irritada","Em caso de dor persistente, procure um médico","Não substitui tratamento médico"]},"Massageador Elétrico Recarregável Portátil Pistola Bivolt":{"i":"Massageador elétrico tipo pistola, recarregável, portátil e bivolt, para massagem muscular em casa, na academia ou em viagens.","p":["Relaxar a musculatura depois de treinos","Massagem em costas, pernas, braços e ombros","Levar para a academia ou em viagens"],"u":["Carregue completamente antes do primeiro uso","Ligue, escolha a intensidade e apoie sobre o músculo","Movimente devagar pela região e desligue ao terminar"],"c":["Não use sobre ossos, articulações, feridas ou pescoço frontal","Pessoas com problemas de saúde devem consultar um médico antes de usar","Não substitui orientação médica"]},"Banqueta Banco Retrátil Portátil Com Alça":{"i":"Banqueta retrátil e portátil com alça, que abre para sentar e fecha para guardar ou carregar.","p":["Pescarias, filas, eventos e acampamentos","Apoio extra em casa ou no quintal","Levar no porta-malas"],"u":["Abra a banqueta até travar","Apoie em chão firme e plano antes de sentar","Feche e carregue pela alça"],"c":["Confira se está bem aberta e travada antes de usar","Não use como escada"]},"Kit 2 Guirlanda De Natal 30cm Com Laço Decoração Natalina Porta Enfeite Natal Nevada Luxo Artezenato":{"i":"Kit com 2 guirlandas de Natal de 30cm, com laço, no estilo nevada, para decorar portas e paredes.","p":["Decorar a porta de entrada","Enfeitar paredes, janelas e salas","Montar a decoração de Natal da casa ou da loja"],"u":["Retire da embalagem e ajeite os enfeites","Pendure em um gancho ou prego na porta ou parede","Ajuste o laço para ficar bem centralizado"],"c":["Guarde em caixa para não amassar até o próximo Natal","Mantenha longe de velas e fogo"]},"Kit 42 Enfeites Árvore De Natal Pendente Decoração Laço Beng":{"i":"Kit com 42 enfeites pendentes para árvore de Natal, com laços, para deixar a árvore completa e decorada.","p":["Decorar a árvore de Natal","Enfeitar guirlandas, festões e arranjos","Montar a decoração de lojas e vitrines"],"u":["Separe os enfeites por tipo","Pendure nos galhos, distribuindo bem pela árvore","Ajuste os laços no final"],"c":["Guarde em caixa depois do Natal","Mantenha fora do alcance de crianças pequenas"]},"Kit 4 Capas De Almofada Natal 45x45 Decoração Natalina Sofá":{"i":"Kit com 4 capas de almofada com tema natalino, no tamanho 45x45, para deixar o sofá e a sala com clima de Natal.","p":["Decorar sofá, poltrona e cama","Deixar a sala com clima de Natal","Presentear quem ama decoração"],"u":["Abra a capa e coloque a almofada 45x45 dentro","Ajeite os cantos para deixar a capa bem preenchida","Feche e posicione no sofá"],"c":["Lave conforme as orientações da etiqueta, quando houver","Seque à sombra para preservar as cores"]},"Luva De Moto Bike Meio Dedo Motoqueiro Motocross Esportivo":{"i":"Luva meio dedo para moto e bike, com estilo esportivo de motocross, que deixa as pontas dos dedos livres.","p":["Pilotar moto no dia a dia","Pedaladas e trilhas de bike","Quem quer mais firmeza no guidão"],"u":["Calce a luva e ajuste no pulso","Confira se os dedos ficam confortáveis","Segure o guidão normalmente"],"c":["Lave à mão e seque à sombra","Não substitui equipamentos de segurança completos"]},"Luminária Decorativa Quarto em Led de Escrever":{"i":"Luminária decorativa de LED para quarto, com a qual você pode escrever mensagens e deixar o ambiente personalizado.","p":["Decorar quartos e salas","Escrever recados e mensagens especiais","Presentear em datas comemorativas"],"u":["Ligue a luminária","Escreva a mensagem com o material que acompanha o produto, conforme a embalagem","Apague e escreva de novo quando quiser"],"c":["Limpe com pano macio e seco","Mantenha longe de água"]},"Kit 2 Corretor Postural Cinta Lombar Ajustável Unissex Coluna":{"i":"Kit com 2 corretores posturais em formato de cinta lombar, ajustáveis e unissex, para apoio na região da coluna.","p":["Lembrete de postura no trabalho ou nos estudos","Apoio na região lombar no dia a dia","Uso por homens e mulheres"],"u":["Posicione a cinta na região lombar","Ajuste até ficar firme, sem apertar demais","Use por períodos curtos no início"],"c":["Retire se sentir desconforto ou formigamento","Não substitui orientação médica ou fisioterapia"]},"Pião Sonoro Luz Led Brinquedo Lançador Automático Infantil":{"i":"Pião sonoro com luz de LED e lançador automático, um brinquedo divertido que gira, acende e faz barulho.","p":["Diversão para crianças","Brincadeiras em família","Presente de aniversário ou Dia das Crianças"],"u":["Encaixe o pião no lançador","Acione o lançador para soltar o pião no chão","Veja o pião girar com luz e som"],"c":["Brincar sempre com supervisão de um adulto","Lance em superfície lisa e longe do rosto"]},"Sutiã Fita Levanta Seios Peito Adesivo Discreto Boob Tape 5m":{"i":"Fita adesiva levanta seios (boob tape) de 5m, discreta, para dar sustentação e levantar o busto sem sutiã aparente.","p":["Vestidos tomara que caia e costas nuas","Decotes profundos","Ocasiões em que o sutiã não pode aparecer"],"u":["Limpe e seque bem a pele antes de aplicar","Corte o tamanho desejado e aplique levantando o busto","Para retirar, puxe devagar, de preferência com óleo ou água morna"],"c":["Faça um teste em uma pequena área da pele antes do uso","Não aplique sobre pele irritada ou com feridas"]},"Kit Elástico 11 peças Treino Crossfit Adutor Exercícios Casa":{"i":"Kit elástico com 11 peças para treinos de crossfit, adutores e exercícios em casa.","p":["Treinar em casa sem aparelhos grandes","Exercícios de força, adutores e glúteos","Complementar o treino da academia"],"u":["Escolha o elástico de acordo com o exercício","Prenda bem nas alças ou pontos de apoio indicados no kit","Faça os movimentos de forma controlada"],"c":["Confira se o elástico está sem rachaduras antes de usar","Não estique além do limite","Guarde longe do sol"]},"Aquecedor Mamadeira Leite Bebê Portátil Display Usb Portatil":{"i":"Aquecedor de mamadeira portátil com display e alimentação USB, para esquentar o leite do bebê em casa ou na rua.","p":["Esquentar mamadeira em passeios e viagens","Uso durante a noite, sem ir até a cozinha","Pais e mães que querem praticidade"],"u":["Conecte o aquecedor pelo cabo USB","Encaixe a mamadeira e acompanhe pelo display","Teste a temperatura do leite no pulso antes de dar ao bebê"],"c":["Sempre confira a temperatura antes de oferecer ao bebê","Limpe conforme as orientações da embalagem"]},"Protetor Almofada para Calcanhar Palmilha Adesivo de Sapatos":{"i":"Protetor adesivo de calcanhar para sapatos, que funciona como almofada e ajuda a ajustar o calçado no pé.","p":["Sapatos que machucam o calcanhar","Calçados um pouco folgados","Uso em sapatos sociais, sapatilhas e tênis"],"u":["Limpe e seque a parte interna do sapato","Retire o papel do adesivo","Cole na região do calcanhar e pressione bem"],"c":["Cole com o sapato seco para fixar melhor","Troque quando o adesivo perder a aderência"]},"Mini Ar Condicionado Arctic Air Ultra-pro Com Refil Para Gelo":{"i":"Mini ar condicionado Arctic Air Ultra-Pro com refil para gelo, um climatizador pequeno para refrescar o ambiente perto de você.","p":["Refrescar a mesa de trabalho ou de estudo","Uso no quarto, perto da cama","Dias quentes em ambientes pequenos"],"u":["Coloque água e gelo no reservatório, conforme a embalagem","Ligue o aparelho","Posicione voltado para você"],"c":["Esvazie e seque o reservatório quando não for usar","Não é um ar condicionado de ambiente: refresca a área próxima"]},"Spinner Capitão América Com Embalagem De Metal":{"i":"Spinner temático do Capitão América, que vem com embalagem de metal, ótimo para presentear.","p":["Passatempo e distração","Colecionadores de itens de heróis","Presente para crianças e adultos"],"u":["Segure pelo centro","Gire com o dedo e veja o spinner rodar","Guarde na embalagem de metal"],"c":["Não indicado para crianças pequenas (peças pequenas)","Mantenha longe do rosto ao girar"]},"Depilador Indolor Cristal Magico Pedra Depiladora":{"i":"Depilador de cristal, também chamado de pedra depiladora, para remover pelos com movimentos circulares, sem cera e sem lâmina.","p":["Remover pelos de braços e pernas","Uso em casa, sem cera nem lâmina","Levar em viagens"],"u":["Use com a pele limpa e seca","Faça movimentos circulares leves sobre a região","Limpe o cristal depois do uso"],"c":["Não use em pele irritada, com feridas ou machucados","Faça um teste em uma área pequena primeiro"]},"Capa Impermeável Para Cobrir Moto Proteção Prateado":{"i":"Capa impermeável prateada para cobrir e proteger a moto quando ela estiver parada.","p":["Proteger a moto da chuva e do sol","Garagens, estacionamentos e quintais","Manter a moto mais limpa"],"u":["Espere o motor e o escapamento esfriarem","Cubra a moto da frente para trás","Ajuste a capa para cobrir bem as laterais"],"c":["Não coloque a capa com o escapamento quente","Guarde seca para não criar mofo"]},"Palmilha Calcanheira Silicone Ortopédica Dores Esporão Par":{"i":"Par de palmilhas calcanheiras de silicone, no estilo ortopédico, para dar mais conforto ao calcanhar.","p":["Mais conforto no calcanhar no dia a dia","Quem passa muito tempo em pé","Uso dentro de tênis e sapatos"],"u":["Coloque uma calcanheira em cada calçado","Posicione bem no fundo, na região do calcanhar","Calce e ajuste se precisar"],"c":["Lave com água e sabão neutro e deixe secar","Em caso de dor persistente, procure um médico"]},"Bomba De Ar Para Encher Bola Futebol Vôlei Basquete Com Bico":{"i":"Bomba de ar com bico, para encher bolas de futebol, vôlei, basquete e outras.","p":["Encher bolas de futebol, vôlei e basquete","Levar para treinos e jogos","Escolas, escolinhas e uso em casa"],"u":["Molhe levemente o bico e encaixe na válvula da bola","Bombeie até a bola ficar cheia","Retire o bico com cuidado"],"c":["Não encha demais a bola","Guarde o bico junto da bomba para não perder"]},"Kit Jogo Serra Copo 6 Peças Para Madeira Gesso Pvc Plástico":{"i":"Kit com 6 serras copo para fazer furos redondos em madeira, gesso, PVC e plástico.","p":["Abrir furos para spots e caixas de luz no gesso","Furos em madeira, PVC e plástico","Marcenaria, reformas e pequenos reparos"],"u":["Escolha a serra do tamanho do furo","Encaixe na furadeira e prenda bem","Fure em velocidade moderada, sem forçar"],"c":["Use óculos de proteção","Não use em materiais diferentes dos indicados"]},"Lanterna De Led Recarregável Luz Negra Uv Resistente A Água":{"i":"Lanterna de LED recarregável com luz negra UV, resistente à água.","p":["Encontrar manchas e marcas que só aparecem com luz UV","Conferir cédulas e documentos","Uso em pescarias e áreas externas"],"u":["Carregue completamente antes do primeiro uso","Ligue e aponte para a área que deseja verificar","Desligue após o uso"],"c":["Nunca aponte a luz UV para os olhos","Recarregue quando a luz enfraquecer"]},"Bico Adaptador De Torneira Ponteira Gourmet Arejador Abs":{"i":"Bico adaptador de torneira, tipo ponteira gourmet com arejador, para deixar o jato mais prático na pia.","p":["Direcionar a água na pia da cozinha","Lavar louça e alimentos com mais facilidade","Dar um toque moderno à torneira"],"u":["Confira se encaixa na saída da sua torneira","Rosqueie ou encaixe o bico na torneira","Abra a água e direcione o jato"],"c":["Limpe o arejador de vez em quando para não entupir","Não force o encaixe"]},"Kit 6 Escova Manicure Limpa Escovinha Tira Pó Das Unhas Gel":{"i":"Kit com 6 escovinhas de manicure para tirar o pó das unhas, ideais para quem trabalha com unhas de gel.","p":["Tirar o pó depois de lixar as unhas","Manicures, nail designers e uso em casa","Limpeza antes de aplicar gel ou esmalte"],"u":["Lixe a unha normalmente","Passe a escovinha para tirar o pó","Lave as escovinhas depois de usar"],"c":["Deixe secar bem antes de guardar","Use uma escovinha por cliente quando possível"]},"Andador Portátil Colete Suspenso De Bebê Primeiros Passos":{"i":"Andador portátil em formato de colete suspenso, que ajuda o adulto a apoiar o bebê nos primeiros passos.","p":["Ajudar o bebê a dar os primeiros passos","Apoiar o bebê sem o adulto se curvar tanto","Levar em passeios e viagens"],"u":["Vista o colete no bebê e ajuste bem","Segure pelas alças","Acompanhe os passos do bebê com calma"],"c":["Uso sempre com um adulto segurando","Nunca deixe o bebê sozinho com o colete"]},"Mini Máquina De Costura Portátil Bivolt":{"i":"Mini máquina de costura portátil e bivolt, para pequenos consertos e costuras simples em casa.","p":["Fazer bainhas e pequenos consertos","Costuras simples e artesanato","Quem tem pouco espaço em casa"],"u":["Coloque a linha e a bobina conforme o manual","Ligue e posicione o tecido","Costure devagar, guiando o tecido com as mãos"],"c":["Mantenha os dedos longe da agulha","Desligue da tomada depois de usar"]},"Fita Dupla Face Adesiva Multiuso Mágica Forte Impermeável 5M":{"i":"Fita dupla face multiuso de 5m, forte e impermeável, para colar objetos sem furar a parede.","p":["Fixar quadros leves, ganchos e organizadores","Prender tapetes e objetos decorativos","Pequenos reparos em casa"],"u":["Limpe e seque bem as superfícies","Corte o pedaço necessário e cole em um dos lados","Retire o protetor, cole o objeto e pressione por alguns segundos"],"c":["Respeite o peso que a fita suporta, conforme a embalagem","Pode deixar resíduo ao remover em algumas superfícies"]},"Escorredor De Macarrão Arroz Legumes Verduras Multiuso 22cm":{"i":"Escorredor de 22cm, multiuso, para escorrer macarrão, arroz, legumes e verduras.","p":["Escorrer macarrão e massas","Lavar arroz, legumes e verduras","Uso diário na cozinha"],"u":["Coloque o escorredor na pia","Despeje os alimentos com cuidado","Balance de leve para tirar o excesso de água"],"c":["Cuidado com o vapor ao escorrer alimentos quentes","Lave e seque após o uso"]},"Kit Ferramentas Precisão 31 Peças Chave Alen Torx Fenda Philips":{"i":"Kit de ferramentas de precisão com 31 peças, com pontas Allen, Torx, fenda e Phillips.","p":["Consertar eletrônicos, celulares e controles","Abrir óculos, relógios e brinquedos","Pequenos reparos em casa"],"u":["Escolha a ponta certa para o parafuso","Encaixe a ponta no cabo","Gire com cuidado, sem forçar"],"c":["Guarde as pontas no estojo para não perder","Mantenha fora do alcance de crianças"]},"Balança Digital De Precisão Cozinha 10kg Dieta Com 2 Pilhas":{"i":"Balança digital de cozinha, com capacidade de até 10kg conforme o anúncio, que vem com 2 pilhas.","p":["Pesar ingredientes de receitas","Controlar porções na dieta","Confeitaria e pequenos negócios de comida"],"u":["Coloque as pilhas que acompanham o produto","Ligue a balança em uma superfície plana","Use a função de tara, se houver, e pese os alimentos"],"c":["Não ultrapasse a capacidade máxima","Limpe com pano úmido, sem mergulhar em água"]},"Cinta Tonificador Estimulador Muscular Abdominal":{"i":"Cinta tonificadora com estimulação muscular para a região abdominal.","p":["Complemento da rotina de cuidados com o corpo","Uso em casa","Quem gosta de tecnologia aplicada ao bem-estar"],"u":["Posicione a cinta no abdômen","Ligue e escolha a intensidade, começando pela mais baixa","Use pelo tempo indicado na embalagem"],"c":["Não use se tiver marca-passo, estiver grávida ou com problemas de saúde sem orientação médica","Não use sobre a pele irritada","Não substitui exercícios nem orientação médica"]},"Par De Luva Lava Louça Pet Esponja Silicone Multiuso":{"i":"Par de luvas de silicone com esponja, multiuso, para lavar louça, dar banho em pets e limpar a casa.","p":["Lavar louça protegendo as mãos","Banho e escovação de pets","Limpeza de pias e superfícies"],"u":["Calce as luvas","Coloque detergente ou sabão na parte com cerdas","Esfregue e enxágue normalmente"],"c":["Lave e pendure para secar","Use luvas diferentes para louça e pets"]},"Coleira Cola De Gato Gatinho Pescoço Cachorrinho":{"i":"Coleira de pescoço para gatos e cachorrinhos de pequeno porte.","p":["Gatos e cães de pequeno porte","Identificar e deixar o pet mais charmoso","Uso diário em casa"],"u":["Coloque a coleira no pescoço do pet","Ajuste deixando o espaço de dois dedos","Observe se o pet fica confortável"],"c":["Não aperte demais","Confira a coleira com frequência"]},"Suporte Multiuso de Parede 6 Posições Porta Vassoura Rodo Pá":{"i":"Suporte multiuso de parede com 6 posições, para pendurar vassoura, rodo, pá e outros utensílios.","p":["Organizar a área de serviço","Pendurar vassouras, rodos e pás","Liberar espaço no chão"],"u":["Escolha o local na parede","Fixe o suporte conforme a embalagem","Encaixe os cabos nas posições"],"c":["Não pendure peso além do indicado","Limpe com pano úmido"]},"Moedor De Carne 2800w Elétrico Funil Moer Linguiça Kibe 110v":{"i":"Moedor de carne elétrico de 2800W, 110V, com funil para fazer linguiça e kibe.","p":["Moer carnes em casa","Fazer linguiça caseira","Preparar kibe e outras receitas"],"u":["Confira se a tomada é de 110V antes de ligar","Corte a carne em pedaços e coloque aos poucos no bocal","Use o funil para encher a tripa da linguiça"],"c":["Nunca coloque os dedos no bocal","Desligue da tomada para montar e limpar"]},"Triturador Processador Moedor Manual De Alho Cebola Temperos":{"i":"Triturador manual de alho, cebola e temperos, que pica os alimentos sem precisar de energia.","p":["Picar alho, cebola e temperos","Preparar molhos e refogados mais rápido","Evitar cheiro de alho nas mãos"],"u":["Coloque os alimentos dentro do triturador","Feche bem a tampa","Puxe a cordinha ou gire a manivela até picar como desejar"],"c":["Cuidado com as lâminas ao lavar","Lave e seque depois do uso"]},"Bolsa Térmica Compressa Água Quente Fria 500ml":{"i":"Bolsa térmica de 500ml para compressas quentes ou frias.","p":["Compressas quentes para relaxar","Compressas frias após pancadas leves","Uso em casa, de forma simples"],"u":["Para quente: coloque água morna, sem ferver","Para fria: coloque água gelada","Feche bem a tampa e apoie sobre a região, com um pano entre a bolsa e a pele"],"c":["Nunca use água fervente","Confira se a tampa está bem fechada","Em caso de lesão, procure orientação médica"]},"Removedor Cera De Ouvido 16 Ponteiras Reutilizável":{"i":"Removedor de cera de ouvido com 16 ponteiras reutilizáveis.","p":["Higiene da parte externa do ouvido","Uso pessoal, com ponteiras trocáveis","Substituir o cotonete no dia a dia"],"u":["Encaixe a ponteira","Use com delicadeza só na entrada do ouvido","Lave a ponteira após o uso"],"c":["Nunca introduza fundo no ouvido","Em caso de dor ou entupimento, procure um médico"]},"Kit De Chave De Precisão Para Consertar Óculos Relógio 11pçs":{"i":"Kit com 11 peças de chaves de precisão para consertar óculos, relógios e outros itens pequenos.","p":["Apertar parafusos de óculos","Pequenos reparos em relógios","Consertos de eletrônicos pequenos"],"u":["Escolha a chave do tamanho do parafuso","Encaixe com cuidado","Gire devagar, sem forçar"],"c":["Guarde no estojo para não perder","Mantenha fora do alcance de crianças"]},"Corretor Postural Suporte Ajustável Ombros Costas Coluna":{"i":"Corretor postural ajustável que dá suporte aos ombros e às costas.","p":["Lembrete de postura no trabalho e nos estudos","Quem passa muito tempo sentado","Uso por baixo ou por cima da roupa"],"u":["Vista como uma mochila","Ajuste as alças até ficar firme, sem apertar demais","Use por períodos curtos no início"],"c":["Retire se sentir dor ou formigamento","Não substitui orientação médica ou fisioterapia"]},"Amassador De Batatas E Legumes Em Aço Inox":{"i":"Amassador de batatas e legumes em aço inox, para fazer purês e massas.","p":["Fazer purê de batata e mandioquinha","Amassar legumes e feijão","Preparar papinhas"],"u":["Cozinhe bem os alimentos","Coloque em uma tigela","Pressione o amassador até chegar na consistência desejada"],"c":["Lave logo após o uso para facilitar a limpeza","Seque bem antes de guardar"]},"Mangueira de Jardim Quintal Elástica Retrátil Flexível 25m":{"i":"Mangueira de jardim elástica e retrátil, com 25m, que estica com a água e encolhe quando a torneira é fechada.","p":["Regar jardins e plantas","Lavar quintal, calçada e carro","Quem quer uma mangueira fácil de guardar"],"u":["Conecte na torneira","Abra a água e espere a mangueira esticar","Feche a torneira e deixe a água sair para ela encolher"],"c":["Não deixe exposta ao sol quando não estiver em uso","Não puxe a mangueira por cima de quinas"]},"Luminária Abajur Projetor De Estrelas Preto Star Master":{"i":"Luminária abajur Star Master que projeta estrelas no teto e nas paredes.","p":["Decorar quartos de crianças e adultos","Criar um clima relaxante para dormir","Festas e momentos especiais"],"u":["Ligue a luminária","Posicione no centro do quarto","Apague as luzes e aproveite a projeção"],"c":["Mantenha longe de água","Não deixe ligada perto de tecidos que esquentam"]},"Coletor De Tampa De Poeira De Broca Elétrico Martelete":{"i":"Coletor de poeira que se encaixa na broca da furadeira ou do martelete, para segurar o pó ao furar paredes e tetos.","p":["Furar paredes sem sujar o chão","Furar tetos sem pó cair nos olhos","Reformas e instalações em casa"],"u":["Encaixe o coletor na broca antes de furar","Encoste o coletor na parede","Fure normalmente e esvazie o pó depois"],"c":["Use óculos de proteção","Esvazie o coletor com frequência"]},"Escova Vapor Tira Pelo Pet Recarregável Usb Cão Gato":{"i":"Escova a vapor para tirar pelos de cães e gatos, recarregável por USB.","p":["Escovar e tirar pelos soltos de cães e gatos","Diminuir os pelos espalhados pela casa","Momentos de carinho com o pet"],"u":["Carregue pelo USB antes de usar","Coloque água no reservatório, conforme a embalagem","Ligue e escove o pet no sentido dos pelos"],"c":["Observe a reação do pet nas primeiras vezes","Não use em pele machucada"]},"Kit 6 Forma Silicone Forro Reutilizável Air Fryer Fritadeira":{"i":"Kit com 6 formas de silicone reutilizáveis para forrar a air fryer.","p":["Proteger o cesto da air fryer","Preparar alimentos com menos sujeira","Facilitar a limpeza"],"u":["Coloque a forma dentro do cesto","Coloque o alimento e prepare normalmente","Lave a forma após o uso"],"c":["Confira se a forma cabe no seu modelo de air fryer","Não use objetos cortantes sobre o silicone"]},"Prendedor Fixador Trava Porta Inox Magnético Adesivo":{"i":"Prendedor de porta em inox, magnético e adesivo, que segura a porta aberta sem bater.","p":["Evitar que a porta bata com o vento","Proteger paredes e maçanetas","Quartos, salas e escritórios"],"u":["Limpe e seque a porta e a parede","Cole uma parte na porta e a outra no rodapé ou na parede, alinhadas","Pressione bem e espere a cola firmar"],"c":["Instale em superfícies lisas","Teste o alinhamento antes de colar"]},"Cortador de Unha Alicate Tesoura Lima Cuidados Bebê Higiene":{"i":"Kit de cuidados com cortador, alicate, tesoura e lixa para a higiene das unhas do bebê.","p":["Cortar e lixar as unhas do bebê","Higiene do bebê no dia a dia","Levar na bolsa do bebê"],"u":["Escolha um momento calmo, de preferência com o bebê dormindo","Segure o dedinho com firmeza e corte com cuidado","Finalize lixando as pontas"],"c":["Limpe os itens depois de usar","Guarde no estojo, longe do alcance de crianças"]},"Óculos De Natação Mergulho Olho Ajustável Infantil":{"i":"Óculos de natação infantil, com ajuste, para nadar e mergulhar com mais conforto.","p":["Aulas de natação","Piscina, praia e clube","Crianças que gostam de mergulhar"],"u":["Ajuste a tira na cabeça da criança","Encaixe bem nos olhos","Confira se não está apertado demais"],"c":["Enxágue em água limpa depois do uso","Guarde seco, longe do sol"]},"Máscara Esfoliante Para Pés Rachado Remove Calos":{"i":"Máscara esfoliante para os pés, que ajuda a remover calos e a pele ressecada e rachada.","p":["Cuidar de pés ressecados e rachados","Remover calos e pele grossa","Momentos de autocuidado em casa"],"u":["Lave e seque os pés","Calce a máscara e deixe pelo tempo indicado na embalagem","Retire e lave os pés; a pele descama nos dias seguintes"],"c":["Não use em pés com feridas","Faça um teste antes se tiver pele sensível"]},"Mini Mop Portátil Esfregão Dobrável Casa Cozinha Vidro Limpa":{"i":"Mini mop portátil e dobrável, prático para limpar vidros, bancadas e cantos da cozinha e da casa.","p":["Limpar vidros e espelhos","Bancadas, pias e fogões","Cantos e espaços pequenos"],"u":["Molhe levemente o refil","Passe na superfície que deseja limpar","Dobre para guardar depois de usar"],"c":["Lave o refil e deixe secar","Não use produtos muito fortes"]},"Canguru Carregador Neném Costas Reforçado Mochila Bolsa Bebe":{"i":"Canguru carregador de bebê, reforçado, para usar nas costas como mochila.","p":["Carregar o bebê com as mãos livres","Passeios, compras e viagens","Momentos de proximidade com o bebê"],"u":["Vista o canguru e ajuste as alças","Coloque o bebê com cuidado, com ajuda de outra pessoa se precisar","Confira se todas as fivelas estão bem fechadas"],"c":["Siga a idade e o peso indicados na embalagem","Nunca se abaixe sem segurar o bebê"]},"Limpa Vidros Magnético Rodo Mágico Dupla Face Ímã Duplo":{"i":"Limpa vidros magnético, dupla face, que limpa os dois lados do vidro ao mesmo tempo.","p":["Limpar janelas por dentro e por fora","Vidros de aquário, box e portas","Evitar se debruçar na janela"],"u":["Molhe as duas partes","Posicione uma de cada lado do vidro, unidas pelo ímã","Movimente a parte de dentro e a de fora acompanha"],"c":["Use um cordão de segurança em janelas altas","Lave os panos depois do uso"]},"Buzina De Moto Universal Paquerinha 12v Honda Yamaha Suzuki":{"i":"Buzina paquerinha 12V, universal para motos Honda, Yamaha, Suzuki e outras.","p":["Trocar a buzina da moto","Deixar a moto com um som diferente","Substituir buzina com defeito"],"u":["Desligue a moto antes da instalação","Conecte nos fios da buzina original","Fixe bem e teste o som"],"c":["Se não tiver experiência, procure um mecânico","Confira as regras de trânsito sobre buzinas"]},"Vídeo Game Portátil De Mão 99 Jogos Mini Game Antigo Retrô":{"i":"Vídeo game portátil de mão no estilo retrô, com 99 jogos na memória.","p":["Diversão em viagens e filas","Matar a saudade dos jogos antigos","Presente para crianças e adultos"],"u":["Ligue o aparelho","Escolha o jogo no menu","Jogue usando os botões"],"c":["Não deixe cair nem molhar","Mantenha longe do calor"]},"Caneca Copo Mixer Eletrica Térmica De 380ml":{"i":"Caneca mixer elétrica e térmica de 380ml, que mistura bebidas sozinha.","p":["Misturar café, achocolatado e leite","Preparar shakes e bebidas","Uso em casa ou no trabalho"],"u":["Coloque a bebida sem passar da marcação","Aperte o botão para misturar","Beba direto na caneca"],"c":["Não mergulhe a caneca inteira na água","Limpe a hélice com cuidado"]},"Multímetro Digital Profissional Eletrônica Teste Defeitos Aparelhos":{"i":"Multímetro digital para eletrônica, usado para testar e encontrar defeitos em aparelhos e circuitos.","p":["Medir tensão, corrente e resistência, conforme as funções do aparelho","Encontrar defeitos em aparelhos","Técnicos, estudantes e hobbistas"],"u":["Escolha a função e a escala no seletor","Conecte as pontas de prova nas entradas certas","Encoste as pontas no circuito e leia o display"],"c":["Nunca meça acima da capacidade do aparelho","Não toque nas partes metálicas das pontas durante a medição"]},"Escorredor De Macarrão Massas Aço Inox Cozinha Cestas Fruteira":{"i":"Escorredor de macarrão em aço inox, que também pode ser usado como cesta e fruteira.","p":["Escorrer macarrão, arroz e legumes","Servir como fruteira na mesa","Organizar frutas e verduras"],"u":["Coloque na pia","Despeje os alimentos com cuidado","Depois de lavado, pode ficar na mesa como fruteira"],"c":["Cuidado com o vapor ao escorrer","Seque bem para manter o brilho"]},"Livro De Colorir Bobbie Goods Capa Dura Diversos Desenhos Azul":{"i":"Livro de colorir Bobbie Goods, de capa dura, com vários desenhos para pintar.","p":["Passatempo para crianças e adultos","Momentos de relaxamento","Presente criativo"],"u":["Escolha um desenho","Pinte com lápis de cor, giz ou canetinhas","Guarde o livro fechado para conservar as páginas"],"c":["Teste a canetinha em um canto para ver se passa para o outro lado","Mantenha longe de umidade"]},"Mini Mixer Misturador Bebidas Ovos Portátil Elétrico Bateria":{"i":"Mini mixer elétrico portátil, a bateria, para misturar bebidas, ovos e cremes.","p":["Misturar café, leite e achocolatado","Bater ovos e cremes leves","Fazer espuma de leite"],"u":["Coloque pilhas ou carregue, conforme o modelo","Mergulhe a hélice na bebida","Ligue e misture por alguns segundos"],"c":["Não ligue fora do líquido","Lave apenas a hélice, sem molhar o cabo"]},"Microfones Lapela Profissional Sem Fio tipo C K9 Preto":{"i":"Microfones de lapela sem fio, com conexão tipo C, para gravar vídeos com som mais limpo.","p":["Gravar vídeos para redes sociais","Entrevistas, aulas e lives","Criadores de conteúdo"],"u":["Carregue os microfones antes do uso","Conecte o receptor na entrada tipo C do celular","Prenda o microfone na roupa e grave"],"c":["Confira se o seu celular tem entrada tipo C","Guarde no estojo depois de usar"]},"Kit Com 3 Portas Condimentos em Bambu":{"i":"Kit com 3 potes porta condimentos em bambu, para organizar temperos na cozinha.","p":["Organizar temperos e condimentos","Deixar a bancada mais bonita","Servir na mesa"],"u":["Lave os potes antes do primeiro uso","Encha com os temperos","Deixe na bancada ou na mesa"],"c":["Não deixe de molho na água","Seque bem para conservar o bambu"]},"Lampada Bulbo Led 4 Em 1 Luz de Emergência 20W Portatil E27":{"i":"Lâmpada bulbo LED 4 em 1 de 20W, com função de luz de emergência, portátil, com rosca E27.","p":["Iluminação do dia a dia","Luz durante quedas de energia","Usar como luz portátil"],"u":["Rosqueie no bocal E27 com a energia desligada","Ligue o interruptor normalmente","Em queda de energia, siga as orientações da embalagem para usar a luz de emergência"],"c":["Instale com a energia desligada","Não use em locais molhados"]},"Kit 3 Festão Enfeite Decoração Natal Aramado 2m":{"i":"Kit com 3 festões aramados de Natal com 2m, para decorar árvores, portas, escadas e paredes.","p":["Enfeitar a árvore de Natal","Decorar portas, janelas e corrimões","Montar vitrines de Natal"],"u":["Retire da embalagem e abra bem o festão","Molde com a mão, aproveitando o arame","Prenda no local desejado"],"c":["Mantenha longe de fogo e velas","Guarde enrolado para o próximo ano"]},"Protetor Dedos Aço Inoxidável Corte Legumes Faca Seguro":{"i":"Protetor de dedos em aço inoxidável, que deixa o corte de legumes com faca mais seguro.","p":["Cortar legumes e verduras com mais segurança","Quem está aprendendo a cozinhar","Uso diário na cozinha"],"u":["Encaixe o protetor no dedo","Apoie os dedos protegidos no alimento","Corte com a faca encostando de leve no protetor"],"c":["Lave e seque após o uso","Continue cortando com atenção"]},"Armadilha Prende Mata Mosca Mosquito Insetos Eletrico USB":{"i":"Armadilha elétrica com alimentação USB para prender e eliminar moscas, mosquitos e insetos.","p":["Quartos, salas e cozinhas","Varandas e áreas com muitos insetos","Quem prefere evitar inseticidas"],"u":["Conecte no USB e ligue","Deixe em um local escuro ou à noite","Esvazie o compartimento quando precisar"],"c":["Mantenha fora do alcance de crianças e pets","Desligue antes de limpar"]},"Mini Climatizador Ar Condicionado Portátil Umidificador USB 12v":{"i":"Mini climatizador portátil com umidificação e alimentação USB, para refrescar o espaço perto de você.","p":["Mesa de trabalho e de estudos","Mesinha de cabeceira","Dias quentes e secos"],"u":["Coloque água no reservatório","Conecte no USB e ligue","Posicione voltado para você"],"c":["Esvazie o reservatório quando não for usar","Refresca a área próxima, não o ambiente inteiro"]},"Kit 2 Boneco Neve de Pelúcia Enfeite Natalino Papai Noel":{"i":"Kit com 2 bonecos de neve de pelúcia para enfeite natalino, com tema de Papai Noel.","p":["Decorar a casa no Natal","Enfeitar mesas, estantes e árvore","Presentear"],"u":["Retire da embalagem e ajeite a pelúcia","Posicione no local desejado","Guarde depois do Natal"],"c":["Limpe com pano levemente úmido","Guarde em saco ou caixa fechada"]},"Porta Lapis Caneta Organizador de Mesa Escritório Clips":{"i":"Organizador de mesa porta lápis, canetas e clips, para escritório e estudos.","p":["Organizar a mesa de trabalho","Mesas de estudo","Escritórios e home office"],"u":["Coloque na mesa","Separe canetas, lápis e clips nos compartimentos","Mantenha os itens sempre no lugar"],"c":["Limpe com pano seco","Não guarde objetos pesados demais"]},"Capa Protetora Celular Prova Dàgua Suporte Banheiro":{"i":"Capa protetora para celular, à prova d'água, com suporte para usar no banheiro.","p":["Assistir vídeos e ouvir música no banho","Proteger o celular no banheiro","Uso na cozinha também"],"u":["Coloque o celular dentro da capa e feche bem","Fixe o suporte na parede, conforme a embalagem","Encaixe a capa no suporte"],"c":["Confira o fechamento antes de usar perto da água","Não mergulhe a capa"]},"Escova Alisadora Elétrica Bivolt Cerâmica Anti Frizz 45w":{"i":"Escova alisadora elétrica bivolt, de cerâmica, com proposta antifrizz e 45W.","p":["Alisar e escovar os cabelos ao mesmo tempo","Dar acabamento no dia a dia","Levar em viagens"],"u":["Penteie os cabelos secos e desembaraçados","Ligue e espere aquecer","Passe a escova em mechas, da raiz às pontas"],"c":["Use protetor térmico","Não encoste no couro cabeludo","Desligue e deixe esfriar antes de guardar"]},"Kit 3 Bolas Saltitantes Espacial de Borracha Formato Lunar":{"i":"Kit com 3 bolas saltitantes espaciais de borracha, no formato lunar, que quicam alto.","p":["Brincadeiras dentro e fora de casa","Diversão para crianças","Lembrancinhas de festas"],"u":["Jogue a bola no chão","Veja até onde ela quica","Brinque em espaços abertos"],"c":["Brincar com supervisão de um adulto","Não indicado para crianças pequenas que colocam objetos na boca"]},"Coçador De Costas Mão Regulável Retrátil 5 Posições Mãozinha":{"i":"Coçador de costas retrátil e regulável, com 5 posições e ponta em formato de mãozinha.","p":["Coçar as costas sem ajuda","Levar na bolsa ou em viagens","Presente divertido"],"u":["Puxe o cabo até o tamanho desejado","Coce a região com leveza","Recolha o cabo para guardar"],"c":["Não coce com força sobre a pele irritada","Limpe a ponta de vez em quando"]},"Barras De Apoio Com Ventosa Multiuso Idosos Crianças":{"i":"Barras de apoio com ventosa, multiuso, para dar mais segurança a idosos e crianças.","p":["Apoio no banheiro e no box","Ajudar idosos e crianças a se apoiarem","Instalação sem furar a parede"],"u":["Escolha uma superfície lisa, sem rejunte, limpa e seca","Pressione as ventosas e trave","Teste a firmeza antes de cada uso"],"c":["Confira a fixação todos os dias","Não substitui barras de apoio fixadas na parede"]},"Pé Nivelador Máquina de Lavar Pezinho de Geladeira Fogão 4pç":{"i":"Kit com 4 pés niveladores para máquina de lavar, geladeira e fogão.","p":["Nivelar eletrodomésticos","Diminuir balanço e barulho da máquina","Proteger o piso"],"u":["Com o aparelho desligado, levante com cuidado","Coloque um pé nivelador em cada canto","Ajuste até o aparelho ficar nivelado"],"c":["Peça ajuda para levantar aparelhos pesados","Confira o nivelamento de vez em quando"]},"Mini Aspirador De Pó 2 em 1 a Vácuo Usb Portátil":{"i":"Mini aspirador de pó 2 em 1 a vácuo, portátil, com alimentação USB.","p":["Limpar teclados e mesas","Interior do carro","Migalhas no sofá e na cama"],"u":["Carregue pelo USB antes do uso","Ligue e passe sobre a sujeira","Esvazie o reservatório depois"],"c":["Não aspire líquidos","Limpe o filtro com frequência"]},"Tampa Do Oleo De Motor Vareta Medidor Nível Moto Universal":{"i":"Tampa de óleo do motor com vareta medidora de nível, universal para motos.","p":["Conferir o nível do óleo da moto","Substituir uma tampa perdida ou quebrada","Manutenção da moto"],"u":["Com a moto desligada, retire a tampa antiga","Rosqueie a nova tampa","Use a vareta para conferir o nível do óleo"],"c":["Confira se a rosca é compatível com a sua moto","Na dúvida, procure um mecânico"]},"Mouse Gamer T-Wolf M20 3200dpi Rgb Laser Com Fio Preto Pc":{"i":"Mouse gamer T-Wolf M20 com fio, 3200 DPI e iluminação RGB, preto, para PC.","p":["Jogos no computador","Trabalho e estudos","Quem quer um mouse com visual gamer"],"u":["Conecte o cabo na porta USB do computador","Espere o computador reconhecer o mouse","Ajuste o DPI no botão, se houver"],"c":["Não puxe pelo cabo","Use sobre um mouse pad"]},"Kit Cortador Unha Cuidados Bebe Higiene Alicate Tesoura Lima":{"i":"Kit de cuidados com cortador, alicate, tesoura e lixa para a higiene das unhas do bebê.","p":["Cortar e lixar as unhas do bebê","Higiene do bebê no dia a dia","Levar na bolsa do bebê"],"u":["Escolha um momento calmo, de preferência com o bebê dormindo","Segure o dedinho e corte com cuidado","Finalize lixando as pontas"],"c":["Limpe os itens depois de usar","Guarde fora do alcance de crianças"]},"Ducha de Mão Chuveirinho Turbo Pressão":{"i":"Ducha de mão tipo chuveirinho, com proposta de jato turbo com pressão.","p":["Banho com mais praticidade","Lavar o box e o banheiro","Dar banho em pets"],"u":["Conecte a ducha na mangueira ou no ponto de água","Confira a vedação","Abra a água e use normalmente"],"c":["Use fita veda rosca se precisar","Limpe os furinhos de vez em quando"]},"Kit 50 Refil Reparo Remendo Pneu Carro Moto Sem Câmara Macarrão":{"i":"Kit com 50 refis tipo macarrão para reparar furos em pneus sem câmara de carro e moto.","p":["Consertar furos em pneus sem câmara","Deixar no porta-malas para emergências","Borracharias e oficinas"],"u":["Localize e retire o objeto que furou o pneu","Use a ferramenta de reparo para inserir o refil no furo","Corte o excesso e calibre o pneu"],"c":["Use apenas em pneus sem câmara","Depois do reparo, procure um borracheiro para conferir"]},"Kit 12 Formas Silicone Mini Cupcake Bolo Muffin Assadeira":{"i":"Kit com 12 forminhas de silicone para mini cupcakes, bolinhos e muffins.","p":["Fazer cupcakes e muffins","Bolinhos para festas","Doces e salgados assados"],"u":["Lave antes do primeiro uso","Coloque a massa nas forminhas, sem encher até a borda","Asse e espere esfriar para desenformar"],"c":["Não use facas para desenformar","Lave com esponja macia"]},"Umidificador Aromatizador Elétrico 7 Cores Difusor Ambiente":{"i":"Umidificador e aromatizador elétrico, com luz em 7 cores, para difundir aroma no ambiente.","p":["Deixar o ambiente perfumado","Umidificar o ar em dias secos","Criar um clima relaxante com as luzes"],"u":["Coloque água até a marcação","Adicione algumas gotas de essência, se quiser","Ligue e escolha a cor da luz"],"c":["Não ligue sem água","Limpe o reservatório com frequência"]},"Joelheira De Compressão Anel Silicone E Fio Aço Flexível Tamanho Único":{"i":"Joelheira de compressão com anel de silicone e fio de aço flexível, tamanho único.","p":["Apoio no joelho durante atividades físicas","Caminhadas, corridas e treinos","Mais firmeza no dia a dia"],"u":["Vista a joelheira pelo pé","Posicione o anel de silicone centralizado na patela","Ajuste para ficar firme, sem apertar demais"],"c":["Retire se sentir dormência","Não substitui orientação médica"]},"Urinol Feminino":{"i":"Urinol feminino que permite fazer xixi em pé, ideal para banheiros públicos e viagens.","p":["Banheiros públicos e de estrada","Viagens, trilhas e acampamentos","Festivais e eventos"],"u":["Posicione o urinol bem encostado ao corpo","Direcione a ponta para baixo","Lave após o uso"],"c":["Higienize bem depois de cada uso","Guarde em saquinho limpo"]},"Organizador Multiuso Para Ferramentas Objetos Mini Gaveteiro":{"i":"Organizador multiuso tipo mini gaveteiro, para guardar ferramentas e pequenos objetos.","p":["Organizar parafusos, pregos e peças pequenas","Guardar itens de artesanato e costura","Oficinas e escritórios"],"u":["Separe os itens por tipo","Guarde cada tipo em uma gaveta","Identifique as gavetas, se quiser"],"c":["Não coloque peso demais","Limpe com pano úmido"]},"Válvula Click 1 1/4 Ralo Cuba Pia Banheiro Aço Inox Cromada":{"i":"Válvula click 1 1/4 em aço inox cromado, para ralo de cuba e pia de banheiro.","p":["Trocar a válvula da cuba do banheiro","Deixar a pia com acabamento moderno","Abrir e fechar o ralo com um toque"],"u":["Retire a válvula antiga","Instale a nova com as vedações, conforme a embalagem","Teste o click e confira se não há vazamento"],"c":["Confira se a medida 1 1/4 serve na sua cuba","Se não tiver experiência, chame um encanador"]},"Lanterna Tática Militar T9 Acampamento Recarregável USB Led":{"i":"Lanterna tática militar T9 de LED, recarregável por USB, ideal para acampamentos.","p":["Acampamentos e trilhas","Quedas de energia","Deixar no carro para emergências"],"u":["Carregue pelo USB antes do primeiro uso","Ligue e escolha o modo de luz","Recarregue quando a luz enfraquecer"],"c":["Não aponte para os olhos","Guarde em local seco"]},"Moedor de Café Manual Grãos Manivela Portatil Ajuste Moagem":{"i":"Moedor de café manual com manivela, portátil, com ajuste de moagem.","p":["Moer café na hora","Ajustar a moagem para coado, prensa francesa ou outros métodos","Levar em viagens e acampamentos"],"u":["Ajuste a moagem conforme a embalagem","Coloque os grãos no compartimento","Gire a manivela até moer tudo"],"c":["Limpe com pincel seco","Não lave as partes internas com água sem secar bem"]},"Processador De Alimentos Picador Carne 850W 4 Lâminas 110v":{"i":"Processador de alimentos e picador de carne de 850W, 110V, com 4 lâminas.","p":["Picar carnes, legumes e temperos","Preparar patês, molhos e recheios","Agilizar o preparo das refeições"],"u":["Confira se a tomada é de 110V","Coloque os alimentos no copo e encaixe a tampa","Pressione o botão em pulsos até picar como desejar"],"c":["Muito cuidado com as lâminas ao lavar","Desligue da tomada para montar e limpar"]},"Tábua De Carne Antibacteriana À Prova De Mofo Suporte Em Pé":{"i":"Tábua de carne antibacteriana e à prova de mofo, conforme o anúncio, com suporte para ficar em pé.","p":["Cortar carnes, legumes e frutas","Secar a tábua em pé, ocupando pouco espaço","Uso diário na cozinha"],"u":["Lave antes do primeiro uso","Corte os alimentos normalmente","Lave e deixe secar em pé no suporte"],"c":["Use tábuas diferentes para carne crua e alimentos prontos","Não deixe de molho"]},"Luminária Projetor Infantil Ceu Lua Estrela Peixes Giratória":{"i":"Luminária projetor infantil giratória, que projeta céu, lua, estrelas e peixes no quarto.","p":["Quarto de bebês e crianças","Ajudar a criar um clima para dormir","Decorar festas e ambientes"],"u":["Ligue a luminária","Escolha a projeção","Apague as luzes do quarto"],"c":["Mantenha longe de água","Não deixe ao alcance de bebês"]},"Microfone Condensador Mesa Tripé Podcast Live Estúdio":{"i":"Microfone condensador de mesa com tripé, para podcast, lives e gravações.","p":["Gravar podcasts","Fazer lives e reuniões online","Gravar vídeos e aulas"],"u":["Monte o tripé e encaixe o microfone","Conecte no computador ou aparelho compatível","Selecione o microfone nas configurações e teste o som"],"c":["Fale a uma distância de um palmo","Guarde em local seco"]},"Cesto De Cozimento a Vapor Para Legumes Retrátil":{"i":"Cesto de cozimento a vapor retrátil, que se encaixa em panelas para cozinhar legumes no vapor.","p":["Cozinhar legumes no vapor","Preparar papinhas e refeições leves","Aquecer alimentos"],"u":["Abra o cesto dentro da panela","Coloque água sem encostar no cesto","Coloque os legumes, tampe a panela e cozinhe"],"c":["Cuidado com o vapor ao abrir a panela","Lave e seque após o uso"]},"Kit 4 Ganchos Adesivo Parede Inox Pendurar Toalhas Roupas":{"i":"Kit com 4 ganchos adesivos de inox para pendurar toalhas, roupas e utensílios sem furar a parede.","p":["Pendurar toalhas no banheiro","Pendurar bolsas, roupas e chaves","Organizar a cozinha"],"u":["Limpe e seque a parede","Cole o gancho e pressione por alguns segundos","Espere a cola firmar antes de pendurar peso"],"c":["Respeite o peso indicado na embalagem","Use em superfícies lisas"]},"Suporte Porta Esponja Bucha Inox Pia Organizador Cozinha":{"i":"Suporte porta esponja e bucha em inox, para organizar a pia da cozinha.","p":["Deixar a esponja secar entre os usos","Organizar a pia","Evitar esponja largada na bancada"],"u":["Posicione o suporte na pia","Coloque a esponja e a bucha","Deixe escorrer depois de usar"],"c":["Lave o suporte com frequência","Seque para manter o brilho"]},"Escovas de Aço Latão Nylon Cabo Pequena Limpeza Grelha 3 Pç":{"i":"Kit com 3 escovas pequenas de aço, latão e nylon, para limpar grelhas e cantos difíceis.","p":["Limpar grelhas e churrasqueiras","Tirar sujeira de cantos e frestas","Limpeza de ferramentas"],"u":["Escolha a escova de acordo com a superfície","Esfregue a área suja","Enxágue e seque as escovas"],"c":["Use a escova de aço só em superfícies que não riscam","Deixe secar antes de guardar"]},"Porta Condimento Organizador Tempero Acrílico Cozinha":{"i":"Porta condimentos organizador em acrílico, para deixar os temperos à vista na cozinha.","p":["Organizar temperos","Deixar a bancada mais arrumada","Achar os temperos com facilidade"],"u":["Lave antes do primeiro uso","Encha com os temperos","Posicione na bancada ou no armário"],"c":["Lave com esponja macia","Evite produtos abrasivos"]},"Braçadeira para Celular Suporte de Braço Corrida":{"i":"Braçadeira de braço para celular, ideal para corridas e caminhadas.","p":["Correr e caminhar com o celular","Ouvir música durante o treino","Deixar as mãos livres"],"u":["Coloque o celular na braçadeira","Prenda no braço e ajuste","Confira se ficou firme antes de começar"],"c":["Confira se o seu celular cabe na braçadeira","Lave à mão e seque à sombra"]},"Mangueira Retrátil Expansivel Flexivel Quintal Carro 25m":{"i":"Mangueira retrátil e expansível de 25m, flexível, para quintal e lavagem de carro.","p":["Lavar carro, quintal e calçada","Regar plantas","Quem quer uma mangueira leve e fácil de guardar"],"u":["Conecte na torneira","Abra a água e espere expandir","Feche a torneira e deixe a água sair para recolher"],"c":["Não deixe exposta ao sol","Evite arrastar sobre quinas"]},"Cinta Modeladora Cintura INVISÍVEL Faixa Queima Gordura 5Mts":{"i":"Cinta modeladora para cintura, invisível sob a roupa, em formato de faixa com 5m.","p":["Modelar a cintura por baixo da roupa","Uso em eventos e no dia a dia","Dar mais firmeza à postura"],"u":["Enrole a faixa ao redor da cintura","Ajuste a pressão de forma confortável","Prenda a ponta"],"c":["Não aperte demais","Retire se sentir falta de ar ou desconforto","Não substitui exercícios nem orientação médica"]},"Relógio Parede Mesa Painel Led Digital Bivolt Vermelho 36cm":{"i":"Relógio digital de LED para parede ou mesa, bivolt, vermelho, com 36cm.","p":["Ver as horas de longe","Decorar salas, escritórios e comércios","Usar na parede ou na mesa"],"u":["Ligue na tomada","Ajuste a hora pelos botões, conforme a embalagem","Pendure na parede ou apoie na mesa"],"c":["Mantenha longe de umidade","Limpe com pano seco"]},"Mini Depilador Elétrico Portátil Depilação Feminina 4 em 1":{"i":"Mini depilador elétrico portátil, 4 em 1, para depilação feminina.","p":["Retirar pelos de diferentes regiões","Retoques rápidos","Levar na bolsa ou em viagens"],"u":["Carregue ou coloque pilhas, conforme o modelo","Escolha a ponteira para a região","Passe com a pele limpa e seca"],"c":["Não use sobre feridas ou pele irritada","Limpe as ponteiras após o uso"]},"Mini Processador 3 Laminas Elétrico Alho S/fio Alimentos Usb":{"i":"Mini processador elétrico sem fio, com 3 lâminas e carregamento USB, para picar alho e alimentos.","p":["Picar alho, cebola e temperos","Fazer molhos e papinhas","Uso rápido no dia a dia"],"u":["Carregue pelo USB antes de usar","Coloque os alimentos e encaixe a tampa","Aperte o botão em pulsos até picar"],"c":["Muito cuidado com as lâminas","Não mergulhe a parte do motor em água"]},"Fita Dupla Face Adesiva Multiuso Forte Impermeável 3m":{"i":"Fita dupla face adesiva multiuso de 3m, forte e impermeável.","p":["Fixar objetos sem furar a parede","Colar tapetes, ganchos e organizadores","Pequenos reparos"],"u":["Limpe e seque as superfícies","Corte o pedaço e cole em um dos lados","Retire o protetor e pressione o objeto"],"c":["Respeite o peso indicado na embalagem","Pode deixar resíduo ao remover"]},"Jogo de Chaves Catracas 46 Peças":{"i":"Jogo de chaves catracas com 46 peças, com soquetes para apertar e soltar porcas e parafusos.","p":["Manutenção de carros e motos","Montagem de móveis","Reparos em casa e na oficina"],"u":["Escolha o soquete do tamanho da porca ou parafuso","Encaixe na catraca","Gire para apertar ou soltar"],"c":["Guarde as peças no estojo","Mantenha secas para evitar ferrugem"]},"Luva Tira Pelos Escova Magnética Pets Cães e Gatos":{"i":"Luva tira pelos com escova magnética, para remover pelos soltos de cães e gatos.","p":["Escovar cães e gatos com carinho","Diminuir pelos espalhados pela casa","Pets que não gostam de escova comum"],"u":["Calce a luva","Passe a mão no pet no sentido dos pelos","Retire os pelos acumulados na luva"],"c":["Lave e deixe secar","Observe a reação do pet nas primeiras vezes"]},"Termômetro Infravermelho Laser Digital Culinário Industrial":{"i":"Termômetro infravermelho digital com mira laser, para medir a temperatura de superfícies e alimentos sem contato, em uso culinário e industrial.","p":["Conferir a temperatura de óleo, chapas e fornos","Confeitaria e preparo de alimentos","Medições em equipamentos e superfícies"],"u":["Coloque a bateria ou pilha, conforme o modelo","Aponte para a superfície e aperte o gatilho","Leia a temperatura no display"],"c":["Nunca aponte o laser para os olhos","Mede a temperatura da superfície, não do interior do alimento"]},"Joelheira De Compressão Alívio De Dores Articulações Tech 3D":{"i":"Joelheira de compressão Tech 3D, para dar apoio às articulações do joelho.","p":["Apoio no joelho em caminhadas e treinos","Mais firmeza no dia a dia","Atividades esportivas"],"u":["Vista a joelheira pelo pé","Posicione centralizada no joelho","Ajuste para ficar firme, sem apertar demais"],"c":["Retire se sentir dormência","Em caso de dor, procure um médico"]},"Par Pisca Seta Led Moto Modelo Slim Palito Universal":{"i":"Par de piscas seta de LED para moto, modelo slim palito, universal.","p":["Trocar piscas quebrados ou antigos","Deixar a moto com visual mais moderno","Manutenção da moto"],"u":["Desligue a moto","Conecte os fios conforme o esquema da sua moto","Fixe e teste o funcionamento"],"c":["Se não tiver experiência, procure um mecânico","Confira se a moto precisa de relé para LED"]},"Meia de Compressão 3/4 Zíper Anti Inchaço Pes Pernas Varizes Cor Preta":{"i":"Meia de compressão 3/4 com zíper, preta, para pés e pernas, com proposta de ajudar contra o inchaço.","p":["Quem passa muito tempo em pé ou sentado","Viagens longas","Sensação de pernas cansadas"],"u":["Abra o zíper e vista a meia","Ajuste bem na perna, sem dobras","Feche o zíper com cuidado"],"c":["Pessoas com varizes ou problemas de circulação devem consultar um médico antes de usar","Lave à mão e seque à sombra"]},"Hoverboard Skate Elétrico 6.5 Led Bluetooth Cores Brinovar Fogo E Gelo":{"i":"Hoverboard skate elétrico de 6.5 polegadas, com LED e Bluetooth, no modelo Fogo e Gelo.","p":["Diversão ao ar livre","Passeios em locais planos e seguros","Presente para jovens"],"u":["Carregue completamente antes do primeiro uso","Ligue, suba com um pé de cada vez e mantenha o corpo reto","Incline o corpo de leve para andar"],"c":["Use capacete e protetores","Não ande em ruas, descidas ou pisos molhados","Crianças apenas com supervisão de um adulto"]},"Escova de Limpeza Teclados Fone de Ouvido Multifuncional 5X1":{"i":"Escova de limpeza multifuncional 5 em 1, para teclados, fones de ouvido e pequenos eletrônicos.","p":["Limpar teclados","Limpar fones e estojos de fones","Tirar poeira de cantos pequenos"],"u":["Escolha a ponta certa para o item","Passe com cuidado nos cantos e frestas","Limpe a escova depois do uso"],"c":["Desligue os aparelhos antes de limpar","Não use molhada em eletrônicos"]},"Pochete Fitness Esportiva Academia Caminhada Musculação":{"i":"Pochete fitness esportiva, para levar celular, chaves e documentos na academia, caminhada ou corrida.","p":["Caminhadas e corridas","Treinos de musculação","Passeios e viagens"],"u":["Coloque seus itens nos bolsos","Prenda na cintura e ajuste a alça","Confira se o zíper está fechado"],"c":["Lave à mão","Não coloque itens pesados demais"]},"Pista Trilho Mágica Maluca Monte Carrinho 56 Peças":{"i":"Pista trilho mágica maluca com 56 peças, para montar e ver o carrinho correr.","p":["Brincadeira de montar","Diversão para crianças","Estimular a criatividade"],"u":["Monte a pista encaixando as peças","Coloque o carrinho no trilho","Ligue o carrinho, conforme a embalagem, e veja correr"],"c":["Peças pequenas: não indicado para crianças pequenas","Brincar com supervisão de um adulto"]},"Cozedor de Ovos Elétrico Máquina De Cozinhar A Vapor 110V":{"i":"Cozedor de ovos elétrico de 110V, que cozinha os ovos no vapor.","p":["Cozinhar ovos com praticidade","Café da manhã rápido","Preparar ovos para dietas e marmitas"],"u":["Confira se a tomada é de 110V","Coloque água conforme a medida indicada e encaixe os ovos","Tampe, ligue e espere o fim do cozimento"],"c":["Cuidado com o vapor ao abrir","Desligue da tomada e espere esfriar para limpar"]},"Escovamento De Parede Para Gatos Catnip Cat It":{"i":"Escovador de parede para gatos com catnip, no estilo Cat It, onde o gato se esfrega e se coça sozinho.","p":["Gatos que gostam de se esfregar","Diversão e carinho para o gato","Ajudar a retirar pelos soltos"],"u":["Instale em um canto da parede ou móvel, conforme a embalagem","Coloque o catnip no local indicado","Deixe o gato descobrir e se esfregar"],"c":["Limpe os pelos acumulados de vez em quando","Confira a fixação com frequência"]},"Faixa Alongamento Fisioterapia Perna Pé Fita Yoga Pilates":{"i":"Faixa de alongamento para perna e pé, usada em fisioterapia, yoga e pilates.","p":["Alongamentos de pernas, pés e costas","Aulas de yoga e pilates","Exercícios em casa"],"u":["Coloque o pé na alça da faixa","Segure nas outras alças","Puxe de forma lenta e controlada"],"c":["Não force além do limite do corpo","Em caso de lesão, siga a orientação de um profissional"]},"Kit Ferramentas Jogo De Soquete 40 Peças Chave Catraca Pito":{"i":"Kit de ferramentas com jogo de soquetes de 40 peças, chave catraca e pito.","p":["Manutenção de carros, motos e bicicletas","Montagem de móveis","Reparos em casa"],"u":["Escolha o soquete certo","Encaixe na catraca","Gire para apertar ou soltar"],"c":["Guarde as peças no estojo","Mantenha secas"]},"Suporte Apoio Lombar Encosto Ergonômico Cadeira Banco Carro":{"i":"Suporte de apoio lombar ergonômico para cadeira, banco de carro e sofá.","p":["Mais conforto para quem trabalha sentado","Viagens longas de carro","Home office"],"u":["Posicione o apoio na parte de baixo do encosto","Ajuste a altura para apoiar a lombar","Sente encostando as costas no apoio"],"c":["Em caso de dor nas costas, procure um médico","Limpe conforme as orientações da embalagem"]},"Kit Vinho 5 Peças Abridor, Dosador, Saca Rolhas E Tampa":{"i":"Kit vinho com 5 peças: abridor, dosador, saca-rolhas e tampa.","p":["Abrir e servir vinhos","Presentear quem gosta de vinho","Jantares e encontros"],"u":["Use o saca-rolhas para abrir a garrafa","Encaixe o dosador para servir sem pingar","Feche a garrafa com a tampa"],"c":["Lave e seque as peças","Guarde no estojo"]},"Cinta Corselet Modeladora Dupla Compressão Ziper E Colchete":{"i":"Cinta corselet modeladora com dupla compressão, fechamento com zíper e colchetes.","p":["Modelar a silhueta por baixo da roupa","Festas e eventos","Dar mais firmeza à postura"],"u":["Feche os colchetes começando por baixo","Feche o zíper com cuidado","Ajuste para ficar firme e confortável"],"c":["Não use apertada demais","Retire se sentir falta de ar ou desconforto","Não substitui orientação médica"]},"Carregador De Celular Usb Moto Universal":{"i":"Carregador de celular USB universal para moto.","p":["Carregar o celular enquanto pilota","Usar o GPS sem descarregar a bateria","Entregadores e motoboys"],"u":["Instale conectado à bateria da moto, conforme a embalagem","Fixe no guidão","Conecte o cabo do celular"],"c":["Se não tiver experiência, peça a um mecânico para instalar","Proteja da chuva, conforme a embalagem"]},"Vaporizador Ferro de Passar Roupa Cabide Potente Vapor 110V":{"i":"Vaporizador de roupas tipo ferro de passar com cabide, 110V, para tirar amassados com vapor.","p":["Desamassar roupas penduradas","Roupas delicadas e cortinas","Passar roupa rápido antes de sair"],"u":["Confira se a tomada é de 110V","Coloque água no reservatório e espere aquecer","Passe o vapor sobre a roupa pendurada no cabide"],"c":["Nunca aponte o vapor para pessoas","Desligue e espere esfriar antes de guardar"]},"Kit 10 Lampadas Luz Camarim 3 Cores Led Auto-colantes Bivolt":{"i":"Kit com 10 lâmpadas LED autocolantes para espelho de camarim, com 3 cores e bivolt.","p":["Montar um espelho de camarim","Maquiagem com boa iluminação","Decorar penteadeiras"],"u":["Limpe a moldura do espelho","Cole as lâmpadas distribuídas ao redor","Conecte na energia e escolha a cor da luz"],"c":["Mantenha longe de água","Desligue ao terminar de usar"]},"Afiador Profissional Amolador De Facas 3 Opções De Afiar":{"i":"Afiador profissional de facas com 3 opções de afiar, para facas de cozinha.","p":["Afiar facas de cozinha","Manter o fio das facas no dia a dia","Churrascos e açougues"],"u":["Apoie o afiador em uma superfície firme","Passe a faca nas fendas, na ordem indicada","Limpe a lâmina antes de usar"],"c":["Mantenha os dedos longe do fio","Guarde longe de crianças"]},"Caixa Som Com Microfone Infantil Caixinha Bluetooth Karaokê Infantil":{"i":"Caixa de som infantil com microfone e Bluetooth, para cantar karaokê.","p":["Karaokê com as crianças","Brincadeiras em festas","Presente de aniversário"],"u":["Carregue ou ligue conforme a embalagem","Conecte o celular pelo Bluetooth","Coloque a música e cante no microfone"],"c":["Use em volume moderado","Mantenha longe de água"]},"Controle Ar Gaming Gun Upgratec Ipega Pg-9082":{"i":"Controle tipo pistola Ipega PG-9082 (Upgratec), para jogos de tiro, conforme o anúncio.","p":["Jogos de tiro","Diversão com amigos","Quem quer uma experiência diferente nos jogos"],"u":["Carregue ou coloque pilhas, conforme o modelo","Conecte ao aparelho seguindo a embalagem","Configure os botões e jogue"],"c":["Confira a compatibilidade com o seu aparelho","Não deixe cair"]},"Arco De Serra Mini Conjunto Serrote Profissional Metal Aço":{"i":"Mini arco de serra com serrote, em metal e aço, para cortes em pequenos reparos.","p":["Cortar canos, madeira e metal fino","Pequenos reparos em casa","Oficinas e marcenaria"],"u":["Prenda a lâmina no arco","Fixe a peça que vai ser cortada","Serre com movimentos longos e firmes"],"c":["Use luvas e óculos de proteção","Troque a lâmina quando perder o corte"]},"Porta Joias Estojo Caixa Colar Bijuteria Portatil Viagem Top":{"i":"Porta joias em formato de estojo, portátil, para levar colares e bijuterias em viagens.","p":["Organizar colares, brincos e anéis","Levar joias em viagens","Presentear"],"u":["Abra o estojo","Guarde cada peça no seu espaço","Feche bem para não abrir na mala"],"c":["Guarde longe de umidade","Limpe com pano seco"]},"Organizador de Gaveta com Divisórias Calcinhas Meia Sutiã":{"i":"Organizador de gaveta com divisórias para calcinhas, meias e sutiãs.","p":["Organizar gavetas de roupas íntimas","Encontrar as peças com facilidade","Aproveitar melhor o espaço"],"u":["Monte o organizador dentro da gaveta","Dobre as peças","Guarde uma peça por divisória"],"c":["Lave conforme a etiqueta, quando houver","Não sobrecarregue as divisórias"]},"Caixa de Joias Vitrine Organizador Anéis Brinco Colar Veludo":{"i":"Caixa de joias tipo vitrine em veludo, para organizar anéis, brincos e colares.","p":["Organizar joias e bijuterias","Deixar as peças à vista","Decorar a penteadeira"],"u":["Abra a caixa","Guarde as peças nos espaços certos","Feche para proteger da poeira"],"c":["Guarde longe de umidade","Limpe com pano seco"]},"Carrinho Fusca Ferro Fricção Metal Miniatura Herbie 53 Cor Creme":{"i":"Carrinho Fusca Herbie 53 em miniatura, de metal, cor creme, com fricção.","p":["Colecionadores de miniaturas","Brincar com crianças","Decorar estantes"],"u":["Empurre o carrinho para trás","Solte e veja ele andar","Guarde na estante como decoração"],"c":["Não indicado para crianças pequenas","Limpe com pano seco"]},"Kit Mini Band 3 Elastico Faixa Terabander Extensor Superband":{"i":"Kit com 3 mini bands, faixas elásticas extensoras para treinos.","p":["Treino de glúteos e pernas","Exercícios em casa e na academia","Aquecimento e fisioterapia"],"u":["Escolha a faixa conforme a intensidade","Posicione nas pernas","Faça os movimentos de forma controlada"],"c":["Confira se não há rasgos antes de usar","Guarde longe do sol"]},"Tela Protetora Tampa Anti Respingo Para Fritura em Aço Inox":{"i":"Tela protetora tampa anti respingo em aço inox, para fritar sem sujar o fogão.","p":["Fritar alimentos com menos respingos","Proteger o fogão e a bancada","Evitar queimaduras com óleo"],"u":["Coloque o alimento para fritar","Cubra a frigideira com a tela","Levante pelo cabo para mexer"],"c":["Cuidado: a tela esquenta","Lave e seque após o uso"]},"Papel Forro Descartável Protetor Não Suja Air Fryer Kit 50":{"i":"Kit com 50 papéis forro descartáveis para air fryer, que evitam sujeira no cesto.","p":["Proteger o cesto da air fryer","Facilitar a limpeza","Preparar alimentos com menos sujeira"],"u":["Coloque o papel no cesto","Coloque o alimento por cima","Descarte o papel depois do uso"],"c":["Nunca ligue a air fryer só com o papel, sem alimento por cima","Confira se o tamanho cabe no seu modelo"]},"Kit 3 Canetas Marcadores Permanente Ponta Longa Carpinteiro":{"i":"Kit com 3 canetas marcadoras permanentes, de ponta longa, para carpinteiros.","p":["Marcar madeira, gesso e alvenaria","Marcar furos de difícil acesso","Obras e reformas"],"u":["Retire a tampa","Encoste a ponta longa no local","Marque e tampe a caneta"],"c":["Tampe sempre depois de usar","Tinta permanente: cuidado com roupas"]},"Chave De Grifo Inglesa Universal Hidraulica 8 em 1":{"i":"Chave de grifo inglesa universal hidráulica 8 em 1, para apertar e soltar canos e conexões.","p":["Instalações hidráulicas","Apertar e soltar conexões e porcas","Reparos em casa"],"u":["Ajuste a abertura da chave","Encaixe no cano ou porca","Gire com firmeza"],"c":["Não use como martelo","Mantenha seca para evitar ferrugem"]},"Fita Adesiva Ultra Resistente À Água Veda Cano Tubos Furos":{"i":"Fita adesiva ultra resistente à água, para vedar canos, tubos e furos.","p":["Vedar pequenos vazamentos","Reparos rápidos em canos e mangueiras","Emergências em casa"],"u":["Feche o registro e seque a área","Enrole a fita esticando bem","Sobreponha as voltas para vedar"],"c":["É uma solução de reparo: para vazamentos grandes, chame um encanador","Guarde em local seco"]},"Luva Gancho Strap Grip Musculação Hook Academia 140kg Par Preto":{"i":"Par de luvas gancho tipo strap grip para musculação, pretas, com capacidade de 140kg conforme o anúncio.","p":["Treinos de puxada e levantamento terra","Melhorar a pegada na barra","Aliviar o esforço das mãos"],"u":["Vista a luva no pulso e ajuste","Encaixe o gancho na barra","Faça o exercício segurando firme"],"c":["Respeite a carga indicada","Lave à mão e seque à sombra"]},"Kit Reparo Para Pneus Furado Carros":{"i":"Kit de reparo para pneus furados de carro.","p":["Emergências na estrada","Deixar no porta-malas","Consertar furos pequenos"],"u":["Localize o furo e retire o objeto","Siga o passo a passo da embalagem para fazer o reparo","Calibre o pneu"],"c":["Depois do reparo, procure um borracheiro","Guarde no carro em local seco"]},"Batedor De Claras Fuê Fouet Inox 22cm":{"i":"Batedor de claras tipo fuê (fouet) em inox, com 22cm.","p":["Bater claras e ovos","Misturar massas e cremes","Fazer molhos sem empelotar"],"u":["Coloque os ingredientes em uma tigela","Bata com movimentos rápidos","Lave logo após o uso"],"c":["Seque bem para manter o brilho","Evite esponja de aço"]},"Palmilha Elevada Anti Impacto Aumente 3cm De Altura":{"i":"Palmilha elevada antiimpacto, que aumenta 3cm de altura, conforme o anúncio.","p":["Ganhar altura de forma discreta","Eventos e ocasiões especiais","Uso dentro de tênis e sapatos fechados"],"u":["Coloque a palmilha dentro do calçado","Calce e ajuste","Comece usando por pouco tempo para se acostumar"],"c":["Confira se o calçado tem espaço suficiente","Lave com água e sabão neutro"]},"Meia De Silicone Para Pés Macios Livres De Rachaduras par":{"i":"Par de meias de silicone para os pés, com proposta de deixar a pele macia e evitar rachaduras.","p":["Cuidar de pés ressecados","Uso durante a noite com hidratante","Momentos de autocuidado"],"u":["Lave e seque os pés","Passe hidratante, se quiser","Calce a meia e deixe agir"],"c":["Lave as meias depois do uso","Não use em pés com feridas"]},"Exercitador Dedo Violão 3 Níveis Punho":{"i":"Exercitador de dedos com 3 níveis, para músicos de violão e para fortalecer o punho.","p":["Músicos de violão, guitarra e piano","Fortalecer dedos e mãos","Exercícios em casa ou no trabalho"],"u":["Escolha o nível","Pressione os botões com cada dedo","Faça repetições de forma controlada"],"c":["Pare se sentir dor","Em caso de lesão, siga orientação de um profissional"]},"Escova de limpeza Elétrica Bivolt Giratória Recarregável":{"i":"Escova de limpeza elétrica giratória, recarregável e bivolt.","p":["Limpar azulejos, rejuntes e box","Pias, fogões e cantos","Limpeza pesada com menos esforço"],"u":["Carregue completamente antes de usar","Escolha a escova e encaixe","Ligue e passe sobre a superfície com produto de limpeza"],"c":["Não mergulhe o corpo da escova na água","Lave as escovas depois de usar"]},"Aparador De Pelos Elétrico Portátil Nariz Orelha Depilador":{"i":"Aparador de pelos elétrico portátil para nariz e orelha.","p":["Aparar pelos do nariz e da orelha","Higiene pessoal","Levar em viagens"],"u":["Coloque pilha ou carregue, conforme o modelo","Ligue e introduza só a ponta, com cuidado","Limpe a ponteira depois de usar"],"c":["Não introduza fundo","Uso individual"]},"Kit Limpeza Dentária Removedor Tártaros Instrumento Dental":{"i":"Kit de limpeza dentária com instrumentos para remover tártaros.","p":["Higiene bucal complementar","Uso em casa","Conferir os dentes com espelho"],"u":["Lave bem os instrumentos","Use com cuidado na parte visível dos dentes","Lave e guarde no estojo"],"c":["Use com muito cuidado para não machucar a gengiva","Não substitui a limpeza feita pelo dentista"]},"Aparador De Unhas Cortador Elétrico Baby Recém Nascido Azul":{"i":"Aparador de unhas elétrico para bebê recém-nascido, azul.","p":["Cuidar das unhas do bebê com segurança","Pais de primeira viagem","Bebês que se mexem muito"],"u":["Coloque as pilhas ou carregue, conforme o modelo","Escolha a lixa adequada à idade","Ligue e lixe a unha com cuidado"],"c":["Use com o bebê calmo","Limpe as lixas após o uso"]},"Galheteiro Pulverizador Spray Borrifador Azeite Óleo Vinagre":{"i":"Galheteiro pulverizador spray para azeite, óleo e vinagre.","p":["Temperar saladas com spray","Usar menos óleo nas receitas","Untar formas e air fryer"],"u":["Encha com azeite, óleo ou vinagre","Feche bem","Aperte o gatilho para borrifar"],"c":["Lave o bico de vez em quando para não entupir","Use um galheteiro para cada líquido"]},"Alicate De Corte De Precisão Corte Rente Diagonal":{"i":"Alicate de corte de precisão para corte rente diagonal.","p":["Cortar fios e terminais","Eletrônica e artesanato","Cortar rebarbas de plástico"],"u":["Posicione o material entre as lâminas","Aperte com firmeza","Faça o corte rente"],"c":["Não use em arames muito grossos","Use óculos de proteção"]},"Touca Mascara Térmica Gel Alívio De Dor De Cabeça Enxaqueca":{"i":"Touca máscara térmica em gel, com proposta de alívio para dor de cabeça e enxaqueca.","p":["Momentos de descanso e relaxamento","Compressa fria ou quente na cabeça","Uso em casa"],"u":["Para frio, deixe na geladeira; para calor, siga a embalagem","Vista a touca cobrindo a cabeça e os olhos","Descanse por alguns minutos"],"c":["Não leve ao congelador se a embalagem não indicar","Em caso de dor frequente, procure um médico"]},"Kit De Conserto Celular Tablet 115 Peças Chaves Ferramentas":{"i":"Kit de conserto com 115 peças de chaves e ferramentas, para celular, tablet e eletrônicos.","p":["Trocar telas e baterias","Abrir e consertar eletrônicos","Técnicos e hobbistas"],"u":["Escolha a ponta certa","Encaixe no cabo","Trabalhe com calma, sem forçar"],"c":["Desligue o aparelho antes de abrir","Guarde as peças no estojo"]},"Capa De Banco Para Moto Termica Impermeavel Ventilada Preta":{"i":"Capa de banco para moto, térmica, impermeável e ventilada, preta.","p":["Proteger o banco da moto","Mais conforto em dias quentes","Pilotar no dia a dia"],"u":["Coloque a capa sobre o banco","Ajuste as bordas","Confira se ficou firme antes de pilotar"],"c":["Confira se o tamanho serve no seu banco","Lave conforme a embalagem"]},"Faixa Anti Ronco e Apneia do Sono":{"i":"Faixa anti ronco que segura o queixo durante o sono.","p":["Quem ronca com a boca aberta","Noites de sono mais tranquilas","Uso durante a noite"],"u":["Coloque a faixa apoiando o queixo","Ajuste no alto da cabeça","Confira se está confortável"],"c":["Não use se tiver dificuldade para respirar pelo nariz","Apneia precisa de avaliação médica: a faixa não substitui tratamento"]},"Escova Lavar Garrafa Mamadeira Taça Copos Jarras Em Silicone":{"i":"Escova de silicone para lavar garrafas, mamadeiras, taças, copos e jarras.","p":["Lavar garrafas e squeezes","Limpar mamadeiras","Taças, copos e jarras"],"u":["Coloque detergente na escova","Esfregue o interior do recipiente","Enxágue a escova e deixe secar"],"c":["Lave a escova depois de cada uso","Guarde seca"]},"Cafeteira Portátil Máquina De Café Expresso":{"i":"Cafeteira portátil para fazer café expresso, para levar aonde quiser.","p":["Tomar café expresso no trabalho","Viagens e acampamentos","Quem ama café"],"u":["Coloque água e o café no compartimento, conforme a embalagem","Feche e acione a cafeteira","Sirva o café"],"c":["Cuidado com água quente","Lave e seque após o uso"]},"Árvore De Natal Portobelo 90cm 85 Galhos Decoração Verde":{"i":"Árvore de Natal Portobelo de 90cm, com 85 galhos, verde.","p":["Decorar salas e apartamentos","Lojas e escritórios","Mesas e espaços menores"],"u":["Monte a base e encaixe a árvore","Abra os galhos um por um","Decore com enfeites e pisca-pisca"],"c":["Mantenha longe de velas e aquecedores","Guarde na caixa depois do Natal"]},"Fatiador Cortador de Queijo Frios Manual a Fio de Aço Inox":{"i":"Fatiador manual de queijos e frios, com fio de aço inox.","p":["Fatiar queijos","Cortar frios e manteiga","Montar tábuas de frios"],"u":["Apoie o queijo em uma superfície firme","Posicione o fio na espessura desejada","Pressione para cortar a fatia"],"c":["Cuidado com o fio ao lavar","Seque bem"]},"Gel X&d Unhas 18 Pink Alongamento Led Uv Acrigel Fibra 56g":{"i":"Gel X&D para alongamento de unhas, cor 18 Pink, com 56g, para cura em cabine LED/UV.","p":["Alongamento de unhas","Manicures e nail designers","Manutenção de unhas em gel"],"u":["Prepare a unha natural","Aplique o gel conforme a técnica","Leve à cabine LED/UV pelo tempo indicado na embalagem"],"c":["Evite contato com a pele","Mantenha a embalagem fechada e longe da luz"]},"Cadeado Para Freio Antifurto Moto Universal":{"i":"Cadeado para freio, antifurto, universal para moto.","p":["Proteger a moto estacionada","Uso em estacionamentos e na rua","Segurança extra no dia a dia"],"u":["Encaixe o cadeado no disco de freio","Trave com a chave","Retire o cadeado antes de sair com a moto"],"c":["Nunca saia com o cadeado preso","Guarde a chave reserva em local seguro"]},"Bomba Para Tirar Leite Eletrica Com Bateria Recarregavel":{"i":"Bomba elétrica para tirar leite materno, com bateria recarregável.","p":["Retirar e armazenar leite materno","Mães que voltam ao trabalho","Uso em casa ou fora"],"u":["Carregue completamente antes do primeiro uso","Higienize as peças que têm contato com o leite","Posicione o funil na mama, ligue e ajuste a intensidade"],"c":["Higienize as peças antes e depois de cada uso","Em caso de dor, pare e procure orientação de um profissional de saúde"]},"Panela Frigideira Indução E Gás Antiaderente 26m Premium Luxo Selecionada":{"i":"Panela frigideira antiaderente para fogão a gás e de indução.","p":["Fritar ovos, carnes e legumes","Preparar panquecas e omeletes","Cozinhas com fogão a gás ou de indução"],"u":["Lave antes do primeiro uso","Aqueça em fogo médio","Use utensílios de silicone ou madeira"],"c":["Evite utensílios de metal para não riscar","Espere esfriar antes de lavar"]},"Palmilha Ortopédica Anatômica Gel Alívio Fascite Plantar":{"i":"Palmilha ortopédica anatômica em gel, com proposta de alívio para quem sofre com fascite plantar.","p":["Mais conforto para quem fica muito tempo em pé","Uso em tênis e sapatos fechados","Caminhadas"],"u":["Coloque a palmilha dentro do calçado","Recorte, se precisar, seguindo as marcações","Calce e ajuste"],"c":["Lave com água e sabão neutro","Em caso de dor persistente, procure um médico"]},"Abridor De Latas e Garrafas Manivela Aço Inox Profissional":{"i":"Abridor de latas e garrafas com manivela, em aço inox, de uso profissional.","p":["Abrir latas de conserva","Abrir garrafas","Cozinhas de casa e restaurantes"],"u":["Encaixe o abridor na borda da lata","Gire a manivela até abrir","Use a outra ponta para abrir garrafas"],"c":["Cuidado com as bordas da lata","Lave e seque após o uso"]},"Bolsa Térmica para Compressa Quente e Fria 1L":{"i":"Bolsa térmica de 1L para compressas quentes e frias.","p":["Compressas quentes para relaxar","Compressas frias após pancadas leves","Uso em casa"],"u":["Para quente: coloque água morna, sem ferver","Para fria: coloque água gelada","Feche bem e apoie sobre a região, com um pano entre a bolsa e a pele"],"c":["Nunca use água fervente","Em caso de lesão, procure orientação médica"]},"Suporte Celular iPhone Motos Bicicleta Universal":{"i":"Suporte universal de celular para moto e bicicleta, compatível com iPhone e outros modelos.","p":["Usar GPS enquanto pilota ou pedala","Entregadores e motoboys","Passeios de bike"],"u":["Fixe o suporte no guidão","Encaixe o celular e trave","Confira se ficou firme antes de sair"],"c":["Confira se o seu celular cabe no suporte","Não mexa no celular em movimento"]},"Pipoqueira Elétrica Ar Quente Sem Oleo Vermelha 1200W 110V":{"i":"Pipoqueira elétrica de ar quente, sem óleo, vermelha, com 1200W e 110V.","p":["Fazer pipoca sem óleo","Sessões de filme em casa","Lanches mais leves"],"u":["Confira se a tomada é de 110V","Coloque o milho na medida indicada","Coloque uma tigela na saída, ligue e espere estourar"],"c":["Não coloque óleo nem manteiga dentro","Desligue e espere esfriar antes de limpar"]},"Munhequeira Tensor de Pulso Tendinite Anatômica Ajustável":{"i":"Munhequeira tensor de pulso anatômica e ajustável, para dar apoio ao punho.","p":["Apoio no pulso no trabalho e em treinos","Quem usa muito o computador","Atividades com esforço do punho"],"u":["Encaixe o polegar na abertura","Envolva o pulso","Ajuste com o fecho, sem apertar demais"],"c":["Retire se sentir formigamento","Tendinite precisa de avaliação médica: não substitui tratamento"]},"Bengala de Trekking Caminhada 110 cm Trilha Bastão Aluminio":{"i":"Bengala bastão de trekking em alumínio, com 110cm, para caminhadas e trilhas.","p":["Trilhas e caminhadas","Mais equilíbrio em subidas e descidas","Viagens de aventura"],"u":["Ajuste a altura do bastão","Segure com a mão na alça","Apoie o bastão à frente a cada passo"],"c":["Confira as travas antes de usar","Limpe e seque após trilhas com lama"]},"Carrinhos De Bombeiro Fricção Miniatura Brinquedo 6 Peças":{"i":"Kit com 6 carrinhos de bombeiro em miniatura, com fricção.","p":["Diversão para crianças","Brincar de resgate e bombeiro","Presente de aniversário"],"u":["Empurre o carrinho para trás","Solte e veja ele andar","Monte histórias com os 6 carrinhos"],"c":["Peças pequenas: não indicado para crianças pequenas","Brincar com supervisão de um adulto"]},"Tampa Da Garrafa De Vinho Tinto Rolha A Vácuo":{"i":"Tampa rolha a vácuo para garrafa de vinho tinto, para guardar o vinho depois de aberto.","p":["Guardar o vinho aberto","Jantares e encontros","Presentear quem gosta de vinho"],"u":["Encaixe a tampa no gargalo","Acione o sistema a vácuo, conforme a embalagem","Guarde a garrafa"],"c":["Lave e seque a tampa","Guarde a garrafa em pé"]},"Brinquedo Lança Bolha De Sabão Automática Arma Com Refil":{"i":"Brinquedo lança bolhas de sabão automático em formato de arminha, que vem com refil.","p":["Brincadeira ao ar livre","Festas infantis","Diversão em parques e quintais"],"u":["Coloque o líquido de bolhas no reservatório","Coloque as pilhas, se precisar","Aperte o gatilho e solte as bolhas"],"c":["Não deixe a criança beber o líquido","Brincar com supervisão de um adulto"]},"Órtese Noturna Fascite Plantar Tala Esporão Equino Pe Caído":{"i":"Órtese noturna tipo tala para fascite plantar, esporão e pé caído, usada durante o sono.","p":["Uso noturno indicado por profissionais de saúde","Manter o pé posicionado durante a noite","Apoio para quem tem fascite plantar"],"u":["Calce a órtese com o pé apoiado","Ajuste as tiras de forma firme e confortável","Use conforme a orientação do seu médico ou fisioterapeuta"],"c":["Use somente com orientação de um profissional de saúde","Retire se sentir dormência"]},"Garrafa Forma de Fazer Gelo Esfera Bolinha Congelador Wisky":{"i":"Garrafa forma para fazer gelo em esfera, que faz bolinhas de gelo no congelador.","p":["Gelo em esfera para whisky e drinks","Deixar as bebidas com visual especial","Festas e encontros"],"u":["Encha com água até a marcação","Feche e leve ao congelador","Desenforme as esferas quando estiverem firmes"],"c":["Não encha demais: a água aumenta ao congelar","Lave antes do primeiro uso"]},"Kit Jogo 13 Pçs Broca Metal 1.5mm a 6.5mm":{"i":"Kit com 13 brocas para metal, de 1.5mm a 6.5mm.","p":["Furar metal, chapas e perfis","Serralheria e reparos","Também pode ser usado em madeira e plástico"],"u":["Escolha a broca do tamanho do furo","Prenda bem na furadeira","Fure com pressão moderada"],"c":["Use óculos de proteção","Guarde as brocas no estojo"]},"Kit Lâmpada Luminária Adesivo Sem Fio Controle Remoto 3 Led":{"i":"Kit de lâmpadas luminárias adesivas sem fio, com 3 LEDs e controle remoto.","p":["Iluminar armários e closets","Iluminar corredores e escadas","Lugares sem tomada perto"],"u":["Coloque as pilhas, conforme a embalagem","Cole em superfície limpa e seca","Acenda e apague pelo controle remoto"],"c":["Troque as pilhas quando a luz enfraquecer","Use em superfícies lisas"]},"Kit de Viagem Dispense Portátil 4 Em 1 Banho Porta Shampoo":{"i":"Kit de viagem com dispensers portáteis 4 em 1, para levar shampoo e produtos de banho.","p":["Viagens e academia","Levar produtos na bagagem de mão","Ocupar menos espaço na mala"],"u":["Abra o dispenser","Encha cada parte com um produto","Feche bem antes de guardar na mala"],"c":["Confira as regras de líquidos da companhia aérea","Lave antes de trocar de produto"]},"Meia Futebol Antiderrapante Tipo Pro Soccer Trusox Esportiva":{"i":"Meia de futebol antiderrapante tipo Pro Soccer (estilo Trusox), esportiva.","p":["Jogos de futebol e futsal","Treinos esportivos","Mais firmeza do pé dentro da chuteira"],"u":["Calce a meia","Coloque a chuteira ou tênis","Ajuste a meia para ficar sem dobras"],"c":["Lave do avesso","Seque à sombra"]},"Boleador Cortador Decorador Alimentos Frutas E Legumes 4em1":{"i":"Boleador cortador decorador 4 em 1, para frutas e legumes.","p":["Fazer bolinhas de melão e frutas","Decorar pratos e saladas","Festas e buffets"],"u":["Escolha a ponta","Pressione e gire na fruta para formar a bolinha","Lave após o uso"],"c":["Cuidado com as pontas cortantes","Seque bem"]},"Chaveiro Stitch Rosa Muda Troca De Rosto Humor":{"i":"Chaveiro Stitch rosa, que troca de rosto e de humor.","p":["Enfeitar chaves e mochilas","Fãs do Stitch","Presente divertido"],"u":["Prenda nas chaves ou mochila","Troque o rosto conforme o humor","Use no dia a dia"],"c":["Não indicado para crianças pequenas","Limpe com pano úmido"]},"Espremedor Amassador Triturador De Alho Manual Cozinha Inox":{"i":"Espremedor, amassador e triturador de alho manual em inox.","p":["Amassar alho para temperos","Preparar molhos e refogados","Uso diário na cozinha"],"u":["Coloque o dente de alho no compartimento","Aperte as alças","Raspe o alho amassado"],"c":["Lave logo após o uso","Seque bem"]},"Bandana Lenço Bandeira Copa Do Mundo Brasil Seleção Torcida":{"i":"Bandana lenço com a bandeira do Brasil, para torcer pela Seleção na Copa do Mundo.","p":["Jogos da Seleção","Festas e eventos esportivos","Torcer com estilo"],"u":["Dobre como preferir","Use na cabeça, no pescoço ou no pulso","Amarre bem"],"c":["Lave à mão","Seque à sombra"]},"Par Cotoveleira Elástica De Compressão Ortopédica Fit Alívio":{"i":"Par de cotoveleiras elásticas de compressão, no estilo ortopédico, para apoio do cotovelo.","p":["Apoio no cotovelo em treinos","Esportes como tênis e musculação","Mais firmeza no dia a dia"],"u":["Vista a cotoveleira pela mão","Posicione centralizada no cotovelo","Ajuste para ficar firme, sem apertar"],"c":["Retire se sentir dormência","Não substitui orientação médica"]},"Kit Facas Cozinha Jogo 6 Peças Tesoura Descascador Conjunto":{"i":"Kit de facas para cozinha com 6 peças, incluindo tesoura e descascador.","p":["Cortar carnes, legumes e frutas","Montar a cozinha","Presentear"],"u":["Lave antes do primeiro uso","Use a faca certa para cada alimento","Lave e seque após o uso"],"c":["Guarde longe do alcance de crianças","Use tábua para preservar o fio"]},"Bico De Mangueira Alta Pressão Esguicho Regulavel Lavo Jato":{"i":"Bico de mangueira de alta pressão, com esguicho regulável, tipo lava jato.","p":["Lavar carro, calçada e quintal","Regar plantas","Escolher o tipo de jato"],"u":["Encaixe o bico na mangueira","Abra a torneira","Gire o bico para escolher o jato"],"c":["Não aponte para pessoas ou animais","Guarde longe do sol"]},"Cesta Organizadora Frutas Legumes Escorredor Aço Inox 28cm":{"i":"Cesta organizadora em aço inox, de 28cm, para frutas e legumes, que também funciona como escorredor.","p":["Organizar frutas e legumes","Lavar e escorrer alimentos","Servir como fruteira"],"u":["Lave antes do primeiro uso","Coloque as frutas ou legumes","Use na pia para lavar e escorrer"],"c":["Seque bem para manter o brilho","Evite esponja de aço"]},"Luva Lança Disco Homem Aranha Infantil Criança":{"i":"Luva lança disco do Homem-Aranha, para crianças.","p":["Brincadeiras de super-herói","Presente para fãs do Homem-Aranha","Diversão em casa"],"u":["Vista a luva","Coloque os discos no lançador","Acione para lançar os discos"],"c":["Nunca mire no rosto de pessoas ou animais","Brincar com supervisão de um adulto"]},"Suporte Ajustável Para Carro de Copo Garrafa 2 em 1":{"i":"Suporte ajustável 2 em 1 para carro, que segura copo e garrafa.","p":["Levar bebidas no carro","Viagens longas","Carros com poucos porta-copos"],"u":["Encaixe o suporte no porta-copos do carro","Ajuste ao tamanho do copo ou garrafa","Coloque a bebida"],"c":["Confira se encaixa no seu carro","Limpe com pano úmido"]},"Chaveiro Stitch Azul Muda Troca De Rosto Humor":{"i":"Chaveiro Stitch azul, que troca de rosto e de humor.","p":["Enfeitar chaves e mochilas","Fãs do Stitch","Presente divertido"],"u":["Prenda nas chaves ou mochila","Troque o rosto conforme o humor","Use no dia a dia"],"c":["Não indicado para crianças pequenas","Limpe com pano úmido"]},"Kit 3 Cesto Escorredor 22/25/28cm Inox Massas Arroz Legumes Prateado":{"i":"Kit com 3 cestos escorredores de inox, nos tamanhos 22, 25 e 28cm, para massas, arroz e legumes.","p":["Escorrer massas e arroz","Lavar legumes e verduras","Ter o tamanho certo para cada preparo"],"u":["Escolha o cesto pelo tamanho","Despeje os alimentos com cuidado","Balance para tirar o excesso de água"],"c":["Cuidado com o vapor","Seque bem depois de lavar"]},"Caneta 3d Impressora Profissional Com Refil Filamento E Usb":{"i":"Caneta 3D com refil de filamento e alimentação USB, para desenhar e criar objetos em 3D.","p":["Desenhar em 3D","Artesanato e projetos criativos","Atividades com crianças, com supervisão"],"u":["Conecte no USB e espere aquecer","Coloque o filamento","Desenhe com calma, deixando cada camada firmar"],"c":["A ponta esquenta: não toque nela","Crianças só com supervisão de um adulto"]},"Luminária Abajur Mesa Led Dimerizável Sem Fio Recarregável":{"i":"Luminária abajur de mesa LED, dimerizável (regula a intensidade da luz), sem fio e recarregável.","p":["Leitura e estudos","Mesa de cabeceira","Lugares sem tomada por perto"],"u":["Carregue completamente antes do uso","Ligue no botão","Ajuste a intensidade da luz"],"c":["Mantenha longe de água","Recarregue quando a luz enfraquecer"]},"Bocal Com Sensor De Presença Lâmpada E27":{"i":"Bocal com sensor de presença para lâmpada E27, que acende a luz sozinho quando alguém passa.","p":["Corredores, garagens e escadas","Economizar energia","Não precisar procurar o interruptor"],"u":["Desligue a energia","Rosqueie o bocal no soquete E27 e a lâmpada no bocal","Ligue a energia e teste o sensor"],"c":["Instale sempre com a energia desligada","Não use em locais molhados"]},"Moedor Pimenta Sal Triturador Manual Gourmet Aço Inox":{"i":"Moedor de pimenta e sal manual, gourmet, em aço inox.","p":["Moer pimenta e sal na hora","Finalizar pratos","Deixar a mesa mais bonita"],"u":["Abra e coloque os grãos","Feche bem","Gire para moer sobre o prato"],"c":["Não lave a parte do moedor com água","Use um moedor para cada tempero"]},"Mini Batedeira Processador De Alimentos Sem Fio Portátil":{"i":"Mini batedeira processador de alimentos sem fio e portátil.","p":["Bater ovos e massas leves","Picar alimentos pequenos","Levar para viagens"],"u":["Carregue antes do primeiro uso","Monte o acessório","Ligue e use por alguns segundos"],"c":["Cuidado com as lâminas","Não mergulhe a parte do motor"]},"Luva Pro Biker Antiderrapante Para Moto Bike Trilha":{"i":"Luva Pro Biker antiderrapante para moto, bike e trilha.","p":["Pilotar moto","Pedalar e fazer trilhas","Mais firmeza no guidão"],"u":["Calce a luva","Ajuste no pulso","Segure o guidão normalmente"],"c":["Lave à mão","Não substitui equipamentos de segurança completos"]},"Kit 2 Urinol Feminino Portátil Silicone Reutilizável Xixi Em Pe":{"i":"Kit com 2 urinóis femininos portáteis de silicone, reutilizáveis, para fazer xixi em pé.","p":["Banheiros públicos e de estrada","Viagens, trilhas e festivais","Levar na bolsa"],"u":["Posicione bem encostado ao corpo","Direcione a ponta para baixo","Lave após o uso"],"c":["Higienize depois de cada uso","Guarde em saquinho limpo"]},"Controle Remoto Tv Led Smart Com 2 Pilhas":{"i":"Controle remoto para TV LED smart, que acompanha 2 pilhas.","p":["Substituir controle perdido ou quebrado","Ter um controle reserva","TVs smart compatíveis"],"u":["Coloque as 2 pilhas","Aponte para a TV e teste os botões","Siga a embalagem caso precise configurar"],"c":["Confira a compatibilidade com a sua TV","Retire as pilhas se for ficar muito tempo sem usar"]},"Trena Nivel Laser Profissional Pro4":{"i":"Trena e nível a laser Pro4, para medir e nivelar com mais precisão.","p":["Instalar quadros, prateleiras e móveis","Reformas e obras","Medir ambientes"],"u":["Ligue o aparelho","Posicione e projete a linha de laser","Use como guia para marcar ou medir"],"c":["Nunca aponte o laser para os olhos","Guarde no estojo"]},"Caneta Com 2 Bicos Para Confeitar Decorar Bolos":{"i":"Caneta com 2 bicos para confeitar e decorar bolos.","p":["Decorar bolos e doces","Escrever em bolos","Confeitaria caseira"],"u":["Encha com o creme ou glacê","Escolha o bico","Aperte de leve para decorar"],"c":["Lave bem os bicos depois de usar","Seque antes de guardar"]},"Máscara De Mergulho Snorkel Full Face Câmera Profissional":{"i":"Máscara de mergulho full face com snorkel e suporte para câmera.","p":["Snorkel na praia e em piscinas naturais","Ver peixes e o fundo do mar","Gravar vídeos com câmera de ação"],"u":["Ajuste as tiras","Coloque cobrindo todo o rosto","Respire normalmente pelo tubo, sem afundar a ponta"],"c":["Não use para mergulhos profundos","Crianças sempre com supervisão"]},"Abridor de Vinho Elétrico a Pilha":{"i":"Abridor de vinho elétrico a pilha, que tira a rolha apertando um botão.","p":["Abrir vinhos sem esforço","Jantares e festas","Presentear"],"u":["Coloque as pilhas","Encaixe o abridor sobre a garrafa","Aperte o botão para tirar a rolha"],"c":["Troque as pilhas quando enfraquecer","Use com a garrafa apoiada"]},"Jato De Agua Limpeza Oral Dental Bucal Power Floss Manual":{"i":"Jato de água manual para limpeza oral e dental, tipo Power Floss.","p":["Limpar entre os dentes","Higiene de aparelhos ortodônticos","Complemento da escovação"],"u":["Encha com água","Bombeie conforme a embalagem","Direcione o jato entre os dentes, inclinado sobre a pia"],"c":["Lave e seque após o uso","Não substitui a escovação nem o fio dental"]},"Pulseira Relógio Repelente Com Proteção Citronela Anti Mosquito":{"i":"Pulseira com citronela, com proposta de ajudar a afastar mosquitos.","p":["Passeios ao ar livre","Acampamentos e pescarias","Uso por crianças e adultos"],"u":["Abra a embalagem","Coloque a pulseira no pulso ou tornozelo","Guarde fechada quando não estiver em uso"],"c":["Não substitui repelente em áreas de risco de doenças","Retire em caso de irritação"]},"Abacate De Brinquedo Para Gatos Com Catnip Erva Gato":{"i":"Abacate de brinquedo para gatos, com catnip (erva do gato).","p":["Diversão para gatos","Estimular a brincadeira","Gatos que ficam muito tempo sozinhos"],"u":["Entregue o brinquedo ao gato","Deixe que ele morda e abrace","Guarde quando não estiver em uso para manter o interesse"],"c":["Confira se o brinquedo está inteiro","Retire peças soltas"]},"Óculos Vr Box Realidade Virtual 3d + Controle Bluetooth":{"i":"Óculos de realidade virtual VR Box 3D, que acompanham controle Bluetooth.","p":["Ver vídeos 360 e 3D","Jogos de realidade virtual","Diversão em casa"],"u":["Abra um app ou vídeo compatível com VR","Encaixe o celular nos óculos","Ajuste as lentes e use o controle"],"c":["Faça pausas para não cansar a vista","Use sentado e em local seguro"]},"Brinquedo Capivara Lançador De Bolhas De Sabão":{"i":"Brinquedo capivara lançador de bolhas de sabão.","p":["Diversão ao ar livre","Festas infantis","Presente divertido"],"u":["Coloque o líquido de bolhas","Coloque as pilhas, se precisar","Ligue e veja as bolhas saírem"],"c":["Não deixe a criança beber o líquido","Brincar com supervisão de um adulto"]},"Corda De Pular Com Rolamento Treinos Funcional":{"i":"Corda de pular com rolamento, para treinos funcionais.","p":["Treinos funcionais e cardio","Aquecimento","Exercícios em casa"],"u":["Ajuste o tamanho da corda à sua altura","Segure os cabos","Pule em ritmo controlado"],"c":["Use tênis","Pule em local com espaço livre"]},"Suporte Para Xícaras Canecas Organizador Em Bambu Natural":{"i":"Suporte organizador de xícaras e canecas em bambu natural.","p":["Organizar xícaras e canecas","Cantinho do café","Decorar a cozinha"],"u":["Monte o suporte","Pendure as xícaras e canecas","Deixe na bancada"],"c":["Não deixe molhado","Limpe com pano levemente úmido"]},"Aparelho Medidor De Pressão Arterial Digital":{"i":"Aparelho medidor de pressão arterial digital, para acompanhar a pressão em casa.","p":["Acompanhar a pressão em casa","Pessoas que precisam medir com frequência","Levar os resultados para o médico"],"u":["Sente-se e descanse alguns minutos","Coloque a braçadeira conforme a embalagem","Ligue e espere o resultado no display"],"c":["Não altere remédios sem falar com o médico","O aparelho não substitui a avaliação médica"]},"Cafeteira Prensa Francesa 600ml Em Vidro e Inox":{"i":"Cafeteira prensa francesa de 600ml, em vidro e inox.","p":["Preparar café encorpado","Fazer chás","Tomar café em casa ou no escritório"],"u":["Coloque o café moído grosso","Adicione água quente e mexa","Espere alguns minutos e abaixe o êmbolo devagar"],"c":["Cuidado com a água quente","Manuseie o vidro com cuidado"]},"Buzina De Moto Universal Paquerinha 12v Honda Yamaha":{"i":"Buzina paquerinha 12V, universal para motos Honda e Yamaha.","p":["Trocar a buzina da moto","Deixar a moto com um som diferente","Substituir buzina com defeito"],"u":["Desligue a moto","Conecte nos fios da buzina original","Fixe e teste o som"],"c":["Se não tiver experiência, procure um mecânico","Confira as regras de trânsito sobre buzinas"]},"Esponja Prática Silicone 3em1 Raspador Rodo Porta Detergente":{"i":"Esponja prática de silicone 3 em 1: raspador, rodo e porta detergente.","p":["Lavar louça","Raspar restos de comida","Puxar a água da pia"],"u":["Coloque detergente no compartimento","Lave a louça normalmente","Use o rodo para puxar a água da pia"],"c":["Enxágue depois de usar","Deixe secar"]},"Coqueteleira Academia Shake Dragon Suplementos 600ml Preta":{"i":"Coqueteleira Dragon de 600ml, preta, para preparar shakes e suplementos.","p":["Preparar whey e suplementos","Shakes e vitaminas","Levar para a academia"],"u":["Coloque o líquido e depois o pó","Feche bem a tampa","Agite até misturar"],"c":["Lave logo após o uso para não ficar com cheiro","Confira se a tampa está fechada antes de agitar"]},"Máquina De Donuts Mini Faz 3 Rosquinhas Confeitaria Waffle":{"i":"Máquina de donuts mini, que faz 3 rosquinhas por vez.","p":["Fazer donuts em casa","Lanches e festas","Diversão na cozinha com a família"],"u":["Ligue e espere aquecer","Coloque a massa nas cavidades","Feche, espere assar e retire com utensílio de silicone ou madeira"],"c":["Cuidado: a máquina esquenta","Desligue e espere esfriar antes de limpar"]},"Ombreira Ortopédica Suporte Ombro Neoprene Ajustável Tenso":{"i":"Ombreira de neoprene em estilo ortopédico, ajustável, para dar suporte ao ombro.","p":["Apoio no ombro no dia a dia","Atividades físicas","Mais firmeza na região"],"u":["Vista a ombreira","Ajuste a faixa ao redor do tórax","Confira se está firme e confortável"],"c":["Retire se sentir desconforto","Não substitui orientação médica"]},"Espelho Portátil Dobrável Para Maquiagem":{"i":"Espelho portátil e dobrável para maquiagem.","p":["Maquiagem em casa ou fora","Levar na bolsa","Viagens"],"u":["Abra o espelho","Apoie em uma superfície plana","Dobre para guardar"],"c":["Limpe com pano macio","Evite quedas"]},"Meias Silicone Anti Rachadura Hidratacao Sapatilha Pes Par":{"i":"Par de meias tipo sapatilha de silicone, com proposta de hidratar e evitar rachaduras nos pés.","p":["Cuidar de calcanhares ressecados","Uso com hidratante durante a noite","Momentos de autocuidado"],"u":["Lave e seque os pés","Passe hidratante, se quiser","Calce a meia e deixe agir"],"c":["Lave as meias após o uso","Não use em pés com feridas"]},"Kit Porta Talheres Para Gaveta Compacto C Divisórias E Facas":{"i":"Kit porta talheres compacto para gaveta, com divisórias e espaço para facas.","p":["Organizar talheres na gaveta","Separar facas dos outros talheres","Aproveitar melhor o espaço"],"u":["Coloque o organizador na gaveta","Separe os talheres por tipo","Guarde as facas no espaço próprio"],"c":["Confira as medidas da sua gaveta","Lave e seque bem"]},"Organizador Maquiagem Acrílico Giratório Suporte Cosmético":{"i":"Organizador de maquiagem giratório em acrílico, suporte para cosméticos.","p":["Organizar maquiagens e pincéis","Penteadeiras e banheiros","Achar tudo com facilidade"],"u":["Monte o organizador","Distribua os produtos nos compartimentos","Gire para pegar o que precisa"],"c":["Limpe com pano macio","Evite produtos abrasivos"]},"Removedor De Calos Elétrico Lixador Para Pés Limpa Resíduos":{"i":"Removedor de calos elétrico, lixador para os pés, que recolhe os resíduos.","p":["Remover calos e pele grossa dos pés","Cuidados com os pés em casa","Complemento da pedicure"],"u":["Use com os pés limpos e secos","Ligue e passe sobre a área com leveza","Esvazie o compartimento de resíduos"],"c":["Não use sobre feridas","Não pressione demais"]},"Lâmpada Camping Led Pesca Barraca Lanterna Emergência":{"i":"Lâmpada de camping LED, que também serve como lanterna de emergência, para pesca e barraca.","p":["Iluminar barracas e acampamentos","Pescarias noturnas","Quedas de energia"],"u":["Carregue ou coloque pilhas, conforme o modelo","Ligue no botão","Pendure pelo gancho ou apoie"],"c":["Mantenha longe de água, se não for indicado na embalagem","Guarde em local seco"]},"Mini Fondue Cascata de Chocolate Fonte Panela 3 Andares 110v":{"i":"Mini fondue cascata de chocolate, fonte de 3 andares, 110V.","p":["Festas e aniversários","Sobremesas com frutas e doces","Encontros em família"],"u":["Confira se a tomada é de 110V","Derreta o chocolate conforme a embalagem e coloque na base","Ligue e mergulhe frutas e doces na cascata"],"c":["Cuidado com o chocolate quente","Desligue e espere esfriar para limpar"]},"Elástico Para Fazer Exercícios Alongamentos E Fisioterapia":{"i":"Elástico para exercícios, alongamentos e fisioterapia.","p":["Alongamentos","Exercícios em casa","Fisioterapia com orientação profissional"],"u":["Escolha o exercício","Segure as pontas do elástico","Faça o movimento devagar"],"c":["Confira se não há rasgos antes de usar","Guarde longe do sol"]},"Mini Processador Manual de Alimentos Triturador Alho 170ml":{"i":"Mini processador manual de alimentos de 170ml, triturador de alho.","p":["Picar alho, cebola e temperos","Preparar molhos","Uso rápido no dia a dia"],"u":["Coloque os alimentos","Feche bem","Puxe a cordinha até picar"],"c":["Cuidado com as lâminas","Lave após o uso"]},"Carrinhos Obras de Fricção Miniatura Brinquedo 6 Peças":{"i":"Kit com 6 carrinhos de obras em miniatura, com fricção.","p":["Diversão para crianças","Brincar de construção","Presente de aniversário"],"u":["Empurre o carrinho para trás","Solte e veja andar","Monte uma obra de brincadeira"],"c":["Peças pequenas: não indicado para crianças pequenas","Brincar com supervisão de um adulto"]},"Escova Elétrica Limpeza Multiuso Canto Friso Banheiro Piso":{"i":"Escova elétrica de limpeza multiuso, para cantos, frisos, banheiro e piso.","p":["Limpar rejuntes e frisos","Banheiros e cozinhas","Cantos difíceis"],"u":["Carregue ou ligue conforme o modelo","Encaixe a escova","Passe sobre a superfície com produto de limpeza"],"c":["Não mergulhe o corpo da escova","Lave as escovas depois de usar"]},"Cubo Mágico 3x3x3 Profissional":{"i":"Cubo mágico 3x3x3 profissional.","p":["Desafios de raciocínio","Passatempo para todas as idades","Treinar velocidade de montagem"],"u":["Embaralhe o cubo","Gire as faces para montar as cores","Tente melhorar seu tempo"],"c":["Não force os giros","Guarde longe do calor"]},"Lanterna De Cabeça Recarregável Led Potente Ajustável Usb":{"i":"Lanterna de cabeça LED recarregável por USB, ajustável.","p":["Trilhas e acampamentos","Pescarias e corridas noturnas","Trabalhos com as mãos livres"],"u":["Carregue pelo USB antes do uso","Ajuste a faixa na cabeça","Ligue e direcione a luz"],"c":["Não aponte para os olhos das pessoas","Recarregue quando a luz enfraquecer"]},"Kit de 20 Lixas Unha Gel Profissional 100/180 Fibra Lavável":{"i":"Kit com 20 lixas de unha para gel, de uso profissional, com grão 100/180, em fibra lavável.","p":["Lixar unhas de gel e naturais","Manicures e nail designers","Manutenção das unhas"],"u":["Escolha o lado da lixa","Lixe em um único sentido","Lave e deixe secar"],"c":["Use uma lixa por cliente quando possível","Guarde secas"]},"Mini Ventilador Portátil de Mão Mesa Recarregável USB":{"i":"Mini ventilador portátil de mão ou de mesa, recarregável por USB.","p":["Dias quentes na rua","Mesa de trabalho e de estudos","Levar na bolsa"],"u":["Carregue pelo USB","Ligue no botão","Segure na mão ou apoie na mesa"],"c":["Não coloque os dedos nas hélices","Recarregue quando enfraquecer"]},"Porta Jóias Bolsa Viagem Maquiagem Colar Brinco Anel Estojo":{"i":"Porta joias em formato de bolsa para viagem, para guardar maquiagem, colares, brincos e anéis.","p":["Levar joias e maquiagem em viagens","Organizar acessórios","Presentear"],"u":["Abra a bolsa","Guarde cada item no seu espaço","Feche bem antes de colocar na mala"],"c":["Guarde longe de umidade","Limpe com pano seco"]},"Cinta Suporte Lombar Ajustável Protetora Fibra De Cobre Gym":{"i":"Cinta de suporte lombar ajustável, com fibra de cobre, para usar na academia.","p":["Apoio na região lombar nos treinos","Mais firmeza no dia a dia","Atividades com esforço físico"],"u":["Posicione a cinta na lombar","Ajuste com o fecho","Confira se está firme e confortável"],"c":["Não aperte demais","Em caso de dor, procure um médico"]},"Kit com 3 Molas Malucas para crianças":{"i":"Kit com 3 molas malucas para crianças.","p":["Diversão em escadas e mesas","Brincadeiras em família","Lembrancinhas de festa"],"u":["Segure a mola","Brinque passando de uma mão para a outra","Faça a mola descer degraus"],"c":["Evite esticar demais para não deformar","Brincar com supervisão de um adulto"]},"Rede Elástica Aranha Para Capacete 40x40cm Bagageiro de Moto":{"i":"Rede elástica tipo aranha de 40x40cm, para prender capacete e objetos no bagageiro da moto.","p":["Prender capacete na moto","Levar mochilas e sacolas no bagageiro","Entregadores"],"u":["Coloque o objeto no bagageiro","Estique a rede por cima","Prenda os ganchos nas laterais"],"c":["Confira se está bem presa antes de sair","Não estique além do limite"]},"Cabide Retrátil De Parede Autoadesivo Organizador De Roupas":{"i":"Cabide retrátil de parede, autoadesivo, para organizar roupas.","p":["Pendurar roupas na lavanderia","Organizar quartos e banheiros","Aproveitar espaços pequenos"],"u":["Limpe e seque a parede","Cole e pressione bem","Espere a cola firmar e abra o cabide para usar"],"c":["Respeite o peso indicado na embalagem","Use em superfície lisa"]},"Porta Talheres Organizador de Gavetas Compacto 5 Divisórias":{"i":"Porta talheres compacto para gaveta, com 5 divisórias.","p":["Organizar talheres","Gavetas de cozinha","Achar tudo com facilidade"],"u":["Coloque na gaveta","Separe os talheres por tipo","Mantenha organizado"],"c":["Confira as medidas da gaveta","Lave e seque bem"]},"Jogo de Baralho com 54 Cartas Dourada 2 Coringa":{"i":"Jogo de baralho dourado com 54 cartas, incluindo 2 coringas.","p":["Jogos com amigos e família","Truques de mágica","Presentear"],"u":["Embaralhe as cartas","Distribua conforme o jogo","Guarde na caixa depois de jogar"],"c":["Mantenha longe de umidade","Guarde na caixa para não perder cartas"]},"Kit Chave De Fenda De Precisão Magnética 32 Em 1":{"i":"Kit chave de fenda de precisão magnética 32 em 1.","p":["Consertar eletrônicos e celulares","Abrir óculos, relógios e brinquedos","Pequenos reparos"],"u":["Escolha a ponta","Encaixe no cabo","Gire com cuidado"],"c":["Guarde no estojo","Mantenha longe de cartões e aparelhos sensíveis a ímã"]},"Luva De Microfibra Para Lavagem Automotiva":{"i":"Luva de microfibra para lavagem automotiva.","p":["Lavar o carro com mais cuidado","Lavar motos","Limpeza de superfícies delicadas"],"u":["Molhe a luva com água e shampoo automotivo","Passe na lataria com movimentos suaves","Enxágue a luva com frequência"],"c":["Lave a luva depois do uso","Não use amaciante"]},"Base Suporte Ergonômico Notebook Netbook Tablet Dobrável":{"i":"Base suporte ergonômico dobrável para notebook, netbook e tablet.","p":["Home office e estudos","Deixar a tela mais alta","Levar na mochila"],"u":["Abra o suporte","Ajuste a altura e o ângulo","Apoie o notebook ou tablet"],"c":["Respeite o peso indicado","Confira se travou antes de usar"]},"Kit De Chaves Precisão 25 Em 1 Profissional Estojo Multiuso Preto":{"i":"Kit de chaves de precisão 25 em 1, profissional, com estojo multiuso preto.","p":["Consertar eletrônicos","Óculos, relógios e controles","Pequenos reparos"],"u":["Escolha a ponta","Encaixe no cabo","Gire com cuidado"],"c":["Guarde as pontas no estojo","Mantenha fora do alcance de crianças"]},"Cabide Mágico Organizador 9 Furos Multi-dobrável":{"i":"Cabide mágico organizador com 9 furos, multidobrável.","p":["Organizar roupas no guarda-roupa","Economizar espaço","Separar looks"],"u":["Pendure o cabide mágico no cabide do armário","Coloque um cabide em cada furo","Dobre na vertical para economizar espaço"],"c":["Não sobrecarregue","Distribua bem o peso"]},"Antena Corta Linha Pipa Moto Retrátil Anti Cerol Inox Guidão":{"i":"Antena corta linha para moto, retrátil, em inox, fixada no guidão, para proteger contra linhas de pipa com cerol.","p":["Motociclistas que passam por áreas com pipa","Entregadores e motoboys","Mais segurança no trânsito"],"u":["Fixe a antena no guidão, conforme a embalagem","Abra a antena até a altura indicada","Confira se está firme antes de sair"],"c":["Instale corretamente para funcionar bem","Se não tiver experiência, procure um mecânico"]},"Pulseira Guia Infantil":{"i":"Pulseira guia infantil, para segurar a criança perto do adulto em lugares cheios.","p":["Shoppings, parques e eventos","Viagens e aeroportos","Crianças que gostam de correr"],"u":["Prenda uma ponta no pulso da criança","Prenda a outra no pulso do adulto","Confira se está confortável para os dois"],"c":["Nunca prenda no pescoço","Sempre com o adulto atento"]},"Travesseiro Apoio Lombar Curva Almofada Ortopédica Para Costas":{"i":"Travesseiro de apoio lombar em formato de curva, almofada no estilo ortopédico para as costas.","p":["Apoio para as costas na cadeira ou no sofá","Home office","Viagens de carro"],"u":["Posicione na parte de baixo das costas","Ajuste a altura","Sente encostando bem"],"c":["Em caso de dor, procure um médico","Limpe conforme a embalagem"]},"Conjunto De Cortadores Forma de Biscoito Molde Inox 12 Peças":{"i":"Conjunto com 12 cortadores de biscoito em inox, com vários formatos.","p":["Fazer biscoitos e bolachas","Cortar massas de pizza e sanduíches","Confeitaria com crianças"],"u":["Abra a massa","Pressione o cortador","Retire o biscoito e asse"],"c":["Cuidado com as bordas","Lave e seque bem"]},"Kit Elastico Extensor Treino Academia Exercícios Em Casa":{"i":"Kit de elásticos extensores para treinos e exercícios em casa.","p":["Treinar em casa","Exercícios de força","Complementar a academia"],"u":["Escolha o elástico","Prenda nas alças","Faça os movimentos controlados"],"c":["Confira se não há rasgos","Guarde longe do sol"]},"Luminária tri-asas 3 Paletas 45w Dobrável Articulado Bivolt":{"i":"Luminária tri-asas com 3 paletas articuladas, dobrável, 45W e bivolt.","p":["Iluminar estúdios e salões","Gravar vídeos e tirar fotos","Ambientes que precisam de muita luz"],"u":["Rosqueie no bocal","Abra e posicione as paletas","Ligue o interruptor"],"c":["Instale com a energia desligada","Mantenha longe de água"]},"Copo Termico 1200ml Caneca Com Tampa Canudo Grande Gigante":{"i":"Copo térmico de 1200ml, caneca com tampa e canudo, em tamanho grande.","p":["Levar água ou bebidas geladas","Academia e trabalho","Viagens e passeios"],"u":["Lave antes do primeiro uso","Coloque a bebida","Feche com a tampa e use o canudo"],"c":["Lave o canudo com escova","Confira se a tampa está fechada"]},"Mouse Pad Gamer Profissional Alta Qualidade Para notebook e PC":{"i":"Mouse pad gamer profissional, para notebook e PC.","p":["Jogos no computador","Trabalho e estudos","Mais precisão no mouse"],"u":["Coloque sobre a mesa limpa","Ajuste a posição","Use o mouse normalmente"],"c":["Limpe com pano úmido","Deixe secar bem"]},"Bola Gato Brinquedo Elétrico Automático Rotação USB Recarga":{"i":"Bola elétrica para gatos com rotação automática e recarga USB.","p":["Diversão para gatos","Gatos que ficam sozinhos","Estimular o gato a se mexer"],"u":["Carregue pelo USB","Ligue e coloque no chão","Deixe o gato brincar"],"c":["Supervisione nas primeiras vezes","Desligue quando não estiver em uso"]},"Ralo Click 10x10 Inteligente Oculto Inox Quadrado Aço Grelha":{"i":"Ralo click inteligente oculto de 10x10, quadrado, em inox com grelha.","p":["Banheiros e áreas de serviço","Acabamento moderno no piso","Abrir e fechar o ralo com um toque"],"u":["Confira se a medida 10x10 serve no seu ralo","Instale conforme a embalagem","Teste o escoamento"],"c":["Limpe a grelha com frequência","Se não tiver experiência, chame um profissional"]},"Cinta Modeladora redutor de medidas Pos parto":{"i":"Cinta modeladora redutora de medidas para pós-parto.","p":["Período pós-parto, com liberação médica","Modelar a silhueta por baixo da roupa","Mais firmeza na região abdominal"],"u":["Vista a cinta","Feche e ajuste de forma confortável","Use pelo tempo indicado pelo médico"],"c":["Use somente com liberação do médico","Não aperte demais"]},"Conjunto Facas Coloridas Tesoura Descascador Cozinha 5 Pç":{"i":"Conjunto de facas coloridas com tesoura e descascador, 5 peças.","p":["Cozinha do dia a dia","Separar facas por tipo de alimento","Presentear"],"u":["Lave antes do uso","Use a faca adequada para cada alimento","Lave e seque após o uso"],"c":["Guarde fora do alcance de crianças","Use tábua para preservar o fio"]},"Mini Chapinha Prancha Portátil 18 Cm Bivolt":{"i":"Mini chapinha prancha portátil de 18cm, bivolt.","p":["Retoques rápidos no cabelo","Levar na bolsa e em viagens","Franjas e mechas curtas"],"u":["Penteie o cabelo seco","Ligue e espere aquecer","Passe a prancha em mechas pequenas"],"c":["Use protetor térmico","Desligue e espere esfriar antes de guardar"]},"Ventilador Automotivo Duplo Com Ajuste Para Carro Van 12v":{"i":"Ventilador automotivo duplo, com ajuste, 12V, para carro e van.","p":["Refrescar o carro em dias quentes","Viagens longas","Carros sem ar condicionado"],"u":["Fixe no painel","Conecte no acendedor 12V","Ligue e ajuste a direção"],"c":["Não deixe atrapalhar a visão do motorista","Desligue ao sair do carro"]},"Prancha Para Flexão Braço Bíceps Tríceps Lombar":{"i":"Prancha para flexão de braço, para trabalhar bíceps, tríceps e lombar.","p":["Treinos em casa","Variar os tipos de flexão","Fortalecer braços e peito"],"u":["Monte a prancha","Encaixe as alças na posição desejada","Faça as flexões com o corpo alinhado"],"c":["Use em piso firme","Respeite seus limites"]},"Video Balun Camera Ahd Até 600mts Conversor Analogico 1 Par":{"i":"Par de vídeo balun para câmera AHD, conversor analógico com alcance de até 600m, conforme o anúncio.","p":["Instalação de câmeras de segurança","Transmitir vídeo por cabo de rede","Técnicos de CFTV"],"u":["Conecte um balun na câmera e outro no DVR","Ligue os dois com o cabo de rede","Teste a imagem"],"c":["Confira a compatibilidade com o seu sistema","Proteja as conexões da chuva"]},"Tela Grade Porta Cachorro Pet Cães Gato Crianças 180x70cm":{"i":"Tela grade de 180x70cm para porta, que limita a passagem de cachorros, gatos e crianças.","p":["Separar ambientes para pets","Proteger escadas e cozinhas","Segurança de crianças"],"u":["Meça a abertura da porta","Instale conforme a embalagem","Confira se ficou firme"],"c":["Não substitui a supervisão de um adulto","Confira a fixação com frequência"]},"Mini Mixer Misturador Batedor Elétrico":{"i":"Mini mixer elétrico, misturador e batedor de bebidas.","p":["Misturar café e leite","Bater ovos e cremes leves","Fazer espuma"],"u":["Coloque pilhas ou carregue, conforme o modelo","Mergulhe a hélice","Ligue e misture"],"c":["Não ligue fora do líquido","Lave só a hélice"]},"Boia Rede Piscina Cama Flutuante Colchão Reclinável Inflável":{"i":"Boia em rede para piscina, tipo cama flutuante, colchão reclinável e inflável.","p":["Relaxar na piscina","Lazer em casa ou em clubes","Dias de sol"],"u":["Encha a boia","Coloque na água","Deite-se com cuidado"],"c":["Não é equipamento de salvamento","Crianças sempre com supervisão"]},"Mini Batedeira Mixer 7 Velocidades Batedeira Mãos Bate Bolos":{"i":"Mini batedeira mixer de mão com 7 velocidades, para bater bolos e massas.","p":["Bater bolos e massas","Claras em neve e cremes","Cozinhas pequenas"],"u":["Encaixe os batedores","Coloque os ingredientes em uma tigela","Ligue na velocidade mais baixa e aumente aos poucos"],"c":["Desligue antes de tirar os batedores","Não mergulhe o motor"]},"Lâmpada Elétrica Mata Mosquitos UV Usb Recarregável Bivolt":{"i":"Lâmpada elétrica mata mosquitos com luz UV, recarregável por USB e bivolt.","p":["Quartos e salas","Áreas externas à noite","Quem quer evitar inseticidas"],"u":["Carregue ou conecte, conforme o modelo","Ligue em local escuro","Limpe o compartimento de insetos"],"c":["Mantenha fora do alcance de crianças e pets","Desligue antes de limpar"]},"Capa De Celular Impermeável Mergulho Piscina Cor Sortida":{"i":"Capa de celular impermeável para mergulho e piscina, em cor sortida.","p":["Praia e piscina","Passeios de barco","Proteger o celular da chuva"],"u":["Coloque o celular","Feche bem a capa","Teste antes sem o celular, se quiser"],"c":["Confira o fechamento antes de entrar na água","A cor é sortida: enviamos conforme o estoque"]},"Pelúcia Labubu Boneco Pop Surpresa Chaveiro Colecionável":{"i":"Pelúcia Labubu, boneco pop surpresa em formato de chaveiro colecionável.","p":["Colecionadores","Enfeitar bolsas e mochilas","Presentear"],"u":["Abra a embalagem","Prenda o chaveiro na bolsa ou mochila","Guarde junto da coleção"],"c":["Não indicado para crianças pequenas","Limpe com pano levemente úmido"]},"Carro Dasher Movimento Com Pista":{"i":"Carro Dasher com movimento, que vem com pista.","p":["Diversão para crianças","Montar e brincar com a pista","Presente de aniversário"],"u":["Monte a pista","Coloque o carrinho","Ligue, conforme a embalagem, e veja ele andar"],"c":["Peças pequenas: não indicado para crianças pequenas","Brincar com supervisão de um adulto"]},"Fonte de água bebedouro para gatos e cães Usb":{"i":"Fonte de água bebedouro para gatos e cães, com alimentação USB.","p":["Estimular o pet a beber água","Gatos que preferem água corrente","Casas com mais de um pet"],"u":["Lave antes do primeiro uso","Encha com água limpa","Conecte no USB e ligue"],"c":["Troque a água com frequência","Limpe a fonte regularmente"]},"kit Ferramentas 5 Peças Profissional Pequenos Reparos":{"i":"Kit de ferramentas profissional com 5 peças, para pequenos reparos.","p":["Reparos em casa","Montar móveis","Deixar no carro ou no armário"],"u":["Escolha a ferramenta certa","Use com cuidado","Guarde no estojo"],"c":["Mantenha seco para evitar ferrugem","Guarde fora do alcance de crianças"]},"Tela Mosquiteiro Porta Com Fecho Magnética 190cm X 100cm":{"i":"Tela mosquiteiro para porta, de 190x100cm, com fecho magnético.","p":["Impedir a entrada de mosquitos","Deixar a porta aberta e ventilada","Varandas e áreas de serviço"],"u":["Meça a porta","Fixe a tela no batente, conforme a embalagem","Passe pelo meio: o ímã fecha sozinho"],"c":["Confira as medidas antes de instalar","Limpe com pano úmido"]},"Tela Mosquiteiro Janela Anti-inseto Mosquito 130x150":{"i":"Tela mosquiteiro para janela, antiinsetos, de 130x150.","p":["Impedir a entrada de mosquitos","Abrir a janela com mais tranquilidade","Quartos e salas"],"u":["Meça a janela","Fixe a tela conforme a embalagem","Corte o excesso, se precisar"],"c":["Confira as medidas antes de instalar","Limpe com pano úmido"]},"Gloss Labial Liphoney Franciny Ehlke Brilho Irresistível Mel":{"i":"Gloss labial Liphoney, de Franciny Ehlke, sabor mel, para lábios com brilho.","p":["Brilho para os lábios","Maquiagem do dia a dia","Levar na bolsa"],"u":["Aplique nos lábios","Use sozinho ou por cima do batom","Reaplique quando quiser"],"c":["Faça teste antes se tiver pele sensível","Feche bem após o uso"]},"Mini Seladora Manual De Embalagem Plástica Portátil":{"i":"Mini seladora manual portátil para embalagens plásticas.","p":["Fechar pacotes de salgadinho e biscoito","Conservar alimentos abertos","Pequenos negócios"],"u":["Coloque pilhas, conforme o modelo","Feche a seladora sobre a borda do pacote","Deslize devagar para selar"],"c":["Cuidado com a parte quente","Guarde longe de crianças"]},"Esteira De Praia Bolsa Dobrável Tapete Palha Sintética Nylon":{"i":"Esteira de praia tipo bolsa dobrável, tapete de palha sintética e nylon.","p":["Praia, piscina e parques","Piqueniques","Levar fácil como bolsa"],"u":["Desdobre a esteira","Estenda no chão","Dobre e carregue como bolsa"],"c":["Tire a areia antes de dobrar","Seque antes de guardar"]}};
+
+  // Descrição gerada só a partir do título: nada de especificação técnica que o título não informe.
+  const descFeatures = [
+    { re: /recarreg/, label: 'Recarregável' },
+    { re: /portatil/, label: 'Portátil' },
+    { re: /sem fio|s\/fio/, label: 'Sem fio' },
+    { re: /bluetooth/, label: 'Conexão Bluetooth' },
+    { re: /\busb\b/, label: 'USB' },
+    { re: /\bled\b/, label: 'LED' },
+    { re: /inox|aco inoxidavel/, label: 'Aço inox' },
+    { re: /silicone/, label: 'Silicone' },
+    { re: /bambu/, label: 'Bambu' },
+    { re: /aluminio/, label: 'Alumínio' },
+    { re: /acrilico/, label: 'Acrílico' },
+    { re: /ceramica/, label: 'Cerâmica' },
+    { re: /antiaderente/, label: 'Antiaderente' },
+    { re: /impermeavel/, label: 'Impermeável' },
+    { re: /prova d.?agua|resistente a agua/, label: 'Resistente à água' },
+    { re: /ajustavel|regulavel/, label: 'Ajustável' },
+    { re: /retratil/, label: 'Retrátil' },
+    { re: /dobravel/, label: 'Dobrável' },
+    { re: /reutilizavel/, label: 'Reutilizável' },
+    { re: /antiderrapante/, label: 'Antiderrapante' },
+    { re: /magnetic|\bima\b/, label: 'Magnético' },
+    { re: /adesiv/, label: 'Adesivo' },
+    { re: /ventosa/, label: 'Fixação por ventosa' },
+    { re: /eletric/, label: 'Elétrico' },
+    { re: /manual/, label: 'Manual' },
+  ];
+
+  // Tudo o que o título informa de concreto; usado na descrição e nos selos das imagens.
+  function extractProductFacts(name) {
+    const norm = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const feats = descFeatures.filter(f => f.re.test(norm));
+
+    const voltMatch = name.match(/\b(\d{2,3})\s?v(?![a-zà-ÿ])/i);
+    const bivolt = /bivolt/.test(norm);
+    const powerMatch = name.match(/\b(\d{2,4})\s?w(?![a-zà-ÿ])/i);
+
+    const unitRe = /(\d+(?:[.,]\d+)?(?:\/\d+(?:[.,]\d+)?)*)\s?(cm|mm|mts|metros|m|ml|l|kg|g)(?![a-zà-ÿ0-9])/gi;
+    const medidas = [];
+    let mm;
+    while ((mm = unitRe.exec(name)) !== null) medidas.push(mm[0].replace(/\s+/g, ''));
+    const dimMatch = name.match(/\b(\d{2,})\s?x\s?(\d{2,})\b/i);
+    if (dimMatch) medidas.unshift(`${dimMatch[1]} x ${dimMatch[2]}`);
+
+    const kitMatch = name.match(/\bkit\s+(?:com\s+)?(\d+)\b/i) || name.match(/\b(\d+)\s?(?:peças|pecas|pçs|pcs|pç)(?![a-zà-ÿ])/i);
+    const isPar = /^par\b|\bpar\b/i.test(name);
+    const pilhasMatch = name.match(/com\s+(\d+)\s+pilhas/i);
+    const refil = /com refil/.test(norm);
+
+    return { feats, voltMatch, bivolt, powerMatch, medidas, kitMatch, isPar, pilhasMatch, refil };
+  }
 
   function buildDescription(name) {
-    return `Vantagens:\n${name} com qualidade premium e ótimo custo-benefício.\nEnvio rápido, direto do estoque a pronta entrega.\n\nCaracterísticas:\nProduto original, testado e aprovado. Ideal para uso no dia a dia.\n\nGarantia e suporte:\nSuporte direto com o fornecedor em caso de dúvidas ou problemas com o produto.`;
+    const { feats, voltMatch, bivolt, powerMatch, medidas, kitMatch, isPar, pilhasMatch, refil } = extractProductFacts(name);
+    const texto = productDescTexts[name];
+    const comPonto = t => (/[.!?]$/.test(t) ? t : t + '.');
+    const bullets = list => list.map(t => '- ' + comPonto(t)).join('\n');
+
+    const destaques = [];
+    if (feats.length) destaques.push(feats.map(f => f.label).join(', '));
+    if (bivolt) destaques.push('Bivolt (127V e 220V)');
+    else if (voltMatch) destaques.push(`Voltagem: ${voltMatch[1]}V`);
+    if (powerMatch) destaques.push(`Potência: ${powerMatch[1]}W`);
+    if (medidas.length) destaques.push(`Medidas informadas: ${medidas.join(', ')}`);
+
+    const inclusos = [kitMatch ? `${kitMatch[1]} unidades/peças` : isPar ? '1 par' : '1 unidade'];
+    if (pilhasMatch) inclusos.push(`${pilhasMatch[1]} pilhas`);
+    if (refil) inclusos.push('Refil');
+
+    const sections = [
+      name,
+      (texto ? texto.i : 'Produto prático para o seu dia a dia.') + ' Pronta entrega, com envio rápido.',
+    ];
+    if (texto) sections.push('PARA QUE SERVE\n' + bullets(texto.p));
+    if (destaques.length) sections.push('DESTAQUES\n' + bullets(destaques));
+    if (texto) {
+      sections.push('COMO USAR\n' + texto.u.map((t, i) => `${i + 1}. ${comPonto(t)}`).join('\n'));
+      sections.push('CUIDADOS\n' + bullets(texto.c));
+    }
+    sections.push('ITENS INCLUSOS\n' + bullets(inclusos));
+    sections.push('ENVIO E GARANTIA\nEnviado em até 24 horas após a confirmação do pagamento. Garantia legal conforme o Código de Defesa do Consumidor.');
+    return sections.join('\n\n');
+  }
+
+  // ── Fotos extras geradas na hora (canvas) para produtos com só 1 foto ──
+  // Ficam só em memória: nada é gravado no arquivo.
+  const EXTRA_IMG_SIZE = 1200;
+  const pfExtraImagesCache = new Map();
+  let pfExtraToken = 0;
+
+  function loadImageEl(src) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = src;
+    });
+  }
+
+  function newCanvas() {
+    const c = document.createElement('canvas');
+    c.width = c.height = EXTRA_IMG_SIZE;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, EXTRA_IMG_SIZE, EXTRA_IMG_SIZE);
+    ctx.imageSmoothingQuality = 'high';
+    return { c, ctx };
+  }
+
+  // Caixa do produto (pixels que não são fundo branco) e mapa de detalhes (bordas) numa versão reduzida.
+  function analyzeProductImage(img) {
+    const A = 128;
+    const scale = A / Math.max(img.naturalWidth, img.naturalHeight);
+    const w = Math.max(1, Math.round(img.naturalWidth * scale));
+    const h = Math.max(1, Math.round(img.naturalHeight * scale));
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0, w, h);
+    const d = ctx.getImageData(0, 0, w, h).data;
+    const lum = new Float32Array(w * h);
+    const colMass = new Array(w).fill(0), rowMass = new Array(h).fill(0);
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const i = (y * w + x) * 4;
+        lum[y * w + x] = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+        if (d[i] < 235 || d[i + 1] < 235 || d[i + 2] < 235) { colMass[x]++; rowMass[y]++; }
+      }
+    }
+    // Maior bloco contínuo com conteúdo: ignora molduras e linhas soltas separadas do produto.
+    const mainRun = mass => {
+      const gap = Math.max(2, Math.round(mass.length * 0.03));
+      let best = null, cur = null, blank = 0;
+      mass.forEach((m, i) => {
+        if (m > 0) {
+          if (cur && blank <= gap) { cur.end = i; cur.sum += m; }
+          else cur = { start: i, end: i, sum: m };
+          blank = 0;
+          if (!best || cur.sum > best.sum) best = cur;
+        } else blank++;
+      });
+      return best ? [best.start, best.end] : [0, mass.length - 1];
+    };
+    const [x0, x1] = mainRun(colMass);
+    const [y0, y1] = mainRun(rowMass);
+    const grad = new Float32Array(w * h);
+    for (let y = 1; y < h - 1; y++) {
+      for (let x = 1; x < w - 1; x++) {
+        const k = y * w + x;
+        grad[k] = Math.abs(lum[k + 1] - lum[k - 1]) + Math.abs(lum[k + w] - lum[k - w]);
+      }
+    }
+    return { w, h, scale, grad, box: { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 } };
+  }
+
+  // Duas janelas quadradas com mais detalhe dentro do produto, sem se sobrepor muito.
+  function pickDetailWindows(a) {
+    const { box, grad, w } = a;
+    const side = Math.min(a.w, a.h, Math.max(12, Math.round(Math.min(box.w, box.h) * 0.55)));
+    const step = Math.max(2, Math.round(side / 8));
+    const positions = (start, len, max) => {
+      const end = Math.max(0, Math.min(Math.max(start, start + len - side), max - side));
+      const out = [];
+      for (let v = Math.min(start, end); v < end; v += step) out.push(v);
+      out.push(end);
+      return out;
+    };
+    const cands = [];
+    positions(box.y, box.h, a.h).forEach(y => {
+      positions(box.x, box.w, a.w).forEach(x => {
+        let sum = 0;
+        for (let yy = y; yy < y + side; yy++) {
+          for (let xx = x; xx < x + side; xx++) sum += grad[yy * w + xx];
+        }
+        cands.push({ x, y, side, score: sum });
+      });
+    });
+    cands.sort((p, q) => q.score - p.score);
+    const first = cands[0];
+    const overlap = (p, q) => {
+      const ix = Math.max(0, Math.min(p.x + p.side, q.x + q.side) - Math.max(p.x, q.x));
+      const iy = Math.max(0, Math.min(p.y + p.side, q.y + q.side) - Math.max(p.y, q.y));
+      return (ix * iy) / (p.side * p.side);
+    };
+    let second = cands.find(c => overlap(c, first) < 0.25);
+    if (!second) second = cands.reduce((best, c) => (overlap(c, first) < overlap(best, first) ? c : best), cands[cands.length - 1]);
+    return [first, second];
+  }
+
+  function drawContain(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+    const s = Math.min(dw / sw, dh / sh);
+    const w = sw * s, h = sh * s;
+    ctx.drawImage(img, sx, sy, sw, sh, dx + (dw - w) / 2, dy + (dh - h) / 2, w, h);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function fitText(ctx, text, maxW) {
+    if (ctx.measureText(text).width <= maxW) return text;
+    let t = text;
+    while (t.length > 1 && ctx.measureText(t + '…').width > maxW) t = t.slice(0, -1);
+    return t.trim() + '…';
+  }
+
+  function wrapLines(ctx, text, maxW, maxLines) {
+    const words = text.split(/\s+/);
+    const lines = [];
+    let cur = '';
+    let i = 0;
+    for (; i < words.length; i++) {
+      const test = cur ? cur + ' ' + words[i] : words[i];
+      if (!cur || ctx.measureText(test).width <= maxW) { cur = test; continue; }
+      if (lines.length === maxLines - 1) break;
+      lines.push(cur);
+      cur = words[i];
+    }
+    const rest = words.slice(i).join(' ');
+    lines.push(rest ? cur + ' ' + rest : cur);
+    return lines.map(l => fitText(ctx, l, maxW));
+  }
+
+  function drawCheck(ctx, cx, cy, r) {
+    ctx.fillStyle = '#16c784';
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = r * 0.28; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(cx - r * 0.42, cy + r * 0.02);
+    ctx.lineTo(cx - r * 0.1, cy + r * 0.34);
+    ctx.lineTo(cx + r * 0.45, cy - r * 0.3);
+    ctx.stroke();
+  }
+
+  // Selos só com o que o título (e a descrição gerada a partir dele) informa.
+  function buildBadgeFacts(name) {
+    const f = extractProductFacts(name);
+    const destaques = f.feats.map(x => ({ label: 'Destaque', value: x.label }));
+    const specs = [];
+    if (f.bivolt) specs.push({ label: 'Voltagem', value: 'Bivolt' });
+    else if (f.voltMatch) specs.push({ label: 'Voltagem', value: f.voltMatch[1] + 'V' });
+    if (f.powerMatch) specs.push({ label: 'Potência', value: f.powerMatch[1] + 'W' });
+    f.medidas.forEach(m => specs.push({ label: 'Medida', value: m }));
+    if (f.kitMatch) specs.push({ label: 'Itens', value: `Kit com ${f.kitMatch[1]} unidades` });
+    else if (f.isPar) specs.push({ label: 'Itens', value: '1 par' });
+    if (f.pilhasMatch) specs.push({ label: 'Acompanha', value: `${f.pilhasMatch[1]} pilhas` });
+    if (f.refil) specs.push({ label: 'Acompanha', value: 'Refil' });
+    const envio = [{ label: 'Estoque', value: 'Pronta entrega' }, { label: 'Envio', value: 'Em até 24h' }];
+
+    // Imagem 4 prioriza destaques e a 5 a ficha técnica; sem repetir selos quando há o bastante.
+    let selosA = destaques.slice(0, 4);
+    const specsLivres = specs.slice();
+    if (!selosA.length && specsLivres.length > 1) selosA = specsLivres.splice(0, Math.ceil(specsLivres.length / 2));
+    let selosB = specsLivres.slice(0, 4);
+    if (!selosB.length) selosB = destaques.slice(4, 8);
+    if (!selosA.length) selosA = specs.length ? specs.slice(0, 4) : envio;
+    if (!selosB.length) selosB = envio;
+    return { selosA, selosB };
+  }
+
+  // Layout A: nome no topo, foto no meio, selos em pílulas embaixo.
+  function renderBadgesTop(img, a, name, selos) {
+    const S = EXTRA_IMG_SIZE;
+    const { c, ctx } = newCanvas();
+    ctx.fillStyle = '#111111';
+    ctx.font = '800 52px Manrope, sans-serif';
+    ctx.textBaseline = 'top';
+    const lines = wrapLines(ctx, name, S - 140, 2);
+    lines.forEach((l, i) => ctx.fillText(l, 70, 64 + i * 64));
+
+    const b = a.box, sc = a.scale;
+    drawContain(ctx, img, b.x / sc, b.y / sc, b.w / sc, b.h / sc, 120, 220, S - 240, 600);
+
+    ctx.font = '700 44px Manrope, sans-serif';
+    const pills = selos.map(s => {
+      const text = fitText(ctx, s.value, S - 260);
+      return { text, w: ctx.measureText(text).width + 140 };
+    });
+    const rows = [[]];
+    let rowW = 0;
+    pills.forEach(p => {
+      if (rowW + p.w > S - 140 && rows[rows.length - 1].length) { rows.push([]); rowW = 0; }
+      rows[rows.length - 1].push(p); rowW += p.w + 18;
+    });
+    const H = 96;
+    const startY = S - 70 - rows.length * (H + 18) + 18;
+    rows.forEach((row, ri) => {
+      const total = row.reduce((t, p) => t + p.w, 0) + (row.length - 1) * 18;
+      let x = (S - total) / 2;
+      const y = startY + ri * (H + 18);
+      row.forEach(p => {
+        ctx.fillStyle = '#0a0a0a';
+        roundRect(ctx, x, y, p.w, H, H / 2); ctx.fill();
+        drawCheck(ctx, x + 50, y + H / 2, 22);
+        ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'middle';
+        ctx.fillText(p.text, x + 90, y + H / 2 + 2);
+        x += p.w + 18;
+      });
+    });
+    return c;
+  }
+
+  // Layout B: foto à esquerda, ficha com os selos à direita.
+  function renderBadgesSide(img, a, selos) {
+    const S = EXTRA_IMG_SIZE;
+    const { c, ctx } = newCanvas();
+    const b = a.box, sc = a.scale;
+    drawContain(ctx, img, b.x / sc, b.y / sc, b.w / sc, b.h / sc, 40, 120, 610, S - 240);
+
+    const colX = 680, colW = S - colX - 50;
+    const cardH = 180, gap = 26;
+    let y = (S - (selos.length * cardH + (selos.length - 1) * gap)) / 2;
+    selos.forEach(s => {
+      ctx.fillStyle = '#f3f4f6';
+      roundRect(ctx, colX, y, colW, cardH, 28); ctx.fill();
+      ctx.fillStyle = '#16c784';
+      roundRect(ctx, colX, y, 10, cardH, 5); ctx.fill();
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = '#7a7a7a';
+      ctx.font = '800 30px Manrope, sans-serif';
+      ctx.fillText(s.label.toUpperCase(), colX + 44, y + 36);
+      ctx.fillStyle = '#111111';
+      ctx.font = '800 54px Manrope, sans-serif';
+      ctx.fillText(fitText(ctx, s.value, colW - 74), colX + 44, y + 88);
+      y += cardH + gap;
+    });
+    return c;
+  }
+
+  async function generateExtraProductImages(p) {
+    try { await document.fonts.load('800 52px Manrope'); } catch (e) {}
+    const img = await loadImageEl(p.img);
+    const a = analyzeProductImage(img);
+    const S = EXTRA_IMG_SIZE, sc = a.scale;
+    const out = [];
+
+    // 1) produto centralizado em fundo branco
+    const centered = newCanvas();
+    drawContain(centered.ctx, img, a.box.x / sc, a.box.y / sc, a.box.w / sc, a.box.h / sc, S * 0.08, S * 0.08, S * 0.84, S * 0.84);
+    out.push(centered.c);
+
+    // 2) e 3) zoom em dois detalhes diferentes
+    pickDetailWindows(a).forEach(win => {
+      const z = newCanvas();
+      z.ctx.drawImage(img, win.x / sc, win.y / sc, win.side / sc, win.side / sc, 0, 0, S, S);
+      out.push(z.c);
+    });
+
+    // 4) e 5) selos com características do título/descrição
+    const { selosA, selosB } = buildBadgeFacts(p.name);
+    out.push(renderBadgesTop(img, a, p.name, selosA));
+    out.push(renderBadgesSide(img, a, selosB));
+
+    return out.map(cv => cv.toDataURL('image/jpeg', 0.9));
+  }
+
+  function getExtraProductImages(idx) {
+    if (!pfExtraImagesCache.has(idx)) {
+      const pr = generateExtraProductImages(products[idx]);
+      pr.catch(() => pfExtraImagesCache.delete(idx));
+      pfExtraImagesCache.set(idx, pr);
+    }
+    return pfExtraImagesCache.get(idx);
+  }
+
+  function addExtraImagesToForm(idx) {
+    const token = ++pfExtraToken;
+    getExtraProductImages(idx).then(extras => {
+      if (token !== pfExtraToken || pfState.productIdx !== idx) return;
+      const add = extras.slice(0, Math.max(0, 9 - pfState.images.length));
+      pfState.images.splice(1, 0, ...add);
+      if (pfState.activeIdx > 0) pfState.activeIdx += add.length;
+      renderThumbs();
+      updateMainImage();
+    }).catch(e => console.log('Falha ao gerar fotos extras:', e));
   }
 
   function fmtSigned(v) {
@@ -4126,31 +4722,75 @@
         <div class="pf-market-opt-logo">${marketLogos[key]}</div>
         <div>
           <div class="pf-market-opt-name">${marketDisplayNames[key]}</div>
-          <div class="pf-market-opt-sub">${marketDisplayNames[key]}</div>
+          <div class="pf-market-opt-sub">${selected ? 'Ativado' : 'Desativado'}</div>
         </div>
-        <div class="pf-market-check">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
+        <div class="pf-switch" role="switch" aria-checked="${selected}" aria-label="Ativar ${marketDisplayNames[key]}"></div>
       </div>`;
     }).join('');
   }
+
+  const listingTypes = { premium: 18, classico: 13 };
+
+  function updateListingTypes() {
+    const wrap = document.getElementById('pfListingTypes');
+    wrap.style.display = pfState.markets.has('ml') ? '' : 'none';
+    const anyActive = pfState.markets.size > 0;
+    document.getElementById('pfMarketDetails').style.display = anyActive ? '' : 'none';
+    document.getElementById('pfMarketEmpty').style.display = anyActive ? 'none' : 'block';
+    const comissao = parseFloat(document.getElementById('pfComissao').value);
+    wrap.querySelectorAll('.pf-listing-opt').forEach(btn => {
+      btn.classList.toggle('selected', Number(btn.dataset.comissao) === comissao);
+    });
+  }
+
+  function applyListingType(type) {
+    pfState.listingType = type;
+    document.getElementById('pfComissao').value = listingTypes[type];
+    updateListingTypes();
+    recalcSummary();
+  }
+
+  document.getElementById('pfListingTypes').addEventListener('click', e => {
+    const btn = e.target.closest('.pf-listing-opt');
+    if (!btn) return;
+    applyListingType(btn.dataset.listing);
+  });
+
+  document.getElementById('pfComissao').addEventListener('input', updateListingTypes);
+
+  const PF_DESC_COLLAPSED_HEIGHT = 170;
+
+  function setDescExpanded(expanded) {
+    const textarea = document.getElementById('pfDescInput');
+    textarea.style.height = PF_DESC_COLLAPSED_HEIGHT + 'px';
+    if (expanded) textarea.style.height = (textarea.scrollHeight + 2) + 'px';
+    textarea.scrollTop = 0;
+    document.getElementById('pfDescToggle').classList.toggle('expanded', expanded);
+    document.getElementById('pfDescToggleText').textContent = expanded ? 'Ver menos' : 'Ver descrição completa';
+  }
+
+  document.getElementById('pfDescToggle').addEventListener('click', function () {
+    setDescExpanded(!this.classList.contains('expanded'));
+  });
 
   document.getElementById('pfMarketGrid').addEventListener('click', e => {
     const opt = e.target.closest('.pf-market-opt');
     if (!opt) return;
     const key = opt.dataset.market;
-    if (pfState.markets.has(key)) {
-      if (pfState.markets.size > 1) pfState.markets.delete(key);
-    } else {
-      pfState.markets.add(key);
-    }
+    if (pfState.markets.has(key)) pfState.markets.delete(key);
+    else pfState.markets.add(key);
     const first = [...pfState.markets][0];
-    const def = feeDefaults[first];
-    document.getElementById('pfComissao').value = def.comissao;
-    document.getElementById('pfTaxaFixa').value = def.taxaFixa;
-    document.getElementById('pfFeesMarketName').textContent = [...pfState.markets].map(k => marketDisplayNames[k]).join(', ');
-    document.getElementById('pfPublishingIn').textContent = [...pfState.markets].map(k => marketDisplayNames[k]).join(' + ');
+    if (first) {
+      const def = feeDefaults[first];
+      document.getElementById('pfComissao').value = def.comissao;
+      document.getElementById('pfTaxaFixa').value = def.taxaFixa;
+    }
+    const activeNames = [...pfState.markets].map(k => marketDisplayNames[k]);
+    document.getElementById('pfFeesMarketName').textContent = activeNames.join(', ') || 'nenhum marketplace';
+    document.getElementById('pfPublishingIn').textContent = activeNames.join(' + ') || 'nenhum marketplace';
+    if (pfState.markets.has('ml')) document.getElementById('pfComissao').value = listingTypes[pfState.listingType];
     renderMarketGrid();
+    updateListingTypes();
     recalcSummary();
   });
 
@@ -4279,7 +4919,7 @@
       publishBtn.disabled = true;
       return;
     }
-    publishBtn.disabled = false;
+    publishBtn.disabled = pfState.markets.size === 0;
     document.getElementById('pfPreco').classList.remove('negative');
 
     const preco = (custo + taxaFixa) / denom;
@@ -4314,10 +4954,11 @@
     pfState.images = (p.images && p.images.length) ? p.images.slice() : [p.img];
     pfState.activeIdx = 0;
     pfState.markets = new Set(['ml']);
+    pfState.listingType = 'premium';
 
     document.getElementById('pfTitleInput').value = p.name;
     document.getElementById('pfDescInput').value = p.descricao ? p.descricao : buildDescription(p.name);
-    document.getElementById('pfComissao').value = (p.comissao !== undefined) ? p.comissao : feeDefaults.ml.comissao;
+    document.getElementById('pfComissao').value = (p.comissao !== undefined) ? p.comissao : listingTypes.premium;
     document.getElementById('pfTaxaFixa').value = (p.taxaFixa !== undefined) ? p.taxaFixa : feeDefaults.ml.taxaFixa;
     document.getElementById('pfAntecipacao').value = (p.antecipacao !== undefined) ? p.antecipacao : 0;
     document.getElementById('pfMargem').value = (p.margem !== undefined) ? p.margem : 30;
@@ -4325,9 +4966,12 @@
     document.getElementById('pfPublishingIn').textContent = 'Mercado Livre';
 
     renderMarketGrid();
+    updateListingTypes();
     renderThumbs();
     updateMainImage();
     recalcSummary();
+    if (!p.images || p.images.length <= 1) addExtraImagesToForm(idx);
+    setDescExpanded(false);
 
     hideAllMainPages();
     document.getElementById('page-product-form').style.display = '';
@@ -4743,70 +5387,9 @@
     }
   })();
 
+  // As contas conectadas agora aparecem dentro do card de cada marketplace.
   function renderConnectedStores() {
-    const grid = document.getElementById('connectedStoresGrid');
-    document.getElementById('connectedCount').textContent = connectedStores.length + ' conectada(s)';
-    grid.innerHTML = connectedStores.map(s => {
-      const body = s.type === 'shopee' ? `
-        <div class="store-box">
-          <div class="store-box-label">Loja</div>
-          <div class="store-bar-row"><span>Avaliação</span><div class="store-bar"></div><span>Em breve</span> · <span>Seguidores: Em breve</span></div>
-          <div class="store-box-label" style="margin-top:12px;">Performance</div>
-          <div class="store-stat-row"><span class="lbl">Taxa de resposta</span><span class="val">Em breve</span></div>
-          <div class="store-stat-row"><span class="lbl">Envios atrasados</span><span class="val">Em breve</span></div>
-          <div class="store-stat-row"><span class="lbl">Não-cumprimento</span><span class="val">Em breve</span></div>
-          <div class="store-stat-row"><span class="lbl">Cancelamentos</span><span class="val">Em breve</span></div>
-          <div class="store-stat-row"><span class="lbl">Devoluções</span><span class="val">Em breve</span></div>
-          <div class="store-stat-row"><span class="lbl">Penalidade</span><span class="val">Em breve</span></div>
-        </div>
-      ` : `
-        ${s.lastSync ? `<div class="store-sync-time">Última sync: ${s.lastSync}</div>` : ''}
-        <div class="store-box">
-          <div class="store-bar-row"><span>Reputação</span><div class="store-bar"></div><span>Sem dados</span></div>
-          <div class="store-box-note">Sem reputação ainda — o Mercado Livre só classifica vendedores com vendas nos últimos 60 dias. Faça suas primeiras vendas para começar a aparecer aqui.</div>
-          <div class="store-box-label" style="margin-top:12px;">Operação (60 dias)</div>
-          <div class="store-stat-row"><span class="lbl">Transações</span><span class="val">0</span></div>
-          <div class="store-stat-row"><span class="lbl">Cancelamentos</span><span class="val">0.00%</span></div>
-          <div class="store-stat-row"><span class="lbl">Atrasos</span><span class="val">0.00%</span></div>
-          <div class="store-stat-row"><span class="lbl">Reclamações</span><span class="val">0.00%</span></div>
-        </div>
-      `;
-      return `
-      <div class="store-card">
-        <div class="store-top">
-          <div class="store-logo" style="background:${s.logoBg};color:${s.logoColor};">${s.logo}</div>
-          <div>
-            <div class="store-name">${s.name}</div>
-            <div class="store-sub">${s.platform}</div>
-          </div>
-          <div class="store-actions">
-            <button class="icon-mini-btn" title="Configurações"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
-            <button class="icon-mini-btn" title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></button>
-            <span class="status-pill">Conectada</span>
-          </div>
-        </div>
-        <div class="store-meta-grid">
-          <div>
-            <div class="store-meta-label">Marketplace</div>
-            <div class="store-meta-value">${s.platform}</div>
-          </div>
-          <div>
-            <div class="store-meta-label">Status</div>
-            <div class="store-meta-value green">Conectada</div>
-          </div>
-        </div>
-        ${body}
-        <div class="store-actions-row">
-          <button class="btn-sync" data-store="${s.key}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            Sincronizar
-          </button>
-          <button class="btn-delete-store" data-remove="${s.key}" title="Remover">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
-          </button>
-        </div>
-      </div>`;
-    }).join('');
+    renderMarketplaces();
   }
 
   function nowStamp() {
@@ -4815,22 +5398,28 @@
     return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}, ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
   }
 
-  document.getElementById('connectedStoresGrid').addEventListener('click', e => {
-    const syncBtn = e.target.closest('.btn-sync');
-    const delBtn = e.target.closest('[data-remove]');
+  document.getElementById('marketGrid').addEventListener('click', e => {
+    const syncBtn = e.target.closest('[data-sync-store]');
+    const delBtn = e.target.closest('[data-remove-store]');
     if (syncBtn) {
-      const store = connectedStores.find(s => s.key === syncBtn.dataset.store);
+      const store = connectedStores.find(st => st.key === syncBtn.dataset.syncStore);
       if (store) store.lastSync = nowStamp();
       document.getElementById('syncStatusSub').textContent = 'Última sync: ' + nowStamp();
-      renderConnectedStores();
+      renderMarketplaces();
     } else if (delBtn) {
-      const idx = connectedStores.findIndex(s => s.key === delBtn.dataset.remove);
-      if (idx > -1 && confirm('Remover esta loja conectada?')) {
+      const idx = connectedStores.findIndex(st => st.key === delBtn.dataset.removeStore);
+      if (idx > -1 && confirm('Desconectar esta conta?')) {
         connectedStores.splice(idx, 1);
-        renderConnectedStores();
         renderMarketplaces();
       }
     }
+  });
+
+  document.getElementById('addrToggle').addEventListener('click', () => {
+    const body = document.getElementById('addrBody');
+    body.hidden = !body.hidden;
+    document.getElementById('addrBox').classList.toggle('open', !body.hidden);
+    document.getElementById('addrToggleText').textContent = body.hidden ? 'Mostrar endereço' : 'Esconder endereço';
   });
 
   const marketplaces = [
@@ -4842,23 +5431,45 @@
   ];
 
   function renderMarketplaces() {
+    const syncIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>';
     const grid = document.getElementById('marketGrid');
     grid.innerHTML = marketplaces.map(m => {
-      const connectedCount = connectedStores.filter(s => s.marketKey === m.key).length;
+      const stores = connectedStores.filter(st => st.marketKey === m.key);
+      const connected = stores.length > 0;
+      const badge = m.soon
+        ? '<span class="intg-badge">Em breve</span>'
+        : connected ? '<span class="intg-badge on">✓ Conectado</span>' : '<span class="intg-badge">Disponível</span>';
+      const sub = m.soon ? 'Em desenvolvimento' : `${stores.length} ${stores.length === 1 ? 'conta conectada' : 'contas conectadas'}`;
+      const accounts = stores.map(st => `
+          <div class="intg-account">
+            <span class="intg-dot"></span>
+            <div class="intg-account-info">
+              <div class="intg-account-name">${st.name === m.name ? st.platform : st.name}</div>
+              <div class="intg-account-meta">Fornecedor: Rio de Janeiro</div>
+              <div class="intg-account-meta">${st.lastSync ? 'Sync: ' + st.lastSync : 'Ainda não sincronizada'}</div>
+            </div>
+            <div class="intg-account-actions">
+              <button type="button" class="intg-icon-btn" data-sync-store="${st.key}" title="Sincronizar">${syncIcon}</button>
+              <button type="button" class="intg-disconnect" data-remove-store="${st.key}">Desconectar</button>
+            </div>
+          </div>`).join('');
+      const action = m.soon
+        ? '<button type="button" class="intg-btn" disabled>Em breve</button>'
+        : connected
+          ? `<button type="button" class="intg-add" data-connect="${m.key}">+ Adicionar outra conta</button>`
+          : `<button type="button" class="intg-btn" data-connect="${m.key}">Conectar</button>`;
       return `
-      <div class="market-card${m.soon ? ' disabled' : ''}">
-        <div class="market-top">
-          <div class="market-logo" style="background:${m.logoBg};">${m.logo}</div>
-          <div>
-            <div class="market-name">${m.name}</div>
-            <div class="market-sub">${m.soon ? 'Marketplace' : connectedCount + ' loja(s) conectada(s)'}</div>
+      <div class="intg-card${connected ? ' connected' : ''}${m.soon ? ' soon' : ''}">
+        <div class="intg-top">
+          <div class="intg-logo">${m.logo}</div>
+          <div class="intg-title">
+            <div class="intg-name">${m.name}</div>
+            <div class="intg-sub">${sub}</div>
           </div>
-          ${m.soon ? '<span class="market-badge-soon">Em breve</span>' : ''}
+          ${badge}
         </div>
-        <div class="market-desc">${m.desc}</div>
-        <button class="btn-connect" data-connect="${m.key}" ${m.soon ? 'disabled' : ''}>
-          ${m.soon ? '🔌 Em breve' : ('Conectar ' + m.name)}
-        </button>
+        ${connected ? `<div class="intg-accounts">${accounts}</div>` : `<div class="intg-desc">${m.desc}</div>`}
+        <div class="intg-action">${action}</div>
       </div>`;
     }).join('');
   }
@@ -4917,25 +5528,6 @@
   renderConnectedStores();
   renderMarketplaces();
   loadRealMlConnection();
-
-  // ── Calculadora de vendas ──
-  function updateCalc() {
-    const custo = parseFloat(document.getElementById('calcCusto').value) || 0;
-    const venda = parseFloat(document.getElementById('calcVenda').value) || 0;
-    const taxas = parseFloat(document.getElementById('calcTaxas').value) || 0;
-    const frete = parseFloat(document.getElementById('calcFrete').value) || 0;
-    const lucro = venda - custo - taxas - frete;
-    const margem = venda > 0 ? (lucro / venda) * 100 : 0;
-    const markup = custo > 0 ? (lucro / custo) * 100 : 0;
-    document.getElementById('calcLucro').textContent = 'R$ ' + lucro.toFixed(2);
-    document.getElementById('calcMargem').textContent = margem.toFixed(1) + '%';
-    document.getElementById('calcMarkup').textContent = markup.toFixed(1) + '%';
-    document.getElementById('calcLucro').style.color = lucro >= 0 ? '#16c784' : '#ff4d4f';
-  }
-  ['calcCusto', 'calcVenda', 'calcTaxas', 'calcFrete'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateCalc);
-  });
-  updateCalc();
 
   // ── Chamados ──
   const tickets = [];
