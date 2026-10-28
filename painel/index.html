@@ -743,64 +743,47 @@
   body.dark-mode .btn-list:hover { background: #e6e6e6; filter: none; }
 
   /* ── Integrações ── */
-  .intg-sync {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13px; font-weight: 600; color: var(--muted);
-    border: 1px solid var(--border); border-radius: 999px;
-    padding: 8px 14px; white-space: nowrap;
-  }
-  .intg-sync svg { width: 14px; height: 14px; }
-  .intg-grid {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(210px, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 6px;
-  }
-  .intg-grid > .intg-card { scroll-snap-align: start; }
+  .intg-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 24px; }
   .intg-card {
     background: #fff;
     border: 1.5px solid var(--card-border);
     border-radius: 18px;
-    padding: 18px;
-    display: flex; flex-direction: column; gap: 14px;
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 18px;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
   .intg-card:hover { border-color: #c9c9cf; }
   .intg-card.connected { border-color: var(--green); box-shadow: 0 0 0 3px rgba(22,199,132,0.12); }
-  .intg-card.soon { opacity: 0.6; }
-  .intg-top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-  .intg-logo { width: 48px; height: 48px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
-  .intg-title { order: 3; flex-basis: 100%; min-width: 0; }
-  .intg-name { font-size: 17px; font-weight: 800; color: #111; }
-  .intg-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .intg-card.soon .intg-logo, .intg-card.soon .intg-title, .intg-card.soon .intg-desc { opacity: 0.6; }
+  .intg-top { display: flex; align-items: center; gap: 14px; }
+  .intg-logo { width: 52px; height: 52px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+  .intg-title { flex: 1; min-width: 0; }
+  .intg-name { font-size: 18px; font-weight: 700; color: #111; }
+  .intg-sub { font-size: 13.5px; color: var(--muted); margin-top: 3px; }
   .intg-badge {
-    order: 2; margin-left: auto;
-    font-size: 12px; font-weight: 700; color: var(--muted);
+    align-self: flex-start;
+    font-size: 13px; font-weight: 600; color: var(--muted);
     border: 1px solid var(--border); border-radius: 999px;
-    padding: 5px 11px; white-space: nowrap;
+    padding: 5px 12px; white-space: nowrap;
   }
-  .intg-badge.on { color: var(--green); border-color: rgba(22,199,132,0.45); background: rgba(22,199,132,0.08); }
+  .intg-badge.on, .intg-badge.free { color: var(--green); border-color: rgba(22,199,132,0.45); }
+  .intg-badge.on { background: rgba(22,199,132,0.08); }
   .intg-desc { font-size: 14px; line-height: 1.55; color: var(--muted); }
   .intg-accounts { display: flex; flex-direction: column; gap: 10px; }
-  .intg-account { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+  .intg-account { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; }
   .intg-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); flex-shrink: 0; box-shadow: 0 0 0 4px rgba(22,199,132,0.15); }
-  .intg-account-info { flex: 1 1 0; min-width: 0; }
-  .intg-account-name { font-size: 14px; font-weight: 700; color: #111; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .intg-account-meta { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .intg-account-actions { flex-basis: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .intg-icon-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
-  .intg-icon-btn svg { width: 15px; height: 15px; }
-  .intg-disconnect { font-size: 13px; font-weight: 700; color: var(--red); padding: 6px 2px; }
+  .intg-account-info { flex: 1; min-width: 0; }
+  .intg-account-name { font-size: 15px; font-weight: 600; color: #111; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .intg-account-meta { font-size: 12.5px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .intg-disconnect { font-size: 13.5px; font-weight: 600; color: var(--red); padding: 6px 2px; white-space: nowrap; }
   .intg-action { margin-top: auto; }
-  .intg-btn { width: 100%; padding: 12px; border-radius: 10px; background: #0a0a0a; color: #fff; font-size: 14px; font-weight: 800; text-align: center; }
+  .intg-btn { width: 100%; padding: 13px; border-radius: 10px; background: #0a0a0a; color: #fff; font-size: 15px; font-weight: 700; text-align: center; }
   .intg-btn:hover:not(:disabled) { filter: brightness(1.15); }
   .intg-btn:disabled { background: var(--off); color: var(--muted); cursor: default; }
-  .intg-add { width: 100%; padding: 11px; border-radius: 10px; border: 1.5px dashed var(--border); font-size: 14px; font-weight: 700; color: var(--muted); text-align: center; }
+  .intg-add { width: 100%; padding: 12px; border-radius: 10px; border: 1.5px dashed var(--border); font-size: 15px; font-weight: 600; color: var(--muted); text-align: center; }
   .intg-add:hover { border-color: var(--green); color: var(--green); }
+  @media (max-width: 1100px) { .intg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .intg-grid { grid-template-columns: minmax(0, 1fr); } }
   .intg-address { background: #fff; border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 28px; overflow: hidden; }
   .intg-address-toggle { width: 100%; display: flex; align-items: center; gap: 12px; padding: 16px 20px; font-size: 14px; }
   .intg-address-pin svg { width: 18px; height: 18px; display: block; }
@@ -819,7 +802,6 @@
   body.dark-mode .intg-account-name,
   body.dark-mode .intg-address-text strong,
   body.dark-mode .intg-address-cta { color: #fff; }
-  body.dark-mode .intg-sync,
   body.dark-mode .intg-badge,
   body.dark-mode .intg-account,
   body.dark-mode .intg-add { border-color: #2c2d32; }
@@ -829,7 +811,6 @@
   body.dark-mode .intg-btn:hover:not(:disabled) { background: #e6e6e6; filter: none; }
   body.dark-mode .intg-btn:disabled { background: #232428; color: #6b6f78; }
   @media (max-width: 480px) {
-    .intg-grid { grid-auto-columns: 78%; }
     .intg-address-text { font-size: 13px; }
   }
   @media (max-width: 480px) {
@@ -2538,6 +2519,9 @@
   body.dark-mode .pf-market-check { background: #1f2024; }
   body.dark-mode .pf-switch { background: #34353a; }
   body.dark-mode .pf-market-empty { border-color: #26272b; }
+  .pf-empty-cta { margin-top: 14px; padding: 10px 18px; border-radius: 10px; background: #0a0a0a; color: #fff; font-size: 13.5px; font-weight: 800; }
+  body.dark-mode .pf-empty-cta { background: #fff; color: #0a0a0a; }
+  body.dark-mode .pf-empty-cta:hover { background: #e6e6e6; }
   body.dark-mode .pf-desc-toggle { border-color: #26272b; color: #f2f2f2; background: #17181b; }
   body.dark-mode #pfDescInput::-webkit-scrollbar-thumb { background: #3a3b40; }
   body.dark-mode .pf-market-opt.selected .pf-switch { background: var(--green); }
@@ -3204,7 +3188,6 @@
           <div class="page-title" style="font-size:22px;">Integrações</div>
           <div class="page-sub">Conecte suas contas de marketplace para sincronizar pedidos e anúncios automaticamente.</div>
         </div>
-        <div class="intg-sync"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg><span id="syncStatusSub">Última sync: Nunca</span></div>
       </div>
 
       <div class="intg-grid" id="marketGrid"></div>
@@ -3480,9 +3463,9 @@
         </div>
 
         <div>
-          <div class="pf-section-label">1. Escolha os marketplaces (pode selecionar mais de um)</div>
+          <div class="pf-section-label">1. Marketplaces conectados</div>
           <div class="pf-market-grid" id="pfMarketGrid"></div>
-          <div class="pf-market-empty" id="pfMarketEmpty">Ative o Mercado Livre para ver as informações da publicação.</div>
+          <div class="pf-market-empty" id="pfMarketEmpty"></div>
           <div id="pfMarketDetails">
           <div class="pf-fees-note" id="pfFeesNote">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l2-6h14l2 6"/><path d="M3 9h18v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>
@@ -4317,8 +4300,27 @@
   const feeDefaults = {
     shopee: { comissao: 20, taxaFixa: 0 },
     ml: { comissao: 16, taxaFixa: 5 },
+    bling: { comissao: 0, taxaFixa: 0 },
   };
-  const marketDisplayNames = { shopee: 'Shopee', ml: 'Mercado Livre' };
+  const marketDisplayNames = { shopee: 'Shopee', ml: 'Mercado Livre', bling: 'Bling' };
+
+  // A publicação só oferece os marketplaces que estão conectados em Integrações.
+  function connectedPfMarkets() {
+    return ['ml', 'shopee', 'bling'].filter(k => connectedStores.some(st => st.marketKey === k));
+  }
+
+  function applyMarketFees(p) {
+    const first = [...pfState.markets][0];
+    if (first) {
+      const def = feeDefaults[first];
+      const comissao = first === 'ml' ? listingTypes[pfState.listingType] : def.comissao;
+      document.getElementById('pfComissao').value = (p && p.comissao !== undefined) ? p.comissao : comissao;
+      document.getElementById('pfTaxaFixa').value = (p && p.taxaFixa !== undefined) ? p.taxaFixa : def.taxaFixa;
+    }
+    const activeNames = [...pfState.markets].map(k => marketDisplayNames[k]);
+    document.getElementById('pfFeesMarketName').textContent = activeNames.join(', ') || 'nenhum marketplace';
+    document.getElementById('pfPublishingIn').textContent = activeNames.join(' + ') || 'nenhum marketplace';
+  }
 
   const pfState = { productIdx: null, images: [], activeIdx: 0, markets: new Set(['ml']), listingType: 'premium' };
 
@@ -4715,7 +4717,7 @@
 
   function renderMarketGrid() {
     const grid = document.getElementById('pfMarketGrid');
-    grid.innerHTML = ['ml'].map(key => {
+    grid.innerHTML = connectedPfMarkets().map(key => {
       const selected = pfState.markets.has(key);
       return `
       <div class="pf-market-opt${selected ? ' selected' : ''}" data-market="${key}">
@@ -4736,7 +4738,11 @@
     wrap.style.display = pfState.markets.has('ml') ? '' : 'none';
     const anyActive = pfState.markets.size > 0;
     document.getElementById('pfMarketDetails').style.display = anyActive ? '' : 'none';
-    document.getElementById('pfMarketEmpty').style.display = anyActive ? 'none' : 'block';
+    const empty = document.getElementById('pfMarketEmpty');
+    empty.style.display = anyActive ? 'none' : 'block';
+    empty.innerHTML = connectedPfMarkets().length
+      ? 'Ative um marketplace para ver as informações da publicação.'
+      : 'Nenhum marketplace conectado. Conecte sua loja para publicar.<br><button type="button" class="pf-empty-cta" id="pfGoIntegrations">Ir para Integrações</button>';
     const comissao = parseFloat(document.getElementById('pfComissao').value);
     wrap.querySelectorAll('.pf-listing-opt').forEach(btn => {
       btn.classList.toggle('selected', Number(btn.dataset.comissao) === comissao);
@@ -4757,6 +4763,10 @@
   });
 
   document.getElementById('pfComissao').addEventListener('input', updateListingTypes);
+
+  document.getElementById('pfMarketEmpty').addEventListener('click', e => {
+    if (e.target.closest('#pfGoIntegrations')) goToPage('integracoes');
+  });
 
   const PF_DESC_COLLAPSED_HEIGHT = 170;
 
@@ -4779,15 +4789,7 @@
     const key = opt.dataset.market;
     if (pfState.markets.has(key)) pfState.markets.delete(key);
     else pfState.markets.add(key);
-    const first = [...pfState.markets][0];
-    if (first) {
-      const def = feeDefaults[first];
-      document.getElementById('pfComissao').value = def.comissao;
-      document.getElementById('pfTaxaFixa').value = def.taxaFixa;
-    }
-    const activeNames = [...pfState.markets].map(k => marketDisplayNames[k]);
-    document.getElementById('pfFeesMarketName').textContent = activeNames.join(', ') || 'nenhum marketplace';
-    document.getElementById('pfPublishingIn').textContent = activeNames.join(' + ') || 'nenhum marketplace';
+    applyMarketFees();
     if (pfState.markets.has('ml')) document.getElementById('pfComissao').value = listingTypes[pfState.listingType];
     renderMarketGrid();
     updateListingTypes();
@@ -4953,17 +4955,14 @@
     pfState.productIdx = idx;
     pfState.images = (p.images && p.images.length) ? p.images.slice() : [p.img];
     pfState.activeIdx = 0;
-    pfState.markets = new Set(['ml']);
+    pfState.markets = new Set(connectedPfMarkets());
     pfState.listingType = 'premium';
 
     document.getElementById('pfTitleInput').value = p.name;
     document.getElementById('pfDescInput').value = p.descricao ? p.descricao : buildDescription(p.name);
-    document.getElementById('pfComissao').value = (p.comissao !== undefined) ? p.comissao : listingTypes.premium;
-    document.getElementById('pfTaxaFixa').value = (p.taxaFixa !== undefined) ? p.taxaFixa : feeDefaults.ml.taxaFixa;
     document.getElementById('pfAntecipacao').value = (p.antecipacao !== undefined) ? p.antecipacao : 0;
     document.getElementById('pfMargem').value = (p.margem !== undefined) ? p.margem : 30;
-    document.getElementById('pfFeesMarketName').textContent = 'Mercado Livre';
-    document.getElementById('pfPublishingIn').textContent = 'Mercado Livre';
+    applyMarketFees(p);
 
     renderMarketGrid();
     updateListingTypes();
@@ -5399,14 +5398,8 @@
   }
 
   document.getElementById('marketGrid').addEventListener('click', e => {
-    const syncBtn = e.target.closest('[data-sync-store]');
     const delBtn = e.target.closest('[data-remove-store]');
-    if (syncBtn) {
-      const store = connectedStores.find(st => st.key === syncBtn.dataset.syncStore);
-      if (store) store.lastSync = nowStamp();
-      document.getElementById('syncStatusSub').textContent = 'Última sync: ' + nowStamp();
-      renderMarketplaces();
-    } else if (delBtn) {
+    if (delBtn) {
       const idx = connectedStores.findIndex(st => st.key === delBtn.dataset.removeStore);
       if (idx > -1 && confirm('Desconectar esta conta?')) {
         connectedStores.splice(idx, 1);
@@ -5422,39 +5415,47 @@
     document.getElementById('addrToggleText').textContent = body.hidden ? 'Mostrar endereço' : 'Esconder endereço';
   });
 
+  // Logos simples para os marketplaces que ainda não têm integração.
+  const textLogo = (bg, html, color = '#fff') => `<div style="width:100%;height:100%;background:${bg};color:${color};display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:-0.02em;line-height:1;">${html}</div>`;
+  marketLogos.magalu = textLogo('#0086ff', '<span style="font-size:12px;">magalu</span>');
+  marketLogos.tiktok = textLogo('#000', '<svg viewBox="0 0 24 24" width="28" height="28" style="filter:drop-shadow(-1.5px -1px 0 #25f4ee) drop-shadow(1.5px 1px 0 #fe2c55);"><path fill="#fff" d="M13 3h3c.3 2.2 1.8 3.7 4 4v3c-1.5 0-2.9-.5-4-1.3V15a6 6 0 1 1-6-6v3.1A2.9 2.9 0 1 0 13 15V3z"/></svg>');
+  marketLogos.yampi = textLogo('#6c2bd9', '<span style="font-size:12px;">yampi</span>');
+
   const marketplaces = [
     { key: 'ml', name: 'Mercado Livre', logo: marketLogos.ml, logoBg: 'transparent', desc: 'Conecte sua conta do Mercado Livre e sincronize anúncios.', soon: false },
-    { key: 'shopee', name: 'Shopee', logo: marketLogos.shopee, logoBg: 'transparent', desc: 'Integre sua loja Shopee para gerenciar pedidos.', soon: false },
+    { key: 'shopee', name: 'Shopee', logo: marketLogos.shopee, logoBg: 'transparent', desc: 'Conecte sua conta Shopee para sincronizar pedidos automaticamente.', soon: false },
     { key: 'bling', name: 'Bling', logo: marketLogos.bling, logoBg: 'transparent', desc: 'Conecte sua conta Bling para gestão de estoque e NF-e.', soon: false },
-    { key: 'shopify', name: 'Shopify', logo: marketLogos.shopify, logoBg: 'transparent', desc: 'Sincronize produtos com sua loja Shopify.', soon: true },
+    { key: 'magalu', name: 'Magalu Marketplace', logo: marketLogos.magalu, logoBg: 'transparent', desc: 'Conecte sua conta seller da Magalu para sincronizar pedidos e produtos.', soon: true },
+    { key: 'tiktok', name: 'TikTok Shop', logo: marketLogos.tiktok, logoBg: 'transparent', desc: 'Venda seus produtos direto no TikTok Shop.', soon: true },
+    { key: 'shopify', name: 'Shopify', logo: marketLogos.shopify, logoBg: 'transparent', desc: 'Conecte sua loja Shopify para sincronizar pedidos e produtos.', soon: true },
+    { key: 'yampi', name: 'Yampi', logo: marketLogos.yampi, logoBg: 'transparent', desc: 'Conecte sua loja Yampi para sincronizar pedidos e produtos.', soon: true },
     { key: 'amazon', name: 'Amazon', logo: marketLogos.amazon, logoBg: 'transparent', desc: 'Integração com Amazon Seller Central.', soon: true },
   ];
 
   function renderMarketplaces() {
-    const syncIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>';
     const grid = document.getElementById('marketGrid');
     grid.innerHTML = marketplaces.map(m => {
       const stores = connectedStores.filter(st => st.marketKey === m.key);
       const connected = stores.length > 0;
       const badge = m.soon
         ? '<span class="intg-badge">Em breve</span>'
-        : connected ? '<span class="intg-badge on">✓ Conectado</span>' : '<span class="intg-badge">Disponível</span>';
-      const sub = m.soon ? 'Em desenvolvimento' : `${stores.length} ${stores.length === 1 ? 'conta conectada' : 'contas conectadas'}`;
-      const accounts = stores.map(st => `
+        : connected ? '<span class="intg-badge on">✓ Conectado</span>' : '<span class="intg-badge free">Disponível</span>';
+      const sub = m.soon ? 'Ainda não disponível' : `${stores.length} ${stores.length === 1 ? 'conta conectada' : 'contas conectadas'}`;
+      const accounts = stores.map(st => {
+        const desde = st.connectedAt || (st.lastSync ? st.lastSync.split(',')[0] : new Date().toLocaleDateString('pt-BR'));
+        return `
           <div class="intg-account">
             <span class="intg-dot"></span>
             <div class="intg-account-info">
               <div class="intg-account-name">${st.name === m.name ? st.platform : st.name}</div>
               <div class="intg-account-meta">Fornecedor: Rio de Janeiro</div>
-              <div class="intg-account-meta">${st.lastSync ? 'Sync: ' + st.lastSync : 'Ainda não sincronizada'}</div>
+              <div class="intg-account-meta">Conectado em ${desde}</div>
             </div>
-            <div class="intg-account-actions">
-              <button type="button" class="intg-icon-btn" data-sync-store="${st.key}" title="Sincronizar">${syncIcon}</button>
-              <button type="button" class="intg-disconnect" data-remove-store="${st.key}">Desconectar</button>
-            </div>
-          </div>`).join('');
+            <button type="button" class="intg-disconnect" data-remove-store="${st.key}">Desconectar</button>
+          </div>`;
+      }).join('');
       const action = m.soon
-        ? '<button type="button" class="intg-btn" disabled>Em breve</button>'
+        ? '<button type="button" class="intg-btn" disabled>Indisponível</button>'
         : connected
           ? `<button type="button" class="intg-add" data-connect="${m.key}">+ Adicionar outra conta</button>`
           : `<button type="button" class="intg-btn" data-connect="${m.key}">Conectar</button>`;
@@ -5515,7 +5516,7 @@
     }
 
     const instanceKey = m.key + '-' + Date.now();
-    connectedStores.push({ key: instanceKey, marketKey: m.key, name: (m.key === 'ml' ? 'Mercado Livre' : 'Loja ' + m.name), platform: m.name, logo: m.logo, logoBg: m.logoBg, logoColor: '#333', lastSync: null, type: m.key === 'ml' ? 'ml' : 'shopee' });
+    connectedStores.push({ key: instanceKey, marketKey: m.key, name: (m.key === 'ml' ? 'Mercado Livre' : 'Loja ' + m.name), platform: m.name, logo: m.logo, logoBg: m.logoBg, logoColor: '#333', lastSync: null, connectedAt: new Date().toLocaleDateString('pt-BR'), type: m.key === 'ml' ? 'ml' : 'shopee' });
     renderConnectedStores();
     renderMarketplaces();
     goToPageSafe('integracoes');
