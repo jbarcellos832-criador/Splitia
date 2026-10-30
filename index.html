@@ -17,9 +17,9 @@
     --text: #f2f3f5;
     --muted: #9a9ea8;
     --muted2: #6b6f78;
-    --blue: #5b8def;
-    --blue-glow: rgba(91,141,239,0.18);
-    --blue-border: rgba(91,141,239,0.28);
+    --blue: #ffffff;
+    --blue-glow: rgba(255,255,255,0.10);
+    --blue-border: rgba(255,255,255,0.30);
   }
 
   html, body {
@@ -114,7 +114,7 @@
   .hero-ctas { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 64px; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 10px;
-    background: var(--blue); color: #fff;
+    background: #fff; color: #0a0a0c;
     padding: 17px 30px;
     border-radius: 10px;
     font-weight: 800;
@@ -123,7 +123,7 @@
     text-transform: uppercase;
     box-shadow: 0 20px 40px -18px var(--blue-glow);
   }
-  .btn-primary:hover { background: #4a7bdc; }
+  .btn-primary:hover { background: #e4e4e7; }
   .hero-guarantees {
     display: flex; align-items: center; justify-content: center; gap: 10px;
     flex-wrap: wrap;
@@ -252,8 +252,8 @@
   @media (prefers-reduced-motion: reduce) { .catalog-track { animation: none; } }
 
   /* ── Hero em duas colunas (texto + catálogo) ── */
-  .btn-nav-cta { background: var(--blue); color: #fff; }
-  .btn-nav-cta:hover { background: #4a7bdc; }
+  .btn-nav-cta { background: #fff; color: #0a0a0c; }
+  .btn-nav-cta:hover { background: #e4e4e7; }
   .hero-section {
     padding: 0;
     border-bottom: 1px solid var(--card-border);
@@ -351,7 +351,7 @@
   .sync-row b, .sync-card b { height: 4px; border-radius: 3px; background: #2f313a; display: block; }
   .sync-card b { width: 100%; max-width: 56px; }
   .sync-row b { max-width: calc(100% - 36px); }
-  .sync-row.on, .sync-card.on { border-color: rgba(255,255,255,.55); background: #1b1c22; box-shadow: 0 0 0 3px rgba(91,141,239,.10); }
+  .sync-row.on, .sync-card.on { border-color: rgba(255,255,255,.55); background: #1b1c22; box-shadow: 0 0 0 3px rgba(255,255,255,0.07); }
   .sync-row.on i, .sync-card.on i { background: #3a3d46; }
   .sync-link { position: relative; height: 1px; margin-top: 126px; align-self: start; }
   .sync-line { position: absolute; inset: 0; background: #2a2c34; }
@@ -365,7 +365,7 @@
   }
   .sync-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 13px; margin-top: 56px; }
   .sync-chips span { border: 1px solid #1f2127; border-radius: 99px; padding: 12px 24px; font-size: 15px; font-weight: 600; color: var(--muted); background: #08080a; transition: color .4s, border-color .4s, background .4s, box-shadow .4s; }
-  .sync-chips span.on { color: #fff; border-color: rgba(255,255,255,.45); background: #000; box-shadow: 0 0 0 3px rgba(91,141,239,.10); }
+  .sync-chips span.on { color: #fff; border-color: rgba(255,255,255,.45); background: #000; box-shadow: 0 0 0 3px rgba(255,255,255,0.07); }
   @media (max-width: 720px) {
     .sync-stage { grid-template-columns: minmax(0,1fr); }
     .sync-link { width: 1px; height: 56px; margin: 0 auto; }
@@ -393,7 +393,7 @@
   .mock-dot-end {
     position: absolute; right: -5px; top: calc(8 / 130 * 100% - 5px);
     width: 10px; height: 10px; border-radius: 50%; background: #fff;
-    box-shadow: 0 0 0 4px rgba(110,155,255,0.25), 0 0 14px rgba(110,155,255,0.7);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.25), 0 0 14px rgba(255,255,255,0.7);
     transition: transform .3s ease;
   }
   .mock-window:hover .mock-dot-end { transform: scale(1.25); }
@@ -698,8 +698,8 @@
   .refund-privacy { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
   .refund-submit {
     width: 100%;
-    background: var(--blue);
-    color: #fff;
+    background: #fff;
+    color: #0a0a0c;
     font-weight: 800;
     padding: 13px;
     border-radius: 10px;
@@ -777,8 +777,8 @@
   .login-page-card .refund-field { margin-bottom: 20px; }
   .login-page-submit {
     width: 100%;
-    background: var(--blue);
-    color: #fff;
+    background: #fff;
+    color: #0a0a0c;
     font-weight: 800;
     padding: 14px;
     border-radius: 10px;
@@ -880,8 +880,8 @@
     border: 2px solid transparent;
     background:
       linear-gradient(var(--card), var(--card)) padding-box,
-      linear-gradient(180deg, var(--blue) 0%, rgba(91,141,239,0.55) 38%, rgba(91,141,239,0.06) 78%, transparent 100%) border-box;
-    box-shadow: 0 0 70px -22px rgba(91,141,239,0.45), 0 30px 60px -30px var(--blue-glow);
+      linear-gradient(180deg, var(--blue) 0%, rgba(255,255,255,0.39) 38%, rgba(255,255,255,0.04) 78%, transparent 100%) border-box;
+    box-shadow: 0 0 70px -22px rgba(255,255,255,0.32), 0 30px 60px -30px var(--blue-glow);
     padding: 33px 31px;
   }
   .price-card.featured .price-badge {
@@ -889,14 +889,14 @@
     background: var(--blue); color: #fff;
     font-size: 13px; letter-spacing: .09em;
     padding: 9px 22px; gap: 9px;
-    box-shadow: 0 8px 24px -6px rgba(91,141,239,0.6);
+    box-shadow: 0 8px 24px -6px rgba(255,255,255,0.42);
   }
   .price-card.featured .btn-choose-plan {
     background: var(--blue); color: #fff; border: none;
-    box-shadow: 0 16px 34px -14px rgba(91,141,239,0.75);
+    box-shadow: 0 16px 34px -14px rgba(255,255,255,0.52);
     transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
   }
-  .price-card.featured .btn-choose-plan:hover { background: #6c9bf5; transform: translateY(-2px); box-shadow: 0 20px 40px -12px rgba(91,141,239,0.85); }
+  .price-card.featured .btn-choose-plan:hover { background: #e4e4e7; transform: translateY(-2px); box-shadow: 0 20px 40px -12px rgba(255,255,255,0.59); }
   .price-card.featured .price-plan-chip { color: var(--blue); border-color: var(--blue-border); }
 
   /* Borda azul girando ao redor do plano Vitalício */
@@ -904,14 +904,14 @@
   .price-card.featured {
     background:
       linear-gradient(var(--card), var(--card)) padding-box,
-      conic-gradient(from var(--bdr-angle), rgba(91,141,239,0.22) 0deg, rgba(91,141,239,0.22) 120deg, rgba(91,141,239,0.6) 210deg, var(--blue) 280deg, #e3edff 330deg, var(--blue) 350deg, rgba(91,141,239,0.22) 360deg) border-box;
+      conic-gradient(from var(--bdr-angle), rgba(255,255,255,0.15) 0deg, rgba(255,255,255,0.15) 120deg, rgba(255,255,255,0.42) 210deg, var(--blue) 280deg, #ffffff 330deg, var(--blue) 350deg, rgba(255,255,255,0.15) 360deg) border-box;
     border-width: 3px; padding: 32px 30px;
     animation: bdrSpin 8s linear infinite, bdrGlow 4s ease-in-out infinite;
   }
   @keyframes bdrSpin { to { --bdr-angle: 360deg; } }
   @keyframes bdrGlow {
-    0%, 100% { box-shadow: 0 0 40px -22px rgba(91,141,239,0.35), 0 30px 60px -30px var(--blue-glow); }
-    50%      { box-shadow: 0 0 80px -16px rgba(91,141,239,0.6), 0 30px 60px -30px var(--blue-glow); }
+    0%, 100% { box-shadow: 0 0 40px -22px rgba(255,255,255,0.24), 0 30px 60px -30px var(--blue-glow); }
+    50%      { box-shadow: 0 0 80px -16px rgba(255,255,255,0.42), 0 30px 60px -30px var(--blue-glow); }
   }
   @media (prefers-reduced-motion: reduce) { .price-card.featured { animation: none; } }
   /* ── Da sua loja até a porta do cliente ── */
@@ -926,7 +926,7 @@
     border-top: 2px solid #23252c; border-left: 1px solid #14151a;
   }
   .flow-step:first-child { border-left: none; }
-  .flow-step.auto { border-top-color: var(--blue); box-shadow: 0 -10px 24px -14px rgba(91,141,239,0.55); }
+  .flow-step.auto { border-top-color: var(--blue); box-shadow: 0 -10px 24px -14px rgba(255,255,255,0.39); }
   .flow-num { font-size: 13.5px; font-weight: 600; color: var(--muted); margin-bottom: 16px; }
   .flow-step.auto .flow-num { color: var(--blue); }
   .flow-title { font-size: 18px; font-weight: 800; letter-spacing: -0.01em; color: #fff; margin-bottom: 12px; }
@@ -940,6 +940,23 @@
     .flow-grid { grid-template-columns: minmax(0, 1fr); }
     .flow-step { border-left: none; }
   }
+  /* Plano Vitalício em branco */
+  .price-card.featured {
+    background:
+      linear-gradient(var(--card), var(--card)) padding-box,
+      conic-gradient(from var(--bdr-angle), rgba(255,255,255,0.16) 0deg, rgba(255,255,255,0.16) 120deg, rgba(255,255,255,0.55) 210deg, rgba(255,255,255,0.9) 280deg, #fff 330deg, rgba(255,255,255,0.9) 350deg, rgba(255,255,255,0.16) 360deg) border-box;
+    animation: bdrSpin 8s linear infinite, bdrGlowW 4s ease-in-out infinite;
+  }
+  @keyframes bdrGlowW {
+    0%, 100% { box-shadow: 0 0 40px -22px rgba(255,255,255,0.22), 0 30px 60px -30px rgba(255,255,255,0.08); }
+    50%      { box-shadow: 0 0 80px -16px rgba(255,255,255,0.38), 0 30px 60px -30px rgba(255,255,255,0.12); }
+  }
+  .price-card.featured .price-badge { background: #fff; color: #0a0a0c; box-shadow: 0 8px 24px -6px rgba(255,255,255,0.35); }
+  .price-card.featured .btn-choose-plan { background: #fff; color: #0a0a0c; box-shadow: 0 16px 34px -14px rgba(255,255,255,0.45); }
+  .price-card.featured .btn-choose-plan:hover { background: #e9e9ec; box-shadow: 0 20px 40px -12px rgba(255,255,255,0.55); }
+  .price-card.featured .price-plan-chip { color: #fff; border-color: rgba(255,255,255,0.35); }
+  .price-card.featured .price-feature.yes svg { color: #fff; }
+  @media (prefers-reduced-motion: reduce) { .price-card.featured { animation: none; } }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.js"></script>
 </head>
@@ -1044,8 +1061,8 @@
                 <line x1="0" y1="62" x2="400" y2="62" vector-effect="non-scaling-stroke"/>
                 <line x1="0" y1="94" x2="400" y2="94" vector-effect="non-scaling-stroke"/>
               </g>
-              <path d="M0,110 L60,102 L120,88 L180,80 L240,58 L300,36 L360,14 L400,8 L400,130 L0,130 Z" fill="rgba(110,155,255,0.10)"/>
-              <polyline class="mock-line" pathLength="1" points="0,110 60,102 120,88 180,80 240,58 300,36 360,14 400,8" fill="none" stroke="#6e9bff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+              <path d="M0,110 L60,102 L120,88 L180,80 L240,58 L300,36 L360,14 L400,8 L400,130 L0,130 Z" fill="rgba(255,255,255,0.10)"/>
+              <polyline class="mock-line" pathLength="1" points="0,110 60,102 120,88 180,80 240,58 300,36 360,14 400,8" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
             </svg>
             <span class="mock-dot-end"></span>
           </div>
