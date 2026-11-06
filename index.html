@@ -1565,6 +1565,9 @@ function closeLoginModal() {
 }
 
 document.getElementById('openLogin').addEventListener('click', openLoginModal);
+if (new URLSearchParams(window.location.search).get('login') === '1') {
+  openLoginModal();
+}
 document.getElementById('loginClose').addEventListener('click', closeLoginModal);
 loginOverlay.addEventListener('click', e => {
   if (e.target === loginOverlay) closeLoginModal();

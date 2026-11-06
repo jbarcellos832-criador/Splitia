@@ -2656,6 +2656,13 @@
   const SUPABASE_URL = 'https://ftnhslgtlvdrvaseyczi.supabase.co';
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_LaOl_e8lqm7OGBMQ8zW4Dg_LUrYfZJe';
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+  (async function enforcePainelAuth() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (!data || !data.session) {
+      window.location.replace('https://splitia.space/?login=1');
+    }
+  })();
 </script>
 </head>
 <body class="dark-mode">
