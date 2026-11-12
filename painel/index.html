@@ -5137,6 +5137,11 @@
     renderPubSteps(0);
     document.getElementById('pubOverlay').classList.add('open');
 
+    let realPublishPromise = null;
+    if (primaryMarket === 'ml') {
+      realPublishPromise = publishToMercadoLivre(idx);
+    }
+
     let step = 0;
     const stepTimer = setInterval(() => {
       step++;
@@ -5151,7 +5156,16 @@
       }
     }, 1667);
 
-    function finishPublish() {
+    async function finishPublish() {
+      if (realPublishPromise) {
+        const result = await realPublishPromise;
+        if (!result.ok) {
+          document.getElementById('pubOverlay').classList.remove('open');
+          alert('Não foi possível publicar no Mercado Livre: ' + (result.message || 'erro desconhecido') + '\n\nConfira se a conta do Mercado Livre está conectada em Integrações.');
+          return;
+        }
+        viewListingUrl = result.permalink;
+      }
       document.getElementById('pubViewListingBtn').href = viewListingUrl;
       products[idx].cadastrado = true;
       setTimeout(() => {
@@ -5160,6 +5174,40 @@
       }, 400);
     }
   });
+
+  async function publishToMercadoLivre(idx) {
+    try {
+      const { data: userData } = await supabaseClient.auth.getUser();
+      const userId = userData && userData.user ? userData.user.id : null;
+      if (!userId) return { ok: false, message: 'Usuário não autenticado.' };
+
+      const p = products[idx];
+      const images = (p.images && p.images.length) ? p.images : [p.img];
+      const preco = Number(document.getElementById('pfPreco').textContent.replace(/[^\d,.-]/g, '').replace(',', '.')) || p.price;
+
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/ml-publish`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({
+          userId,
+          title: p.name,
+          price: preco,
+          description: p.descricao || buildDescription(p.name),
+          images,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        return { ok: false, message: data.error || 'Falha ao publicar.' };
+      }
+      return { ok: true, permalink: data.permalink };
+    } catch (err) {
+      return { ok: false, message: err.message };
+    }
+  }
 
   document.getElementById('pubBackToCatalogBtn').addEventListener('click', () => {
     document.getElementById('pubOverlay').classList.remove('open');
