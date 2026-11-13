@@ -5201,7 +5201,7 @@
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
-        return { ok: false, message: data.error || 'Falha ao publicar.' };
+        return { ok: false, message: data.message || data.error || 'Falha ao publicar.' };
       }
       return { ok: true, permalink: data.permalink };
     } catch (err) {
