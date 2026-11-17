@@ -5368,12 +5368,7 @@
 
     let realPublishPromise = null;
     if (primaryMarket === 'ml') {
-      const { data: pubUserData } = await supabaseClient.auth.getUser();
-      const pubUserEmail = pubUserData && pubUserData.user ? pubUserData.user.email : null;
-      const isDemoAccount = pubUserEmail && pubUserEmail.toLowerCase() === DEMO_ACCOUNT_EMAIL;
-      if (!isDemoAccount) {
-        realPublishPromise = publishToMercadoLivre(idx);
-      }
+      realPublishPromise = publishToMercadoLivre(idx);
     }
 
     let step = 0;
