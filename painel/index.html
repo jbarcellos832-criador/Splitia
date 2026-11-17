@@ -5404,6 +5404,18 @@
     }
   });
 
+  function imagePathToDataUrl(src) {
+    if (src.startsWith('data:')) return Promise.resolve(src);
+    return fetch(src)
+      .then(r => r.blob())
+      .then(blob => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      }));
+  }
+
   async function publishToMercadoLivre(idx) {
     try {
       const { data: userData } = await supabaseClient.auth.getUser();
@@ -5411,7 +5423,8 @@
       if (!userId) return { ok: false, message: 'Usuário não autenticado.' };
 
       const p = products[idx];
-      const images = (p.images && p.images.length) ? p.images : [p.img];
+      const imagePaths = (p.images && p.images.length) ? p.images : [p.img];
+      const images = await Promise.all(imagePaths.map(imagePathToDataUrl));
       const preco = Number(document.getElementById('pfPreco').textContent.replace(/[^\d,.-]/g, '').replace(',', '.')) || p.price;
 
       const res = await fetch(`${SUPABASE_URL}/functions/v1/ml-publish`, {
