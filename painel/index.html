@@ -5366,9 +5366,14 @@
     renderPubSteps(0);
     document.getElementById('pubOverlay').classList.add('open');
 
+    const demoOnlyFakeProducts = [
+      'Massageador Pistola Elétrico Profissional 6velocidades 3200r',
+      'Controle Sem Fio Joystick REDFIN Bluetooth Compativel Para Ps4 Videogame Tv Samsung Pc P4 Ps4 Manete Pc Gamer Tv Smart Controle Bluetooth Celular Headset Sem Fio Com P2 Marca Redfin',
+      'Amolador Afiador Para Faca Canivete Tesoura Com Ventosa Fixa',
+    ];
     let realPublishPromise = null;
     if (primaryMarket === 'ml') {
-      const hasFakeDemoLink = Object.prototype.hasOwnProperty.call(specialListingUrls, productName);
+      const hasFakeDemoLink = demoOnlyFakeProducts.includes(productName);
       let isDemoAccount = false;
       if (hasFakeDemoLink) {
         const { data: pubUserData } = await supabaseClient.auth.getUser();
