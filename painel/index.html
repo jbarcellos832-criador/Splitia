@@ -5368,7 +5368,16 @@
 
     let realPublishPromise = null;
     if (primaryMarket === 'ml') {
-      realPublishPromise = publishToMercadoLivre(idx);
+      const hasFakeDemoLink = Object.prototype.hasOwnProperty.call(specialListingUrls, productName);
+      let isDemoAccount = false;
+      if (hasFakeDemoLink) {
+        const { data: pubUserData } = await supabaseClient.auth.getUser();
+        const pubUserEmail = pubUserData && pubUserData.user ? pubUserData.user.email : null;
+        isDemoAccount = pubUserEmail && pubUserEmail.toLowerCase() === DEMO_ACCOUNT_EMAIL;
+      }
+      if (!(hasFakeDemoLink && isDemoAccount)) {
+        realPublishPromise = publishToMercadoLivre(idx);
+      }
     }
 
     let step = 0;
