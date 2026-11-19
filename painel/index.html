@@ -5470,10 +5470,14 @@
   function lockPageScroll() {
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
+    const topbar = document.querySelector('.topbar');
+    if (topbar) topbar.style.visibility = 'hidden';
   }
   function unlockPageScroll() {
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
+    const topbar = document.querySelector('.topbar');
+    if (topbar) topbar.style.visibility = '';
   }
 
   document.getElementById('pubBackToCatalogBtn').addEventListener('click', () => {
