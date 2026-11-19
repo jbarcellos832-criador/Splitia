@@ -5376,12 +5376,6 @@
     renderPubSteps(0);
     document.getElementById('pubOverlay').classList.add('open');
     document.getElementById('pubOverlayTopfix').classList.add('open');
-    lockPageScroll();
-    window.scrollTo(0, 1);
-    requestAnimationFrame(() => {
-      window.scrollTo(0, 0);
-      requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
-    });
 
     const demoOnlyFakeProducts = [
       'Massageador Pistola Elétrico Profissional 6velocidades 3200r',
@@ -5484,18 +5478,8 @@
     }
   }
 
-  function lockPageScroll() {
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    const topbar = document.querySelector('.topbar');
-    if (topbar) topbar.style.visibility = 'hidden';
-  }
-  function unlockPageScroll() {
-    document.documentElement.style.overflow = '';
-    document.body.style.overflow = '';
-    const topbar = document.querySelector('.topbar');
-    if (topbar) topbar.style.visibility = '';
-  }
+  function lockPageScroll() {}
+  function unlockPageScroll() {}
 
   document.getElementById('pubBackToCatalogBtn').addEventListener('click', () => {
     document.getElementById('pubOverlay').classList.remove('open');
