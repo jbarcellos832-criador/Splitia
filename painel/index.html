@@ -5365,6 +5365,7 @@
     document.getElementById('pubProgressPct').textContent = '0%';
     renderPubSteps(0);
     document.getElementById('pubOverlay').classList.add('open');
+    lockPageScroll();
 
     const demoOnlyFakeProducts = [
       'Massageador Pistola Elétrico Profissional 6velocidades 3200r',
@@ -5404,6 +5405,7 @@
         const result = await realPublishPromise;
         if (!result.ok) {
           document.getElementById('pubOverlay').classList.remove('open');
+          unlockPageScroll();
           alert('Não foi possível publicar no Mercado Livre: ' + (result.message || 'erro desconhecido') + '\n\nConfira se a conta do Mercado Livre está conectada em Integrações.');
           return;
         }
@@ -5465,8 +5467,27 @@
     }
   }
 
+  let pubScrollLockY = 0;
+  function lockPageScroll() {
+    pubScrollLockY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${pubScrollLockY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+  }
+  function unlockPageScroll() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, pubScrollLockY);
+  }
+
   document.getElementById('pubBackToCatalogBtn').addEventListener('click', () => {
     document.getElementById('pubOverlay').classList.remove('open');
+    unlockPageScroll();
     closeProductForm();
   });
 
