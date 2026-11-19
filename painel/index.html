@@ -3870,6 +3870,12 @@
 
 
 <script>
+  // Move o overlay de publicação para fora de qualquer contexto de empilhamento das páginas internas
+  ['pubOverlayTopfix', 'pubOverlay', 'pubBoxWrap'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) document.body.appendChild(el);
+  });
+
   const pageLabels = {
     dashboard:     { title: 'Dashboard' },
     catalogo:      { title: 'Catálogo', sub: 'Explore produtos com estoque a pronta entrega.' },
