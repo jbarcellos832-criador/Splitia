@@ -1500,6 +1500,15 @@
     padding: 24px;
   }
   .pub-overlay.open { display: flex; }
+  .pub-overlay-topfix {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 140px;
+    background: rgba(0,0,0,0.72);
+    z-index: 199;
+    display: none;
+    pointer-events: none;
+  }
+  .pub-overlay-topfix.open { display: block; }
   .pub-box {
     background: #0d0e11;
     border: 1px solid #24252a;
@@ -3558,6 +3567,7 @@
     </div>
 
     <!-- Publish overlay -->
+    <div class="pub-overlay-topfix" id="pubOverlayTopfix"></div>
     <div class="pub-overlay" id="pubOverlay">
       <div class="pub-box">
 
@@ -5365,6 +5375,7 @@
     document.getElementById('pubProgressPct').textContent = '0%';
     renderPubSteps(0);
     document.getElementById('pubOverlay').classList.add('open');
+    document.getElementById('pubOverlayTopfix').classList.add('open');
     lockPageScroll();
 
     const demoOnlyFakeProducts = [
@@ -5405,6 +5416,7 @@
         const result = await realPublishPromise;
         if (!result.ok) {
           document.getElementById('pubOverlay').classList.remove('open');
+          document.getElementById('pubOverlayTopfix').classList.remove('open');
           unlockPageScroll();
           alert('Não foi possível publicar no Mercado Livre: ' + (result.message || 'erro desconhecido') + '\n\nConfira se a conta do Mercado Livre está conectada em Integrações.');
           return;
@@ -5482,6 +5494,7 @@
 
   document.getElementById('pubBackToCatalogBtn').addEventListener('click', () => {
     document.getElementById('pubOverlay').classList.remove('open');
+    document.getElementById('pubOverlayTopfix').classList.remove('open');
     unlockPageScroll();
     closeProductForm();
   });
