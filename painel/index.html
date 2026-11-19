@@ -5377,6 +5377,11 @@
     document.getElementById('pubOverlay').classList.add('open');
     document.getElementById('pubOverlayTopfix').classList.add('open');
     lockPageScroll();
+    window.scrollTo(0, 1);
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+    });
 
     const demoOnlyFakeProducts = [
       'Massageador Pistola Elétrico Profissional 6velocidades 3200r',
