@@ -208,6 +208,15 @@
   .ped-empty { color: var(--muted); font-size: 14.5px; padding: 60px 0; }
   @media (max-width: 1100px) { .ped-stats-grid { grid-template-columns: repeat(3, 1fr); } }
 
+  .ml-orders-alert { background: rgba(245,185,66,0.08); border: 1px solid rgba(245,185,66,0.35); border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; }
+  .ml-orders-alert-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+  .ml-orders-alert-head strong { font-size: 14px; color: #f5b942; }
+  .ml-order-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 0; border-top: 1px solid rgba(245,185,66,0.2); }
+  .ml-order-row-info { font-size: 13.5px; color: var(--muted); }
+  .ml-order-row-info strong { color: inherit; display: block; font-size: 14px; margin-bottom: 2px; }
+  .ml-order-buy-btn { flex-shrink: 0; border: none; border-radius: 9px; background: #16c784; color: #0a0a0a; font-weight: 800; font-size: 12.5px; padding: 9px 16px; cursor: pointer; white-space: nowrap; }
+  .ml-order-buy-btn:hover { filter: brightness(0.95); }
+
   .side-footer {
     display: flex;
     align-items: center;
@@ -3195,6 +3204,14 @@
         <span class="ped-count" id="pedCount">0 pedidos</span>
       </div>
 
+      <div class="ml-orders-alert" id="mlOrdersAlert" style="display:none;">
+        <div class="ml-orders-alert-head">
+          <strong id="mlOrdersAlertTitle">Pedidos aguardando compra no fornecedor</strong>
+          <button type="button" class="ped-btn ped-btn-secondary" id="mlOrdersRefreshBtn" style="padding:6px 14px; font-size:12.5px;">Atualizar</button>
+        </div>
+        <div id="mlOrdersAlertList"></div>
+      </div>
+
       <div class="ped-table-wrap">
         <div class="ped-empty" id="pedEmptyState">Nenhum pedido encontrado.</div>
       </div>
@@ -5572,6 +5589,66 @@
   function lockPageScroll() {}
   function unlockPageScroll() {}
 
+  // ── Aviso de pedidos pendentes de compra no fornecedor ──
+  let mlOrdersPollTimer = null;
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  async function loadMlOrdersAlert() {
+    const box = document.getElementById('mlOrdersAlert');
+    const list = document.getElementById('mlOrdersAlertList');
+    const title = document.getElementById('mlOrdersAlertTitle');
+    if (!box || !list) return;
+    try {
+      const { data: userData } = await supabaseClient.auth.getUser();
+      const userId = userData && userData.user ? userData.user.id : null;
+      if (!userId) { box.style.display = 'none'; return; }
+
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/ml-orders-sync`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({ userId }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) { box.style.display = 'none'; return; }
+
+      const orders = data.orders || [];
+      if (!orders.length) { box.style.display = 'none'; return; }
+
+      title.textContent = `${orders.length} pedido${orders.length > 1 ? 's' : ''} aguardando compra no fornecedor`;
+      list.innerHTML = orders.map(o => {
+        const local = [o.buyerCity, o.buyerState].filter(Boolean).join(' - ');
+        const supplierUrl = `https://lista.mercadolivre.com.br/${encodeURIComponent(o.title)}`;
+        return `
+          <div class="ml-order-row">
+            <div class="ml-order-row-info">
+              <strong>${escapeHtml(o.title)}</strong>
+              Pedido #${escapeHtml(o.orderId)}${local ? ' · entregar em ' + escapeHtml(local) : ''}
+            </div>
+            <button type="button" class="ml-order-buy-btn" onclick="window.open('${supplierUrl}', '_blank')">Comprar no fornecedor</button>
+          </div>`;
+      }).join('');
+      box.style.display = '';
+    } catch (e) {
+      box.style.display = 'none';
+    }
+  }
+
+  function startMlOrdersPolling() {
+    if (mlOrdersPollTimer) return;
+    mlOrdersPollTimer = setInterval(() => {
+      if (document.getElementById('page-pedidos') && document.getElementById('page-pedidos').style.display !== 'none') {
+        loadMlOrdersAlert();
+      }
+    }, 120000);
+  }
+  startMlOrdersPolling();
+
   document.getElementById('pubBackToCatalogBtn').addEventListener('click', () => {
     document.getElementById('pubOverlay').classList.remove('open');
     document.getElementById('pubOverlayTopfix').classList.remove('open');
@@ -6494,6 +6571,7 @@
       if (el) el.textContent = products.filter(p => p.cadastrado).length;
     } else if (key === 'pedidos') {
       pagePedidos.style.display = '';
+      loadMlOrdersAlert();
     } else if (key === 'integracoes') {
       pageIntegracoes.style.display = '';
     } else if (key === 'chamados') {
