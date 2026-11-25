@@ -5446,6 +5446,76 @@
     }
   });
 
+  // ── Variação por conta: evita que contas diferentes publiquem foto/descrição 100% idênticas ──
+  function seedFromString(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) h = (Math.imul(31, h) + str.charCodeAt(i)) | 0;
+    return h >>> 0;
+  }
+  function mulberry32(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function makeAccountRng(userId, extra) {
+    return mulberry32(seedFromString(String(userId) + '::' + String(extra)));
+  }
+
+  const DESC_SYNONYMS = [
+    [/\bProduto prático\b/g, ['Produto prático', 'Item prático', 'Produto versátil']],
+    [/\bdia a dia\b/g, ['dia a dia', 'cotidiano', 'uso diário']],
+    [/\bPronta entrega\b/g, ['Pronta entrega', 'Envio imediato', 'Disponível para pronta entrega']],
+    [/\benvio rápido\b/g, ['envio rápido', 'envio expresso', 'despacho rápido']],
+    [/\bEnviado em até 24 horas\b/g, ['Enviado em até 24 horas', 'Despachado em até 24h', 'Envio em até 1 dia útil']],
+    [/\bapós a confirmação\b/g, ['após a confirmação', 'logo após a confirmação', 'assim que confirmado']],
+  ];
+  function varyDescriptionForAccount(desc, rng) {
+    if (!desc) return desc;
+    let out = desc;
+    DESC_SYNONYMS.forEach(([regex, options]) => {
+      const pick = options[Math.floor(rng() * options.length) % options.length];
+      out = out.replace(regex, pick);
+    });
+    return out;
+  }
+
+  function varyImageForAccount(dataUrl, rng) {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 700;
+          canvas.height = 700;
+          const ctx = canvas.getContext('2d');
+          const w = img.naturalWidth || img.width;
+          const h = img.naturalHeight || img.height;
+          const zoom = 0.94 + rng() * 0.05;
+          const side = Math.min(w, h) * zoom;
+          const maxOffX = (w - side) / 2;
+          const maxOffY = (h - side) / 2;
+          const offX = (rng() * 2 - 1) * maxOffX * 0.6;
+          const offY = (rng() * 2 - 1) * maxOffY * 0.6;
+          const sx = (w - side) / 2 + offX;
+          const sy = (h - side) / 2 + offY;
+          const brightness = (0.97 + rng() * 0.06).toFixed(3);
+          const saturate = (0.96 + rng() * 0.08).toFixed(3);
+          ctx.filter = `brightness(${brightness}) saturate(${saturate})`;
+          ctx.drawImage(img, sx, sy, side, side, 0, 0, 700, 700);
+          resolve(canvas.toDataURL('image/jpeg', 0.9));
+        } catch (e) {
+          resolve(dataUrl);
+        }
+      };
+      img.onerror = () => resolve(dataUrl);
+      img.src = dataUrl;
+    });
+  }
+
   function imagePathToDataUrl(src) {
     if (src.startsWith('data:')) return Promise.resolve(src);
     return fetch(src)
@@ -5466,7 +5536,13 @@
 
       const p = products[idx];
       const imagePaths = (p.images && p.images.length) ? p.images : [p.img];
-      const images = await Promise.all(imagePaths.map(imagePathToDataUrl));
+      const rawImages = await Promise.all(imagePaths.map(imagePathToDataUrl));
+      const descRng = makeAccountRng(userId, p.name);
+      const baseDescription = p.descricao || buildDescription(p.name);
+      const description = varyDescriptionForAccount(baseDescription, descRng);
+      const images = await Promise.all(
+        rawImages.map((dataUrl, i) => varyImageForAccount(dataUrl, makeAccountRng(userId, p.name + '::img' + i)))
+      );
       const preco = Number(document.getElementById('pfPreco').textContent.replace(/[^\d,.-]/g, '').replace(',', '.')) || p.price;
 
       const res = await fetch(`${SUPABASE_URL}/functions/v1/ml-publish`, {
@@ -5479,7 +5555,7 @@
           userId,
           title: p.name,
           price: preco,
-          description: p.descricao || buildDescription(p.name),
+          description,
           images,
         }),
       });
